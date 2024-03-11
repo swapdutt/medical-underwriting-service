@@ -6,13 +6,9 @@ Medical Underwriting Service build using Java, Spring MVC, Spring Boot and IBM O
 
 This is a sample medical underwriting system built for insurance industry using Java, SpringBoot where a customer logs in and buys a health insurance policy either for self or family members. The module provides an opportunity for the customer to buy a health policy according to the suitable policy plan and product for which the customer is eligible for.
 
-IBM ODM business rules are implemented. GitHub repository for the same will be shared soon
+IBM ODM business rules are implemented. GitHub repository for the same will be shared soon.
 
-### Application Architecture
-
-(Will be posted soon)
-
-### Technologies used in the project 
+## Technologies used in the project 
 
 1. Java 21
 2. Spring MVC
@@ -23,3 +19,9 @@ IBM ODM business rules are implemented. GitHub repository for the same will be s
 7. IBM Operational Decision Manager V8.10.0
 
 (More technologies might be added later during the course of development if needed)
+
+### Note:
+1. This project might get converted into micro-services later in future
+2. TO-DOs:
+	i. Update the UUID thing in entities later.
+	ii. Add Zipkin related dependencies and configurations later.

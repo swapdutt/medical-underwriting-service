@@ -52,19 +52,16 @@ public interface UnderwritingMapper {
 	 * Member related java beans mappings
 	 */
 
-	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "memberId", ignore = true)
 	MemberDetails memberDetailsDtoToMemberDetails(MemberDetailsDto memberDetailsDto);
 
 	MemberDetailsDto memberDetailsToMemberDetailsDto(MemberDetails memberDetails);
 
-	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "lifestyleDetailsId", ignore = true)
 	LifestyleDetails lifestyleDetailsDtoToLifestyleDetails(LifestyleDetailsDto lifestyleDetailsDto);
 
 	LifestyleDetailsDto lifestyleDetailsToLifestyleDetailsDto(LifestyleDetails lifestyleDetails);
 
-	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "medicalConditionsDetailsId", ignore = true)
 	MedicalConditionsDetails medicalConditionsDetailsDtoToMedicalConditionsDetails(
 			MedicalConditionsDetailsDto medicalConditionsDetailsDto);

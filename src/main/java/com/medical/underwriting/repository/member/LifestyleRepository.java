@@ -9,6 +9,6 @@ import java.util.Optional;
 @Repository
 public interface LifestyleRepository extends JpaRepository<LifestyleDetails, Integer> {
 
-    Optional<LifestyleDetails> findLifestyleDetailsByLifestyleDetailsId (String lifestyleDetailsId);
+	Optional<LifestyleDetails> findLifestyleDetailsByLifestyleDetailsId(Integer lifestyleDetailsId);
 
 }

@@ -3,8 +3,6 @@ package com.medical.underwriting.model.dto.member;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.util.UUID;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -13,9 +11,7 @@ import java.util.UUID;
 @Builder
 public class LifestyleDetailsDto {
 
-	Integer id;
-	@Builder.Default
-	String lifestyleDetailsId = UUID.randomUUID().toString();
+	Integer lifestyleDetailsId;
 	Integer amountOfTobaccoProductsConsumptionPerDay;
 	Integer amountOfAlcoholConsumptionPerWeek;
 	Integer amountOfCigarettesSticksSmokedPerDay;

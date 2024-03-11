@@ -4,7 +4,6 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,9 +13,7 @@ import java.util.UUID;
 @Builder
 public class MemberDetailsDto {
 
-	Integer id;
-	@Builder.Default
-	String memberId = UUID.randomUUID().toString();
+	Integer memberId;
 	String firstName;
 	String middleName;
 	String lastName;

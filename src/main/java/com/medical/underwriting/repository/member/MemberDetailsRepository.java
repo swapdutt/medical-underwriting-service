@@ -11,6 +11,6 @@ import java.util.Optional;
 public interface MemberDetailsRepository extends JpaRepository<MemberDetails, Integer> {
 
 	// @Query(value = "select m from MemberDetails where m.memberDetailsId")
-    Optional<MemberDetails> findMemberDetailsByMemberId (String memberDetailsId);
+	Optional<MemberDetails> findMemberDetailsByMemberId(Integer memberDetailsId);
 
 }

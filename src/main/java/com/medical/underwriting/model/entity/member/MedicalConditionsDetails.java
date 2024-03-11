@@ -7,7 +7,6 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.util.List;
-import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,9 +20,7 @@ public class MedicalConditionsDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	Integer id;
-	@Builder.Default
-	String medicalConditionsDetailsId = UUID.randomUUID().toString();
+	Integer medicalConditionsDetailsId;
 	@OneToMany
 	List<PersonalMedicalConditions> personalMedicalConditionsList;
 	@OneToOne

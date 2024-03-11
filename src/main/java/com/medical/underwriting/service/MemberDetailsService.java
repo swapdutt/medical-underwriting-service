@@ -31,7 +31,7 @@ public class MemberDetailsService {
 	 * Business logics related to find the records from the database
 	 */
 
-	public MemberDetailsDto findMemberDetailsById(String memberId) {
+	public MemberDetailsDto findMemberDetailsById(Integer memberId) {
 
 		try {
 			if (null != memberId) {
@@ -47,15 +47,14 @@ public class MemberDetailsService {
 
 	}
 
-	public LifestyleDetailsDto findLifestyleDetailsById(String lifestyleDetailsId) {
+	public LifestyleDetailsDto findLifestyleDetailsById(Integer lifestyleDetailsId) {
 
 		LifestyleDetails lifestyleDetails = lifestyleRepository
 				.findLifestyleDetailsByLifestyleDetailsId(lifestyleDetailsId)
 				.orElseThrow(() -> new UnderwritingException("404",
 						UnderwritingConstants.LIFESTYLE_DETAILS_ID_NOT_FOUND, HttpStatus.NOT_FOUND));
 
-		return LifestyleDetailsDto.builder().id(lifestyleDetails.getId())
-				.lifestyleDetailsId(lifestyleDetails.getLifestyleDetailsId())
+		return LifestyleDetailsDto.builder().lifestyleDetailsId(lifestyleDetails.getLifestyleDetailsId())
 				.amountOfTobaccoProductsConsumptionPerDay(
 						lifestyleDetails.getAmountOfTobaccoProductsConsumptionPerDay())
 				.amountOfAlcoholConsumptionPerWeek(lifestyleDetails.getAmountOfAlcoholConsumptionPerWeek())
@@ -65,7 +64,7 @@ public class MemberDetailsService {
 
 	}
 
-	public MedicalConditionsDetailsDto findMedicalConditionsDetailsById(String medicalConditionsDetailsId) {
+	public MedicalConditionsDetailsDto findMedicalConditionsDetailsById(Integer medicalConditionsDetailsId) {
 
 		try {
 			if (null != medicalConditionsDetailsId) {
@@ -121,8 +120,7 @@ public class MemberDetailsService {
 				} else {
 					LifestyleDetails lifestyle = lifestyleRepository
 							.save(underwritingMapper.lifestyleDetailsDtoToLifestyleDetails(dto));
-					return LifestyleDetailsDto.builder().id(lifestyle.getId())
-							.lifestyleDetailsId(lifestyle.getLifestyleDetailsId())
+					return LifestyleDetailsDto.builder().lifestyleDetailsId(lifestyle.getLifestyleDetailsId())
 							.amountOfTobaccoProductsConsumptionPerDay(
 									lifestyle.getAmountOfTobaccoProductsConsumptionPerDay())
 							.amountOfAlcoholConsumptionPerWeek(lifestyle.getAmountOfAlcoholConsumptionPerWeek())
@@ -201,8 +199,7 @@ public class MemberDetailsService {
 				} else {
 					LifestyleDetails lifestyle = lifestyleRepository
 							.save(underwritingMapper.lifestyleDetailsDtoToLifestyleDetails(dto));
-					return LifestyleDetailsDto.builder().id(lifestyle.getId())
-							.lifestyleDetailsId(lifestyle.getLifestyleDetailsId())
+					return LifestyleDetailsDto.builder().lifestyleDetailsId(lifestyle.getLifestyleDetailsId())
 							.amountOfTobaccoProductsConsumptionPerDay(
 									lifestyle.getAmountOfTobaccoProductsConsumptionPerDay())
 							.amountOfAlcoholConsumptionPerWeek(lifestyle.getAmountOfAlcoholConsumptionPerWeek())
@@ -247,7 +244,7 @@ public class MemberDetailsService {
 	 * Business logics related to delete the records from the database
 	 */
 
-	public void deleteMemberDetailsById(String memberDetailsId) {
+	public void deleteMemberDetailsById(Integer memberDetailsId) {
 
 		try {
 			if (null != memberDetailsId) {
@@ -264,7 +261,7 @@ public class MemberDetailsService {
 
 	}
 
-	public void deleteLifestyleDetailsById(String lifestyleDetailsId) {
+	public void deleteLifestyleDetailsById(Integer lifestyleDetailsId) {
 
 		try {
 			if (null != lifestyleDetailsId) {
@@ -281,7 +278,7 @@ public class MemberDetailsService {
 
 	}
 
-	public void deleteMedicalConditionsById(String medicalConditionsDetailsId) {
+	public void deleteMedicalConditionsById(Integer medicalConditionsDetailsId) {
 
 		try {
 			if (null != medicalConditionsDetailsId) {

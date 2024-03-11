@@ -6,7 +6,6 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.util.List;
-import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,9 +15,7 @@ import java.util.UUID;
 @Builder
 public class MedicalConditionsDetailsDto {
 
-	Integer id;
-	@Builder.Default
-	String medicalConditionsDetailsId = UUID.randomUUID().toString();
+	Integer medicalConditionsDetailsId;
 	List<PersonalMedicalConditionsDto> personalMedicalConditionsList;
 	LabTestsDto labTests;
 

@@ -22,6 +22,4 @@ IBM ODM business rules are implemented. GitHub repository for the same will be s
 
 ### Note:
 1. This project might get converted into micro-services later in future
-2. TO-DOs:
-	i. Update the UUID thing in entities later.
-	ii. Add Zipkin related dependencies and configurations later.
+2. TO-DOs: Update the UUID thing in entities later. And add Zipkin related dependencies and configurations later.

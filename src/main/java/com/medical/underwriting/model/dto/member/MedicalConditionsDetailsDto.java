@@ -16,9 +16,10 @@ import java.util.UUID;
 @Builder
 public class MedicalConditionsDetailsDto {
 
-    Integer id;
-    String medicalConditionsDetailsId = UUID.randomUUID().toString();
-    List<PersonalMedicalConditionsDto> personalMedicalConditionsList;
-    LabTestsDto labTests;
+	Integer id;
+	@Builder.Default
+	String medicalConditionsDetailsId = UUID.randomUUID().toString();
+	List<PersonalMedicalConditionsDto> personalMedicalConditionsList;
+	LabTestsDto labTests;
 
 }

@@ -17,9 +17,12 @@ import java.util.UUID;
 public class ProposalDetailsDto {
 
     Integer id;
+    @Builder.Default
     String proposalDetailsId = UUID.randomUUID().toString();
     String sourcingApplication;
+    @Builder.Default
     String applicationNumber = UUID.randomUUID().toString();
+    @Builder.Default
     String policyNumber = UUID.randomUUID().toString();
     String productName;
     String productCode;

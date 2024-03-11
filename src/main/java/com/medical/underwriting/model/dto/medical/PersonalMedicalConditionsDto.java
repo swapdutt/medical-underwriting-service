@@ -14,16 +14,17 @@ import java.util.UUID;
 @Builder
 public class PersonalMedicalConditionsDto {
 
-    Integer id;
-    String personalMedicalConditionsId = UUID.randomUUID().toString();
-    DiseaseQuestionnaireDto diseaseQuestionnaire;
-    String nameOfDisease;
-    String typeOfDisease;
-    String typeOfTreatment;
-    String currentStatusOfDisease;
-    String typeOfComplication;
-    String typeOfBiopsy;
-    LocalDate lastConsultationDate;
-    Integer yearWhenFirstDiagnosisWasTaken;
+	Integer id;
+	@Builder.Default
+	String personalMedicalConditionsId = UUID.randomUUID().toString();
+	DiseaseQuestionnaireDto diseaseQuestionnaire;
+	String nameOfDisease;
+	String typeOfDisease;
+	String typeOfTreatment;
+	String currentStatusOfDisease;
+	String typeOfComplication;
+	String typeOfBiopsy;
+	LocalDate lastConsultationDate;
+	Integer yearWhenFirstDiagnosisWasTaken;
 
 }

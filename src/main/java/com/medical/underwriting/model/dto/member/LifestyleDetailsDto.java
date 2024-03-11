@@ -13,12 +13,13 @@ import java.util.UUID;
 @Builder
 public class LifestyleDetailsDto {
 
-    Integer id;
-    String lifestyleDetailsId = UUID.randomUUID().toString();
-    Integer amountOfTobaccoProductsConsumptionPerDay;
-    Integer amountOfAlcoholConsumptionPerWeek;
-    Integer amountOfCigarettesSticksSmokedPerDay;
-    Integer durationOfSmokingCigarettes;
-    Integer frequencyOfAlcoholConsumptionPerDay;
+	Integer id;
+	@Builder.Default
+	String lifestyleDetailsId = UUID.randomUUID().toString();
+	Integer amountOfTobaccoProductsConsumptionPerDay;
+	Integer amountOfAlcoholConsumptionPerWeek;
+	Integer amountOfCigarettesSticksSmokedPerDay;
+	Integer durationOfSmokingCigarettes;
+	Integer frequencyOfAlcoholConsumptionPerDay;
 
 }

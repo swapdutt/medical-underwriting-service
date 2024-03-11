@@ -14,6 +14,7 @@ import java.util.UUID;
 public class DiseaseQuestionnaireDto {
 
     Integer id;
+    @Builder.Default
     String diseaseQuestionnaireId = UUID.randomUUID().toString();
     String question1;
     String question2;

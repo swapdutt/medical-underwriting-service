@@ -14,17 +14,17 @@ import java.util.UUID;
 @Builder
 public class PaymentDetailsDto {
 
-    Integer id;
-    String paymentDetailsId = UUID.randomUUID().toString();
-    String nameOfPayor;
-    String modeOfPayment;
-    String relationshipOfPayor;
-    Double amountPaid;
-    LocalDate dateOfInstrument;
-    LocalDate dateOfReceipt;
-    String branchLocation;
-    String idProofOfPayor;
-    String declarationOfPayor;
-
+	Integer id;
+	@Builder.Default
+	String paymentDetailsId = UUID.randomUUID().toString();
+	String nameOfPayor;
+	String modeOfPayment;
+	String relationshipOfPayor;
+	Double amountPaid;
+	LocalDate dateOfInstrument;
+	LocalDate dateOfReceipt;
+	String branchLocation;
+	String idProofOfPayor;
+	String declarationOfPayor;
 
 }

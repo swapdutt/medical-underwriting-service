@@ -15,6 +15,7 @@ import java.util.UUID;
 public class ProposerDetailsDto {
 
     Integer id;
+    @Builder.Default
     String proposerDetailsId = UUID.randomUUID().toString();
     String firstName;
     String middleName;

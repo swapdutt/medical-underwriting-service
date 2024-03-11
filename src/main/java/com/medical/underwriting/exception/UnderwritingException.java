@@ -8,7 +8,12 @@ import org.springframework.http.HttpStatus;
 @Getter
 public class UnderwritingException extends RuntimeException {
 
-    private final String errorCode;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private final String errorCode;
     private final String message;
     private final HttpStatus httpStatus;
 

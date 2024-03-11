@@ -14,6 +14,7 @@ import java.util.UUID;
 public class LabTestsDto {
 
     Integer id;
+    @Builder.Default
     String labTestsId = UUID.randomUUID().toString();
     String sugarInUrine;
     String bilirubinInUrine;

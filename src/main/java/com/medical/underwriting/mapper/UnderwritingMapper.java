@@ -81,7 +81,6 @@ public interface UnderwritingMapper {
 
 	DiseaseQuestionnaireDto diseaseQuestionnaireToDiseaseQuestionnaireDto(DiseaseQuestionnaire diseaseQuestionnaire);
 
-	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "labTestsId", ignore = true)
 	LabTests labTestsDtoToLabTests(LabTestsDto labTestsDto);
 

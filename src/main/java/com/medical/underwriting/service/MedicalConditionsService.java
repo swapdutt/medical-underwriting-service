@@ -50,7 +50,7 @@ public class MedicalConditionsService {
 
 	}
 
-	public LabTestsDto findLabTestsById(String labTestsId) {
+	public LabTestsDto findLabTestsById(Integer labTestsId) {
 
 		try {
 			if (null != labTestsId) {
@@ -286,7 +286,7 @@ public class MedicalConditionsService {
 
 	}
 
-	public void deleteLabTestsById(String labTestsId) {
+	public void deleteLabTestsById(Integer labTestsId) {
 
 		try {
 			if (null != labTestsId) {

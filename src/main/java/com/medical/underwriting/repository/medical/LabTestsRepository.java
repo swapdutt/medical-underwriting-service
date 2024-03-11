@@ -9,6 +9,6 @@ import java.util.Optional;
 @Repository
 public interface LabTestsRepository extends JpaRepository<LabTests, Integer> {
 
-    Optional<LabTests> findLabTestsByLabTestsId (String labTestsId);
+	Optional<LabTests> findLabTestsByLabTestsId(Integer labTestsId);
 
 }

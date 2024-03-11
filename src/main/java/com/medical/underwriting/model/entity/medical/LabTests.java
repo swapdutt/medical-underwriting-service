@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.util.UUID;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -18,9 +16,7 @@ public class LabTests {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	Integer id;
-	@Builder.Default
-	String labTestsId = UUID.randomUUID().toString();
+	Integer labTestsId;
 	String sugarInUrine;
 	String bilirubinInUrine;
 	String ketonesInUrine;

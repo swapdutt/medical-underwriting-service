@@ -39,7 +39,7 @@ public class MedicalConditionsController {
 			@ApiResponse(responseCode = "200", description = "OK : lab tests record successfully found"),
 			@ApiResponse(responseCode = "404", description = "NOT_FOUND : lab tests record not found successfully") })
 	public ResponseEntity<LabTestsDto> findLabTestsById(
-			@RequestParam(value = "labTestsId", required = false) @PathVariable("labTestsId") @Nullable final String labTestsId) {
+			@RequestParam(value = "labTestsId", required = false) @PathVariable("labTestsId") @Nullable final Integer labTestsId) {
 		return ResponseEntity.ok(medicalConditionsService.findLabTestsById(labTestsId));
 	}
 
@@ -141,7 +141,7 @@ public class MedicalConditionsController {
 			@ApiResponse(responseCode = "404", description = "NOT_FOUND : lab tests record not found successfully"),
 			@ApiResponse(responseCode = "400", description = "BAD_REQUEST : lab tests record not deleted successfully") })
 	public ResponseEntity<?> deleteLabTestsById(
-			@RequestParam(value = "labTestsId", required = false) @PathVariable("labTestsId") @Nullable final String labTestsId) {
+			@RequestParam(value = "labTestsId", required = false) @PathVariable("labTestsId") @Nullable final Integer labTestsId) {
 		medicalConditionsService.deleteLabTestsById(labTestsId);
 		return ResponseEntity.ok(Boolean.TRUE);
 	}

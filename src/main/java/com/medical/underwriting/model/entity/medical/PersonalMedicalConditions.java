@@ -6,7 +6,6 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,9 +19,7 @@ public class PersonalMedicalConditions {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	Integer id;
-	@Builder.Default
-	String personalMedicalConditionsId = UUID.randomUUID().toString();
+	Integer personalMedicalConditionsId;
 	@OneToOne
 	DiseaseQuestionnaire diseaseQuestionnaire;
 	String nameOfDisease;

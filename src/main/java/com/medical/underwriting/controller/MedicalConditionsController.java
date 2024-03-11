@@ -49,7 +49,7 @@ public class MedicalConditionsController {
 			@ApiResponse(responseCode = "200", description = "OK : personal medical conditions record successfully found"),
 			@ApiResponse(responseCode = "404", description = "NOT_FOUND : personal medical conditions record not found successfully") })
 	public ResponseEntity<PersonalMedicalConditionsDto> findPersonalMedicalConditionsById(
-			@RequestParam(value = "personalMedicalConditionsId", required = false) @PathVariable("personalMedicalConditionsId") @Nullable final String personalMedicalConditionsId) {
+			@RequestParam(value = "personalMedicalConditionsId", required = false) @PathVariable("personalMedicalConditionsId") @Nullable final Integer personalMedicalConditionsId) {
 		return ResponseEntity
 				.ok(medicalConditionsService.findPersonalMedicalConditionsById(personalMedicalConditionsId));
 	}
@@ -153,7 +153,7 @@ public class MedicalConditionsController {
 			@ApiResponse(responseCode = "404", description = "NOT_FOUND : personal medical conditions record not found successfully"),
 			@ApiResponse(responseCode = "400", description = "BAD_REQUEST : personal medical conditions record not deleted successfully") })
 	public ResponseEntity<?> deletePersonalMedicalConditionsById(
-			@RequestParam(value = "personalMedicalConditionsId", required = false) @PathVariable("personalMedicalConditionsId") @Nullable final String personalMedicalConditionsId) {
+			@RequestParam(value = "personalMedicalConditionsId", required = false) @PathVariable("personalMedicalConditionsId") @Nullable final Integer personalMedicalConditionsId) {
 		medicalConditionsService.deletePersonalMedicalConditionsById(personalMedicalConditionsId);
 		return ResponseEntity.ok(Boolean.TRUE);
 	}

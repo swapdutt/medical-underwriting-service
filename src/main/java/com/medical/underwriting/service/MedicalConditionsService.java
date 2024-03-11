@@ -65,14 +65,14 @@ public class MedicalConditionsService {
 
 	}
 
-	public PersonalMedicalConditionsDto findPersonalMedicalConditionsById(String personalMedicalConditionsId) {
+	public PersonalMedicalConditionsDto findPersonalMedicalConditionsById(Integer personalMedicalConditionsId) {
 
 		PersonalMedicalConditions personalMedicalConditions = personalMedicalConditionsRepository
 				.findPersonalMedicalConditionsByPersonalMedicalConditionsId(personalMedicalConditionsId)
 				.orElseThrow(() -> new UnderwritingException("404",
 						UnderwritingConstants.PERSONAL_MEDICAL_CONDITIONS_ID_NOT_FOUND, HttpStatus.NOT_FOUND));
 
-		return PersonalMedicalConditionsDto.builder().id(personalMedicalConditions.getId())
+		return PersonalMedicalConditionsDto.builder()
 				.personalMedicalConditionsId(personalMedicalConditions.getPersonalMedicalConditionsId())
 				.diseaseQuestionnaire(underwritingMapper.diseaseQuestionnaireToDiseaseQuestionnaireDto(
 						personalMedicalConditions.getDiseaseQuestionnaire()))
@@ -156,7 +156,7 @@ public class MedicalConditionsService {
 				} else {
 					PersonalMedicalConditions pmc = personalMedicalConditionsRepository
 							.save(underwritingMapper.personalMedicalConditionsDtoToPersonalMedicalConditions(dto));
-					return PersonalMedicalConditionsDto.builder().id(pmc.getId())
+					return PersonalMedicalConditionsDto.builder()
 							.personalMedicalConditionsId(pmc.getPersonalMedicalConditionsId())
 							.diseaseQuestionnaire(underwritingMapper
 									.diseaseQuestionnaireToDiseaseQuestionnaireDto(pmc.getDiseaseQuestionnaire()))
@@ -245,7 +245,7 @@ public class MedicalConditionsService {
 				} else {
 					PersonalMedicalConditions pmc = personalMedicalConditionsRepository
 							.save(underwritingMapper.personalMedicalConditionsDtoToPersonalMedicalConditions(dto));
-					return PersonalMedicalConditionsDto.builder().id(pmc.getId())
+					return PersonalMedicalConditionsDto.builder()
 							.personalMedicalConditionsId(pmc.getPersonalMedicalConditionsId())
 							.diseaseQuestionnaire(underwritingMapper
 									.diseaseQuestionnaireToDiseaseQuestionnaireDto(pmc.getDiseaseQuestionnaire()))
@@ -302,7 +302,7 @@ public class MedicalConditionsService {
 
 	}
 
-	public void deletePersonalMedicalConditionsById(String personalMedicalConditionsId) {
+	public void deletePersonalMedicalConditionsById(Integer personalMedicalConditionsId) {
 
 		try {
 			if (null != personalMedicalConditionsId) {

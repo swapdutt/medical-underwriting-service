@@ -9,6 +9,7 @@ import java.util.Optional;
 @Repository
 public interface PersonalMedicalConditionsRepository extends JpaRepository<PersonalMedicalConditions, Integer> {
 
-    Optional<PersonalMedicalConditions> findPersonalMedicalConditionsByPersonalMedicalConditionsId (String personalMedicalConditionsId);
+	Optional<PersonalMedicalConditions> findPersonalMedicalConditionsByPersonalMedicalConditionsId(
+			Integer personalMedicalConditionsId);
 
 }

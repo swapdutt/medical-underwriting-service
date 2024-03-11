@@ -9,6 +9,6 @@ import java.util.Optional;
 @Repository
 public interface ProposerDetailsRepository extends JpaRepository<ProposerDetails, Integer> {
 
-    Optional<ProposerDetails> findProposerDetailsByProposerDetailsId (String proposerDetailsId);
+	Optional<ProposerDetails> findProposerDetailsByProposerDetailsId(Integer proposerDetailsId);
 
 }

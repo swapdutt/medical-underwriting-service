@@ -5,7 +5,6 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,9 +18,7 @@ public class ProposerDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	Integer id;
-	@Builder.Default
-	String proposerDetailsId = UUID.randomUUID().toString();
+	Integer proposerDetailsId;
 	String firstName;
 	String middleName;
 	String lastName;

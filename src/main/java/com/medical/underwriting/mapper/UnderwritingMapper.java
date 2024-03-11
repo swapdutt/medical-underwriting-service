@@ -28,7 +28,6 @@ public interface UnderwritingMapper {
 	 * Proposal related java beans mappings
 	 */
 
-	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "proposalDetailsId", ignore = true)
 	@Mapping(target = "applicationNumber", ignore = true)
 	@Mapping(target = "policyNumber", ignore = true)
@@ -36,13 +35,11 @@ public interface UnderwritingMapper {
 
 	ProposalDetailsDto proposalDetailsToProposalDetailsDto(ProposalDetails proposalDetails);
 
-	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "proposerDetailsId", ignore = true)
 	ProposerDetails proposerDetailsDtoToProposerDetails(ProposerDetailsDto proposerDetailsDto);
 
 	ProposerDetailsDto proposerDetailsToPoProposerDetailsDto(ProposerDetails proposerDetails);
 
-	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "paymentDetailsId", ignore = true)
 	PaymentDetails paymentDetailsDtoToPaymentDetails(PaymentDetailsDto paymentDetailsDto);
 

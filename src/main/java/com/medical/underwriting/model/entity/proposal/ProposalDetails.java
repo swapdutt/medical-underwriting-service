@@ -21,9 +21,7 @@ public class ProposalDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	Integer id;
-	@Builder.Default
-	String proposalDetailsId = UUID.randomUUID().toString();
+	Integer proposalDetailsId;
 	String sourcingApplication;
 	@Builder.Default
 	String applicationNumber = UUID.randomUUID().toString();

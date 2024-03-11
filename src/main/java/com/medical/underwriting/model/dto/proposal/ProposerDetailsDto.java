@@ -4,7 +4,6 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,26 +13,24 @@ import java.util.UUID;
 @Builder
 public class ProposerDetailsDto {
 
-    Integer id;
-    @Builder.Default
-    String proposerDetailsId = UUID.randomUUID().toString();
-    String firstName;
-    String middleName;
-    String lastName;
-    String nationality;
-    String countryOfResidence;
-    String maritalStatus;
-    Double annualIncome;
-    Boolean proposerPolicyHolderFlag;
-    String nomineeRelationship;
-    String profession;
-    Boolean isDependentPresent;
-    Boolean isDependentCovered;
-    LocalDate dateOfVisaExpiration;
-    String occupation;
-    Double sumInsured;
-    LocalDate riskStartDate;
-    String employer;
-    String designation;
+	Integer proposerDetailsId;
+	String firstName;
+	String middleName;
+	String lastName;
+	String nationality;
+	String countryOfResidence;
+	String maritalStatus;
+	Double annualIncome;
+	Boolean proposerPolicyHolderFlag;
+	String nomineeRelationship;
+	String profession;
+	Boolean isDependentPresent;
+	Boolean isDependentCovered;
+	LocalDate dateOfVisaExpiration;
+	String occupation;
+	Double sumInsured;
+	LocalDate riskStartDate;
+	String employer;
+	String designation;
 
 }

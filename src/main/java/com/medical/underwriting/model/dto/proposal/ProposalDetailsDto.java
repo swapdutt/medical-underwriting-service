@@ -16,23 +16,20 @@ import java.util.UUID;
 @Builder
 public class ProposalDetailsDto {
 
-    Integer id;
-    @Builder.Default
-    String proposalDetailsId = UUID.randomUUID().toString();
-    String sourcingApplication;
-    @Builder.Default
-    String applicationNumber = UUID.randomUUID().toString();
-    @Builder.Default
-    String policyNumber = UUID.randomUUID().toString();
-    String productName;
-    String productCode;
-    String planOption;
-    String businessType;
-    LocalDate proposalCreationDate;
-    String businessMode;
-    ProposerDetailsDto proposerDetails;
-    PaymentDetailsDto paymentDetails;
-    List<MemberDetailsDto> memberDetails;
-
+	Integer proposalDetailsId;
+	String sourcingApplication;
+	@Builder.Default
+	String applicationNumber = UUID.randomUUID().toString();
+	@Builder.Default
+	String policyNumber = UUID.randomUUID().toString();
+	String productName;
+	String productCode;
+	String planOption;
+	String businessType;
+	LocalDate proposalCreationDate;
+	String businessMode;
+	ProposerDetailsDto proposerDetails;
+	PaymentDetailsDto paymentDetails;
+	List<MemberDetailsDto> memberDetails;
 
 }

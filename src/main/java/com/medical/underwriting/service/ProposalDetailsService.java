@@ -31,15 +31,14 @@ public class ProposalDetailsService {
 	 * Business logics related to find the records from the database
 	 */
 
-	public PaymentDetailsDto findPaymentDetailsById(String paymentDetailsId) {
+	public PaymentDetailsDto findPaymentDetailsById(Integer paymentDetailsId) {
 
 		PaymentDetails paymentDetails = paymentDetailsRepository.findPaymentDetailsByPaymentDetailsId(paymentDetailsId)
 				.orElseThrow(() -> new UnderwritingException("404", UnderwritingConstants.PAYMENT_DETAILS_ID_NOT_FOUND,
 						HttpStatus.NOT_FOUND));
 
-		return PaymentDetailsDto.builder().id(paymentDetails.getId())
-				.paymentDetailsId(paymentDetails.getPaymentDetailsId()).nameOfPayor(paymentDetails.getNameOfPayor())
-				.modeOfPayment(paymentDetails.getModeOfPayment())
+		return PaymentDetailsDto.builder().paymentDetailsId(paymentDetails.getPaymentDetailsId())
+				.nameOfPayor(paymentDetails.getNameOfPayor()).modeOfPayment(paymentDetails.getModeOfPayment())
 				.relationshipOfPayor(paymentDetails.getRelationshipOfPayor()).amountPaid(paymentDetails.getAmountPaid())
 				.dateOfInstrument(paymentDetails.getDateOfInstrument()).dateOfReceipt(paymentDetails.getDateOfReceipt())
 				.branchLocation(paymentDetails.getBranchLocation()).idProofOfPayor(paymentDetails.getIdProofOfPayor())
@@ -47,17 +46,16 @@ public class ProposalDetailsService {
 
 	}
 
-	public ProposerDetailsDto findProposerDetailsById(String proposerDetailsId) {
+	public ProposerDetailsDto findProposerDetailsById(Integer proposerDetailsId) {
 
 		ProposerDetails proposerDetails = proposerDetailsRepository
 				.findProposerDetailsByProposerDetailsId(proposerDetailsId)
 				.orElseThrow(() -> new UnderwritingException("404", UnderwritingConstants.PROPOSER_DETAILS_ID_NOT_FOUND,
 						HttpStatus.NOT_FOUND));
 
-		return ProposerDetailsDto.builder().id(proposerDetails.getId())
-				.proposerDetailsId(proposerDetails.getProposerDetailsId()).firstName(proposerDetails.getFirstName())
-				.middleName(proposerDetails.getMiddleName()).lastName(proposerDetails.getLastName())
-				.nationality(proposerDetails.getNationality())
+		return ProposerDetailsDto.builder().proposerDetailsId(proposerDetails.getProposerDetailsId())
+				.firstName(proposerDetails.getFirstName()).middleName(proposerDetails.getMiddleName())
+				.lastName(proposerDetails.getLastName()).nationality(proposerDetails.getNationality())
 				.countryOfResidence(proposerDetails.getCountryOfResidence())
 				.maritalStatus(proposerDetails.getMaritalStatus()).annualIncome(proposerDetails.getAnnualIncome())
 				.proposerPolicyHolderFlag(proposerDetails.getProposerPolicyHolderFlag())
@@ -71,7 +69,7 @@ public class ProposalDetailsService {
 
 	}
 
-	public ProposalDetailsDto findProposalDetailsById(String proposalDetailsId) {
+	public ProposalDetailsDto findProposalDetailsById(Integer proposalDetailsId) {
 
 		try {
 			if (null != proposalDetailsId) {
@@ -104,9 +102,8 @@ public class ProposalDetailsService {
 				} else {
 					PaymentDetails payment = paymentDetailsRepository
 							.save(underwritingMapper.paymentDetailsDtoToPaymentDetails(dto));
-					return PaymentDetailsDto.builder().id(payment.getId())
-							.paymentDetailsId(payment.getPaymentDetailsId()).nameOfPayor(payment.getNameOfPayor())
-							.modeOfPayment(payment.getModeOfPayment())
+					return PaymentDetailsDto.builder().paymentDetailsId(payment.getPaymentDetailsId())
+							.nameOfPayor(payment.getNameOfPayor()).modeOfPayment(payment.getModeOfPayment())
 							.relationshipOfPayor(payment.getRelationshipOfPayor()).amountPaid(payment.getAmountPaid())
 							.dateOfInstrument(payment.getDateOfInstrument()).dateOfReceipt(payment.getDateOfReceipt())
 							.branchLocation(payment.getBranchLocation()).idProofOfPayor(payment.getIdProofOfPayor())
@@ -133,10 +130,10 @@ public class ProposalDetailsService {
 				} else {
 					ProposerDetails proposer = proposerDetailsRepository
 							.save(underwritingMapper.proposerDetailsDtoToProposerDetails(dto));
-					return ProposerDetailsDto.builder().id(proposer.getId())
-							.proposerDetailsId(proposer.getProposerDetailsId()).firstName(proposer.getFirstName())
-							.middleName(proposer.getMiddleName()).lastName(proposer.getLastName())
-							.nationality(proposer.getNationality()).countryOfResidence(proposer.getCountryOfResidence())
+					return ProposerDetailsDto.builder().proposerDetailsId(proposer.getProposerDetailsId())
+							.firstName(proposer.getFirstName()).middleName(proposer.getMiddleName())
+							.lastName(proposer.getLastName()).nationality(proposer.getNationality())
+							.countryOfResidence(proposer.getCountryOfResidence())
 							.maritalStatus(proposer.getMaritalStatus()).annualIncome(proposer.getAnnualIncome())
 							.proposerPolicyHolderFlag(proposer.getProposerPolicyHolderFlag())
 							.nomineeRelationship(proposer.getNomineeRelationship()).profession(proposer.getProfession())
@@ -194,9 +191,8 @@ public class ProposalDetailsService {
 				} else {
 					PaymentDetails payment = paymentDetailsRepository
 							.save(underwritingMapper.paymentDetailsDtoToPaymentDetails(dto));
-					return PaymentDetailsDto.builder().id(payment.getId())
-							.paymentDetailsId(payment.getPaymentDetailsId()).nameOfPayor(payment.getNameOfPayor())
-							.modeOfPayment(payment.getModeOfPayment())
+					return PaymentDetailsDto.builder().paymentDetailsId(payment.getPaymentDetailsId())
+							.nameOfPayor(payment.getNameOfPayor()).modeOfPayment(payment.getModeOfPayment())
 							.relationshipOfPayor(payment.getRelationshipOfPayor()).amountPaid(payment.getAmountPaid())
 							.dateOfInstrument(payment.getDateOfInstrument()).dateOfReceipt(payment.getDateOfReceipt())
 							.branchLocation(payment.getBranchLocation()).idProofOfPayor(payment.getIdProofOfPayor())
@@ -223,10 +219,10 @@ public class ProposalDetailsService {
 				} else {
 					ProposerDetails proposer = proposerDetailsRepository
 							.save(underwritingMapper.proposerDetailsDtoToProposerDetails(dto));
-					return ProposerDetailsDto.builder().id(proposer.getId())
-							.proposerDetailsId(proposer.getProposerDetailsId()).firstName(proposer.getFirstName())
-							.middleName(proposer.getMiddleName()).lastName(proposer.getLastName())
-							.nationality(proposer.getNationality()).countryOfResidence(proposer.getCountryOfResidence())
+					return ProposerDetailsDto.builder().proposerDetailsId(proposer.getProposerDetailsId())
+							.firstName(proposer.getFirstName()).middleName(proposer.getMiddleName())
+							.lastName(proposer.getLastName()).nationality(proposer.getNationality())
+							.countryOfResidence(proposer.getCountryOfResidence())
 							.maritalStatus(proposer.getMaritalStatus()).annualIncome(proposer.getAnnualIncome())
 							.proposerPolicyHolderFlag(proposer.getProposerPolicyHolderFlag())
 							.nomineeRelationship(proposer.getNomineeRelationship()).profession(proposer.getProfession())
@@ -272,7 +268,7 @@ public class ProposalDetailsService {
 	 * Business logics related to delete the records from the database
 	 */
 
-	public void deletePaymentDetailsById(String paymentDetailsId) {
+	public void deletePaymentDetailsById(Integer paymentDetailsId) {
 
 		try {
 			if (null != paymentDetailsId) {
@@ -289,7 +285,7 @@ public class ProposalDetailsService {
 
 	}
 
-	public void deleteProposerDetailsById(String proposerDetailsId) {
+	public void deleteProposerDetailsById(Integer proposerDetailsId) {
 
 		try {
 			if (null != proposerDetailsId) {
@@ -306,7 +302,7 @@ public class ProposalDetailsService {
 
 	}
 
-	public void deleteProposalDetailsById(String proposalDetailsId) {
+	public void deleteProposalDetailsById(Integer proposalDetailsId) {
 
 		try {
 			if (null != proposalDetailsId) {

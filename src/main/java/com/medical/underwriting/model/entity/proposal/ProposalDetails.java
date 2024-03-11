@@ -19,24 +19,28 @@ import java.util.UUID;
 @Table(name = "PROPOSAL")
 public class ProposalDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    Integer id;
-    String proposalDetailsId = UUID.randomUUID().toString();
-    String sourcingApplication;
-    String applicationNumber = UUID.randomUUID().toString();
-    String policyNumber = UUID.randomUUID().toString();
-    String productName;
-    String productCode;
-    String planOption;
-    String businessType;
-    LocalDate proposalCreationDate;
-    String businessMode;
-    @OneToOne
-    ProposerDetails proposerDetails;
-    @OneToOne
-    PaymentDetails paymentDetails;
-    List<MemberDetails> memberDetails;
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	Integer id;
+	@Builder.Default
+	String proposalDetailsId = UUID.randomUUID().toString();
+	String sourcingApplication;
+	@Builder.Default
+	String applicationNumber = UUID.randomUUID().toString();
+	@Builder.Default
+	String policyNumber = UUID.randomUUID().toString();
+	String productName;
+	String productCode;
+	String planOption;
+	String businessType;
+	LocalDate proposalCreationDate;
+	String businessMode;
+	@OneToOne
+	ProposerDetails proposerDetails;
+	@OneToOne
+	PaymentDetails paymentDetails;
+	// @JdbcTypeCode(SqlTypes.JSON)
+	@OneToMany
+	List<MemberDetails> memberDetails;
 
 }

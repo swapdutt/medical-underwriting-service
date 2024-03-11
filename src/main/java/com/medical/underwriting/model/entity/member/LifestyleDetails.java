@@ -16,14 +16,15 @@ import java.util.UUID;
 @Table(name = "LIFESTYLE")
 public class LifestyleDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    Integer id;
-    String lifestyleDetailsId = UUID.randomUUID().toString();
-    Integer amountOfTobaccoProductsConsumptionPerDay;
-    Integer amountOfAlcoholConsumptionPerWeek;
-    Integer amountOfCigarettesSticksSmokedPerDay;
-    Integer durationOfSmokingCigarettes;
-    Integer frequencyOfAlcoholConsumptionPerDay;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	Integer id;
+	@Builder.Default
+	String lifestyleDetailsId = UUID.randomUUID().toString();
+	Integer amountOfTobaccoProductsConsumptionPerDay;
+	Integer amountOfAlcoholConsumptionPerWeek;
+	Integer amountOfCigarettesSticksSmokedPerDay;
+	Integer durationOfSmokingCigarettes;
+	Integer frequencyOfAlcoholConsumptionPerDay;
 
 }

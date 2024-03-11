@@ -37,7 +37,7 @@ public class ProposalDetailsService {
     public PaymentDetailsDto findPaymentDetailsById (String paymentDetailsId) {
 
         PaymentDetails paymentDetails = paymentDetailsRepository.
-                findPaymentDetailsByPaymentId(paymentDetailsId).orElseThrow(() ->
+                findPaymentDetailsByPaymentDetailsId(paymentDetailsId).orElseThrow(() ->
                         new UnderwritingException("404", UnderwritingConstants.PAYMENT_DETAILS_ID_NOT_FOUND, HttpStatus.NOT_FOUND));
 
         return PaymentDetailsDto.builder()
@@ -110,7 +110,7 @@ public class ProposalDetailsService {
 
         try {
             if (null != dto) {
-                Optional<PaymentDetails> paymentDetails = paymentDetailsRepository.findPaymentDetailsByPaymentId(dto.getPaymentDetailsId());
+                Optional<PaymentDetails> paymentDetails = paymentDetailsRepository.findPaymentDetailsByPaymentDetailsId(dto.getPaymentDetailsId());
                 if (paymentDetails.isPresent()) {
                     throw new UnderwritingException("409", UnderwritingConstants.PAYMENT_DETAILS_ID_FOUND, HttpStatus.CONFLICT);
                 } else {
@@ -208,7 +208,7 @@ public class ProposalDetailsService {
 
         try {
             if (null != dto) {
-                Optional<PaymentDetails> paymentDetails = paymentDetailsRepository.findPaymentDetailsByPaymentId(dto.getPaymentDetailsId());
+                Optional<PaymentDetails> paymentDetails = paymentDetailsRepository.findPaymentDetailsByPaymentDetailsId(dto.getPaymentDetailsId());
                 if (paymentDetails.isPresent()) {
                     throw new UnderwritingException("409", UnderwritingConstants.PAYMENT_DETAILS_ID_NOT_FOUND, HttpStatus.NOT_FOUND);
                 } else {
@@ -306,7 +306,7 @@ public class ProposalDetailsService {
 
         try {
             if (null != paymentDetailsId) {
-                Optional<PaymentDetails> paymentDetails = paymentDetailsRepository.findPaymentDetailsByPaymentId(paymentDetailsId);
+                Optional<PaymentDetails> paymentDetails = paymentDetailsRepository.findPaymentDetailsByPaymentDetailsId(paymentDetailsId);
                 paymentDetails.ifPresent(paymentDetailsRepository::delete);
             } else {
                 throw new UnderwritingException("404", UnderwritingConstants.PAYMENT_DETAILS_ID_NOT_FOUND, HttpStatus.NOT_FOUND);

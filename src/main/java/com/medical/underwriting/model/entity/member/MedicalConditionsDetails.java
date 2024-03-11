@@ -19,13 +19,14 @@ import java.util.UUID;
 @Table(name = "MEDICAL_CONDITIONS")
 public class MedicalConditionsDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    Integer id;
-    String medicalConditionsDetailsId = UUID.randomUUID().toString();
-    @OneToMany
-    List<PersonalMedicalConditions> personalMedicalConditionsList;
-    @OneToOne
-    LabTests labTests;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	Integer id;
+	@Builder.Default
+	String medicalConditionsDetailsId = UUID.randomUUID().toString();
+	@OneToMany
+	List<PersonalMedicalConditions> personalMedicalConditionsList;
+	@OneToOne
+	LabTests labTests;
 
 }

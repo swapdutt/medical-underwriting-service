@@ -37,7 +37,7 @@ public class MemberDetailsService {
 
         try {
             if (null != memberId) {
-                Optional<MemberDetails> memberDetails = memberDetailsRepository.findMemberDetailsByMemberDetailsId(memberId);
+                Optional<MemberDetails> memberDetails = memberDetailsRepository.findMemberDetailsByMemberId(memberId);
                 return memberDetails.map(underwritingMapper::memberDetailsToMemberDetailsDto).orElse(null);
             }
         } catch (UnderwritingException e) {
@@ -90,7 +90,7 @@ public class MemberDetailsService {
 
         try {
             if (null != dto) {
-                Optional<MemberDetails> memberDetails = memberDetailsRepository.findMemberDetailsByMemberDetailsId(dto.getMemberId());
+                Optional<MemberDetails> memberDetails = memberDetailsRepository.findMemberDetailsByMemberId(dto.getMemberId());
                 if (memberDetails.isPresent()) {
                     throw new UnderwritingException("409", UnderwritingConstants.MEMBER_DETAILS_ID_FOUND, HttpStatus.CONFLICT);
                 } else {
@@ -165,7 +165,7 @@ public class MemberDetailsService {
 
         try {
             if (null != dto) {
-                Optional<MemberDetails> memberDetails = memberDetailsRepository.findMemberDetailsByMemberDetailsId(dto.getMemberId());
+                Optional<MemberDetails> memberDetails = memberDetailsRepository.findMemberDetailsByMemberId(dto.getMemberId());
                 if (memberDetails.isEmpty()) {
                     throw new UnderwritingException("404", UnderwritingConstants.MEMBER_DETAILS_ID_NOT_FOUND, HttpStatus.NOT_FOUND);
                 } else {
@@ -240,7 +240,7 @@ public class MemberDetailsService {
 
         try {
             if (null != memberDetailsId) {
-                Optional<MemberDetails> memberDetails = memberDetailsRepository.findMemberDetailsByMemberDetailsId(memberDetailsId);
+                Optional<MemberDetails> memberDetails = memberDetailsRepository.findMemberDetailsByMemberId(memberDetailsId);
                 memberDetails.ifPresent(memberDetailsRepository::delete);
             } else {
                 throw new UnderwritingException("404", UnderwritingConstants.MEMBER_DETAILS_ID_NOT_FOUND, HttpStatus.NOT_FOUND);

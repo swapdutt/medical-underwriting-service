@@ -59,7 +59,7 @@ public class ProposalController {
         return ResponseEntity.ok(proposalDetailsService.findProposalDetailsById(proposalDetailsId));
     }
 
-    @PostMapping(value = "/createProposalDetails", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/createPaymentDetails", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Create the record of payment details")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "CREATED : payment details record successfully created"),
@@ -125,7 +125,7 @@ public class ProposalController {
         return ResponseEntity.ok(proposalDetailsService.updateProposalDetails(proposalDetailsDto));
     }
 
-    @GetMapping(value = "/findPaymentDetailsById/{paymentDetailsId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/deletePaymentDetailsById/{paymentDetailsId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Get the record of payment details by payment details id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK : payment details record successfully found"),
@@ -139,7 +139,7 @@ public class ProposalController {
         return ResponseEntity.ok(Boolean.TRUE);
     }
 
-    @GetMapping(value = "/findProposerDetailsById/{proposerDetailsId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/deleteProposerDetailsById/{proposerDetailsId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Get the record of proposal details by proposer details id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK : proposer details record successfully found"),
@@ -153,7 +153,7 @@ public class ProposalController {
         return ResponseEntity.ok(Boolean.TRUE);
     }
 
-    @GetMapping(value = "/findProposalDetailsById/{proposalDetailsId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/deleteProposalDetailsById/{proposalDetailsId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Get the record of proposal details by proposal details id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK : proposal details record successfully found"),

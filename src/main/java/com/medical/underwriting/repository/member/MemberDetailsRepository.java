@@ -2,6 +2,7 @@ package com.medical.underwriting.repository.member;
 
 import com.medical.underwriting.model.entity.member.MemberDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
+// import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -9,6 +10,7 @@ import java.util.Optional;
 @Repository
 public interface MemberDetailsRepository extends JpaRepository<MemberDetails, Integer> {
 
-    Optional<MemberDetails> findMemberDetailsByMemberDetailsId (String memberDetailsId);
+	// @Query(value = "select m from MemberDetails where m.memberDetailsId")
+    Optional<MemberDetails> findMemberDetailsByMemberId (String memberDetailsId);
 
 }

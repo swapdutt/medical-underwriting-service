@@ -20,6 +20,7 @@ public class MemberDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
+    @Builder.Default
     String memberId = UUID.randomUUID().toString();
     String firstName;
     String middleName;

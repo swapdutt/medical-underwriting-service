@@ -20,6 +20,7 @@ public class PaymentDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
+    @Builder.Default
     String paymentDetailsId = UUID.randomUUID().toString();
     String nameOfPayor;
     String modeOfPayment;

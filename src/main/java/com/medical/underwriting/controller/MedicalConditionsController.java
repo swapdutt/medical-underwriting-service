@@ -118,7 +118,7 @@ public class MedicalConditionsController {
         return ResponseEntity.ok(medicalConditionsService.updateLabTests(labTestsDto));
     }
 
-    @PutMapping(value = "/updateDiseaseQuestionnaire", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/updatePersonalMedicalConditions", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Update the record of disease questionnaire")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK : personal medical conditions record updated successfully"),

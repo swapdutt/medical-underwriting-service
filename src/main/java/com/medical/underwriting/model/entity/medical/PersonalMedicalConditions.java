@@ -18,20 +18,21 @@ import java.util.UUID;
 @Table(name = "PERSONAL_MEDICAL_CONDITIONS")
 public class PersonalMedicalConditions {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    Integer id;
-    String personalMedicalConditionsId = UUID.randomUUID().toString();
-    @OneToOne
-    DiseaseQuestionnaire diseaseQuestionnaire;
-    String nameOfDisease;
-    String typeOfDisease;
-    String typeOfTreatment;
-    String currentStatusOfDisease;
-    String typeOfComplication;
-    String typeOfBiopsy;
-    @LastModifiedDate
-    LocalDate lastConsultationDate;
-    Integer yearWhenFirstDiagnosisWasTaken;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	Integer id;
+	@Builder.Default
+	String personalMedicalConditionsId = UUID.randomUUID().toString();
+	@OneToOne
+	DiseaseQuestionnaire diseaseQuestionnaire;
+	String nameOfDisease;
+	String typeOfDisease;
+	String typeOfTreatment;
+	String currentStatusOfDisease;
+	String typeOfComplication;
+	String typeOfBiopsy;
+	@LastModifiedDate
+	LocalDate lastConsultationDate;
+	Integer yearWhenFirstDiagnosisWasTaken;
 
 }

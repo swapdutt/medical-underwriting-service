@@ -24,64 +24,75 @@ import org.mapstruct.Mapping;
 @Mapper
 public interface UnderwritingMapper {
 
-    /**
-     * Proposal related java beans mappings
-     */
+	/**
+	 * Proposal related java beans mappings
+	 */
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "proposalDetailsId", ignore = true)
-    @Mapping(target = "applicationNumber", ignore = true)
-    @Mapping(target = "policyNumber", ignore = true)
-    ProposalDetails proposalDetailsDtoToProposalDetails(ProposalDetailsDto proposalDetailsDto);
-    ProposalDetailsDto proposalDetailsToProposalDetailsDto(ProposalDetails proposalDetails);
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "proposalDetailsId", ignore = true)
+	@Mapping(target = "applicationNumber", ignore = true)
+	@Mapping(target = "policyNumber", ignore = true)
+	ProposalDetails proposalDetailsDtoToProposalDetails(ProposalDetailsDto proposalDetailsDto);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "proposerDetailsId", ignore = true)
-    ProposerDetails proposerDetailsDtoToProposerDetails(ProposerDetailsDto proposerDetailsDto);
-    ProposerDetailsDto proposerDetailsToPoProposerDetailsDto(ProposerDetails proposerDetails);
+	ProposalDetailsDto proposalDetailsToProposalDetailsDto(ProposalDetails proposalDetails);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "paymentDetailsId", ignore = true)
-    PaymentDetails paymentDetailsDtoToPaymentDetails(PaymentDetailsDto paymentDetailsDto);
-    PaymentDetailsDto paymentDetailsToPaymentDetailsDto(PaymentDetails paymentDetails);
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "proposerDetailsId", ignore = true)
+	ProposerDetails proposerDetailsDtoToProposerDetails(ProposerDetailsDto proposerDetailsDto);
 
+	ProposerDetailsDto proposerDetailsToPoProposerDetailsDto(ProposerDetails proposerDetails);
 
-    /**
-     * Member related java beans mappings
-     */
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "paymentDetailsId", ignore = true)
+	PaymentDetails paymentDetailsDtoToPaymentDetails(PaymentDetailsDto paymentDetailsDto);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "memberId", ignore = true)
-    MemberDetails memberDetailsDtoToMemberDetails(MemberDetailsDto memberDetailsDto);
-    MemberDetailsDto memberDetailsToMemberDetailsDto(MemberDetails memberDetails);
+	PaymentDetailsDto paymentDetailsToPaymentDetailsDto(PaymentDetails paymentDetails);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "lifestyleDetailsId", ignore = true)
-    LifestyleDetails lifestyleDetailsDtoToLifestyleDetails(LifestyleDetailsDto lifestyleDetailsDto);
-    LifestyleDetailsDto lifestyleDetailsToLifestyleDetailsDto(LifestyleDetails lifestyleDetails);
+	/**
+	 * Member related java beans mappings
+	 */
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "medicalConditionsDetailsId", ignore = true)
-    MedicalConditionsDetails medicalConditionsDetailsDtoToMedicalConditionsDetails(MedicalConditionsDetailsDto medicalConditionsDetailsDto);
-    MedicalConditionsDetailsDto medicalConditionsDetailsToMedicalConditionsDetailsDto(MedicalConditionsDetails medicalConditionsDetails);
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "memberId", ignore = true)
+	MemberDetails memberDetailsDtoToMemberDetails(MemberDetailsDto memberDetailsDto);
 
-    /**
-     * Medical related java beans mappings
-     */
+	MemberDetailsDto memberDetailsToMemberDetailsDto(MemberDetails memberDetails);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "diseaseQuestionnaireId", ignore = true)
-    DiseaseQuestionnaire diseaseQuestionnaireDtoToDiseaseQuestionnaire(DiseaseQuestionnaireDto diseaseQuestionnaireDto);
-    DiseaseQuestionnaireDto diseaseQuestionnaireToDiseaseQuestionnaireDto(DiseaseQuestionnaire diseaseQuestionnaire);
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "lifestyleDetailsId", ignore = true)
+	LifestyleDetails lifestyleDetailsDtoToLifestyleDetails(LifestyleDetailsDto lifestyleDetailsDto);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "labTestsId", ignore = true)
-    LabTests labTestsDtoToLabTests(LabTestsDto labTestsDto);
-    LabTestsDto labTestsToLabTestsDto(LabTests labTests);
+	LifestyleDetailsDto lifestyleDetailsToLifestyleDetailsDto(LifestyleDetails lifestyleDetails);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "personalMedicalConditionsId", ignore = true)
-    PersonalMedicalConditions personalMedicalConditionsDtoToPersonalMedicalConditions(PersonalMedicalConditionsDto personalMedicalConditionsDto);
-    PersonalMedicalConditionsDto personalMedicalConditionsToPersonalMedicalConditionsDto(PersonalMedicalConditions personalMedicalConditions);
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "medicalConditionsDetailsId", ignore = true)
+	MedicalConditionsDetails medicalConditionsDetailsDtoToMedicalConditionsDetails(
+			MedicalConditionsDetailsDto medicalConditionsDetailsDto);
+
+	MedicalConditionsDetailsDto medicalConditionsDetailsToMedicalConditionsDetailsDto(
+			MedicalConditionsDetails medicalConditionsDetails);
+
+	/**
+	 * Medical related java beans mappings
+	 */
+
+	@Mapping(target = "diseaseQuestionnaireId", ignore = true)
+	DiseaseQuestionnaire diseaseQuestionnaireDtoToDiseaseQuestionnaire(DiseaseQuestionnaireDto diseaseQuestionnaireDto);
+
+	DiseaseQuestionnaireDto diseaseQuestionnaireToDiseaseQuestionnaireDto(DiseaseQuestionnaire diseaseQuestionnaire);
+
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "labTestsId", ignore = true)
+	LabTests labTestsDtoToLabTests(LabTestsDto labTestsDto);
+
+	LabTestsDto labTestsToLabTestsDto(LabTests labTests);
+
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "personalMedicalConditionsId", ignore = true)
+	PersonalMedicalConditions personalMedicalConditionsDtoToPersonalMedicalConditions(
+			PersonalMedicalConditionsDto personalMedicalConditionsDto);
+
+	PersonalMedicalConditionsDto personalMedicalConditionsToPersonalMedicalConditionsDto(
+			PersonalMedicalConditions personalMedicalConditions);
 
 }

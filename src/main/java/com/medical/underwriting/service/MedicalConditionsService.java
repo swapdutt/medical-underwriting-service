@@ -31,14 +31,14 @@ public class MedicalConditionsService {
 	 * Business logics related to find the records from the databases
 	 */
 
-	public DiseaseQuestionnaireDto findDiseaseQuestionnaireById(String diseaseQuestionnaireId) {
+	public DiseaseQuestionnaireDto findDiseaseQuestionnaireById(Integer diseaseQuestionnaireId) {
 
 		DiseaseQuestionnaire diseaseQuestionnaire = diseaseQuestionnaireRepository
 				.findDiseaseQuestionnaireByDiseaseQuestionnaireId(diseaseQuestionnaireId)
 				.orElseThrow(() -> new UnderwritingException("404",
 						UnderwritingConstants.DISEASE_QUESTIONNAIRE_ID_NOT_FOUND, HttpStatus.NOT_FOUND));
 
-		return DiseaseQuestionnaireDto.builder().id(diseaseQuestionnaire.getId())
+		return DiseaseQuestionnaireDto.builder()
 				.diseaseQuestionnaireId(diseaseQuestionnaire.getDiseaseQuestionnaireId())
 				.question1(diseaseQuestionnaire.getQuestion1()).question2(diseaseQuestionnaire.getQuestion2())
 				.question3(diseaseQuestionnaire.getQuestion3()).question4(diseaseQuestionnaire.getQuestion4())
@@ -103,7 +103,7 @@ public class MedicalConditionsService {
 				} else {
 					DiseaseQuestionnaire questionnaire = diseaseQuestionnaireRepository
 							.save(underwritingMapper.diseaseQuestionnaireDtoToDiseaseQuestionnaire(dto));
-					return DiseaseQuestionnaireDto.builder().id(questionnaire.getId())
+					return DiseaseQuestionnaireDto.builder()
 							.diseaseQuestionnaireId(questionnaire.getDiseaseQuestionnaireId())
 							.question1(questionnaire.getQuestion1()).question2(questionnaire.getQuestion2())
 							.question3(questionnaire.getQuestion3()).question4(questionnaire.getQuestion4())
@@ -192,7 +192,7 @@ public class MedicalConditionsService {
 				} else {
 					DiseaseQuestionnaire questionnaire = diseaseQuestionnaireRepository
 							.save(underwritingMapper.diseaseQuestionnaireDtoToDiseaseQuestionnaire(dto));
-					return DiseaseQuestionnaireDto.builder().id(questionnaire.getId())
+					return DiseaseQuestionnaireDto.builder()
 							.diseaseQuestionnaireId(questionnaire.getDiseaseQuestionnaireId())
 							.question1(questionnaire.getQuestion1()).question2(questionnaire.getQuestion2())
 							.question3(questionnaire.getQuestion3()).question4(questionnaire.getQuestion4())
@@ -269,7 +269,7 @@ public class MedicalConditionsService {
 	 * Business logics related to delete the records from the database
 	 */
 
-	public void deleteDiseaseQuestionnaireById(String diseaseQuestionnaireId) {
+	public void deleteDiseaseQuestionnaireById(Integer diseaseQuestionnaireId) {
 
 		try {
 			if (null != diseaseQuestionnaireId) {

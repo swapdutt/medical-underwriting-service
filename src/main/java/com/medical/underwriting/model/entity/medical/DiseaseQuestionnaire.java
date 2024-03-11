@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.util.UUID;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -18,9 +16,7 @@ public class DiseaseQuestionnaire {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	Integer id;
-	@Builder.Default
-	String diseaseQuestionnaireId = UUID.randomUUID().toString();
+	Integer diseaseQuestionnaireId;
 	String question1;
 	String question2;
 	String question3;

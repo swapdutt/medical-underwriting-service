@@ -1,6 +1,6 @@
 # Medical Underwriting Service
 
-Medical Underwriting Service build using Java, Spring MVC, Spring Boot and IBM Operational Decision Manager
+Medical Underwriting Service build using Java, Spring MVC, Spring Boot and IBM Operational Decision Manager.
 
 ## Introduction
 
@@ -20,6 +20,4 @@ IBM ODM business rules are implemented. GitHub repository for the same will be s
 
 (More technologies might be added later during the course of development if needed)
 
-### Note:
-1. This project might get converted into micro-services later in future
-2. TO-DOs: Update the UUID thing in entities later. And add Zipkin related dependencies and configurations later.
+##### Note: This project might get converted into micro-services later in future for different project.

@@ -14,6 +14,7 @@ import java.util.List;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
+@ToString
 @Entity
 @Table(name = "MEDICAL_CONDITIONS")
 public class MedicalConditionsDetails {

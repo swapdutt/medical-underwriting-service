@@ -10,6 +10,7 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
+@ToString
 @Entity
 @Table(name = "LAB_TESTS")
 public class LabTests {

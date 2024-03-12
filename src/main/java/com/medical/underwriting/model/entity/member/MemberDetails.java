@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
+@ToString
 @Entity
 @Table(name = "MEMBER")
 public class MemberDetails {

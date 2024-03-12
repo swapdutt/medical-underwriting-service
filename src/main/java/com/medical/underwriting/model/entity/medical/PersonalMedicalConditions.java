@@ -13,6 +13,7 @@ import java.time.LocalDate;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
+@ToString
 @Entity
 @Table(name = "PERSONAL_MEDICAL_CONDITIONS")
 public class PersonalMedicalConditions {

@@ -1,4 +1,4 @@
-package com.medical.underwriting.repository.medical;
+package com.medical.underwriting.repository;
 
 import com.medical.underwriting.model.entity.medical.DiseaseQuestionnaire;
 import org.springframework.data.jpa.repository.JpaRepository;

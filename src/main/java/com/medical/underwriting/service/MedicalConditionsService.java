@@ -9,9 +9,10 @@ import com.medical.underwriting.model.dto.medical.PersonalMedicalConditionsDto;
 import com.medical.underwriting.model.entity.medical.DiseaseQuestionnaire;
 import com.medical.underwriting.model.entity.medical.LabTests;
 import com.medical.underwriting.model.entity.medical.PersonalMedicalConditions;
-import com.medical.underwriting.repository.medical.DiseaseQuestionnaireRepository;
-import com.medical.underwriting.repository.medical.LabTestsRepository;
-import com.medical.underwriting.repository.medical.PersonalMedicalConditionsRepository;
+import com.medical.underwriting.repository.DiseaseQuestionnaireRepository;
+import com.medical.underwriting.repository.LabTestsRepository;
+import com.medical.underwriting.repository.PersonalMedicalConditionsRepository;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

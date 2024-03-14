@@ -1,60 +1,46 @@
 package com.medical.underwriting.service;
 
-import com.medical.underwriting.constants.UnderwritingConstants;
-import com.medical.underwriting.exception.UnderwritingException;
-import com.medical.underwriting.mapper.UnderwritingMapper;
-import com.medical.underwriting.model.dto.member.LifestyleDetailsDto;
-import com.medical.underwriting.model.dto.member.MedicalConditionsDetailsDto;
-import com.medical.underwriting.model.dto.member.MemberDetailsDto;
-import com.medical.underwriting.model.entity.member.LifestyleDetails;
-import com.medical.underwriting.model.entity.member.MedicalConditionsDetails;
-import com.medical.underwriting.model.entity.member.MemberDetails;
-import com.medical.underwriting.repository.member.LifestyleRepository;
-import com.medical.underwriting.repository.member.MedicalConditionsDetailsRepository;
-import com.medical.underwriting.repository.member.MemberDetailsRepository;
-import lombok.RequiredArgsConstructor;
+import java.util.Optional;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import com.medical.underwriting.constants.UnderwritingConstants;
+import com.medical.underwriting.exception.UnderwritingException;
+import com.medical.underwriting.mapper.UnderwritingMapper;
+import com.medical.underwriting.model.entity.member.LifestyleDetails;
+import com.medical.underwriting.payloads.request.CreateLifestyleDetailsRequestPayload;
+import com.medical.underwriting.payloads.request.UpdateLifestyleDetailsRequestPayload;
+import com.medical.underwriting.payloads.response.LifestyleDetailsResponse;
+import com.medical.underwriting.repository.LifestyleRepository;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class MemberDetailsService {
 
 	private final UnderwritingMapper underwritingMapper;
-	private final MemberDetailsRepository memberDetailsRepository;
+	// private final MemberDetailsRepository memberDetailsRepository;
 	private final LifestyleRepository lifestyleRepository;
-	private final MedicalConditionsDetailsRepository medicalConditionsDetailsRepository;
+	// private final MedicalConditionsDetailsRepository medicalConditionsDetailsRepository;
 
 	/**
-	 * Business logics related to find the records from the database
+	 * Business logics related to lifestyle details
 	 */
 
-	public MemberDetailsDto findMemberDetailsById(Integer memberId) {
-
-		try {
-			if (null != memberId) {
-				Optional<MemberDetails> memberDetails = memberDetailsRepository.findMemberDetailsByMemberId(memberId);
-				return memberDetails.map(underwritingMapper::memberDetailsToMemberDetailsDto).orElse(null);
-			}
-		} catch (UnderwritingException e) {
-			throw new UnderwritingException("404", UnderwritingConstants.MEMBER_DETAILS_ID_NOT_FOUND,
-					HttpStatus.NOT_FOUND);
-		}
-
-		return null;
-
-	}
-
-	public LifestyleDetailsDto findLifestyleDetailsById(Integer lifestyleDetailsId) {
+	public LifestyleDetailsResponse findLifestyleDetailsById(String lifestyleDetailsId) {
 
 		LifestyleDetails lifestyleDetails = lifestyleRepository
 				.findLifestyleDetailsByLifestyleDetailsId(lifestyleDetailsId)
 				.orElseThrow(() -> new UnderwritingException("404",
 						UnderwritingConstants.LIFESTYLE_DETAILS_ID_NOT_FOUND, HttpStatus.NOT_FOUND));
 
-		return LifestyleDetailsDto.builder().lifestyleDetailsId(lifestyleDetails.getLifestyleDetailsId())
+		log.info("lifestyleDetails : {}", lifestyleDetails);
+
+		return LifestyleDetailsResponse.builder().lifestyleDetailsId(lifestyleDetails.getLifestyleDetailsId())
 				.amountOfTobaccoProductsConsumptionPerDay(
 						lifestyleDetails.getAmountOfTobaccoProductsConsumptionPerDay())
 				.amountOfAlcoholConsumptionPerWeek(lifestyleDetails.getAmountOfAlcoholConsumptionPerWeek())
@@ -64,71 +50,36 @@ public class MemberDetailsService {
 
 	}
 
-	public MedicalConditionsDetailsDto findMedicalConditionsDetailsById(Integer medicalConditionsDetailsId) {
+	public LifestyleDetailsResponse createLifestyleDetails(CreateLifestyleDetailsRequestPayload payload) {
 
 		try {
-			if (null != medicalConditionsDetailsId) {
-				Optional<MedicalConditionsDetails> medicalConditionsDetails = medicalConditionsDetailsRepository
-						.findMedicalConditionsDetailsByMedicalConditionsDetailsId(medicalConditionsDetailsId);
-				return medicalConditionsDetails
-						.map(underwritingMapper::medicalConditionsDetailsToMedicalConditionsDetailsDto).orElse(null);
-			}
-		} catch (UnderwritingException e) {
-			throw new UnderwritingException("404", UnderwritingConstants.MEDICAL_CONDITIONS_DETAILS_ID_NOT_FOUND,
-					HttpStatus.NOT_FOUND);
-		}
+			if (null != payload) {
 
-		return null;
+				Optional<LifestyleDetails> lifestyle = lifestyleRepository
+						.findLifestyleDetailsByLifestyleDetailsId(payload.getLifestyleDetailsId());
 
-	}
-
-	/**
-	 * Business logics related to create new records in database
-	 */
-
-	public MemberDetailsDto createMemberDetails(MemberDetailsDto dto) {
-
-		try {
-			if (null != dto) {
-				Optional<MemberDetails> memberDetails = memberDetailsRepository
-						.findMemberDetailsByMemberId(dto.getMemberId());
-				if (memberDetails.isPresent()) {
-					throw new UnderwritingException("409", UnderwritingConstants.MEMBER_DETAILS_ID_FOUND,
-							HttpStatus.CONFLICT);
-				} else {
-					return underwritingMapper.memberDetailsToMemberDetailsDto(
-							memberDetailsRepository.save(underwritingMapper.memberDetailsDtoToMemberDetails(dto)));
-				}
-			}
-		} catch (UnderwritingException e) {
-			throw new UnderwritingException("400", UnderwritingConstants.BAD_REQUEST, HttpStatus.BAD_REQUEST);
-		}
-
-		return null;
-
-	}
-
-	public LifestyleDetailsDto createLifestyleDetails(LifestyleDetailsDto dto) {
-
-		try {
-			if (null != dto) {
-				Optional<LifestyleDetails> lifestyleDetails = lifestyleRepository
-						.findLifestyleDetailsByLifestyleDetailsId(dto.getLifestyleDetailsId());
-				if (lifestyleDetails.isPresent()) {
+				if (lifestyle.isPresent()) {
 					throw new UnderwritingException("409", UnderwritingConstants.LIFESTYLE_DETAILS_ID_FOUND,
 							HttpStatus.CONFLICT);
 				} else {
-					LifestyleDetails lifestyle = lifestyleRepository
-							.save(underwritingMapper.lifestyleDetailsDtoToLifestyleDetails(dto));
-					return LifestyleDetailsDto.builder().lifestyleDetailsId(lifestyle.getLifestyleDetailsId())
+
+					LifestyleDetails lifestyleDetails = lifestyleRepository
+							.save(underwritingMapper.createPayloadToLifestyleDetails(payload));
+
+					return LifestyleDetailsResponse.builder()
+							.lifestyleDetailsId(lifestyleDetails.getLifestyleDetailsId())
 							.amountOfTobaccoProductsConsumptionPerDay(
-									lifestyle.getAmountOfTobaccoProductsConsumptionPerDay())
-							.amountOfAlcoholConsumptionPerWeek(lifestyle.getAmountOfAlcoholConsumptionPerWeek())
-							.amountOfCigarettesSticksSmokedPerDay(lifestyle.getAmountOfCigarettesSticksSmokedPerDay())
-							.durationOfSmokingCigarettes(lifestyle.getDurationOfSmokingCigarettes())
-							.frequencyOfAlcoholConsumptionPerDay(lifestyle.getFrequencyOfAlcoholConsumptionPerDay())
+									lifestyleDetails.getAmountOfTobaccoProductsConsumptionPerDay())
+							.amountOfAlcoholConsumptionPerWeek(lifestyleDetails.getAmountOfAlcoholConsumptionPerWeek())
+							.amountOfCigarettesSticksSmokedPerDay(
+									lifestyleDetails.getAmountOfCigarettesSticksSmokedPerDay())
+							.durationOfSmokingCigarettes(lifestyleDetails.getDurationOfSmokingCigarettes())
+							.frequencyOfAlcoholConsumptionPerDay(
+									lifestyleDetails.getFrequencyOfAlcoholConsumptionPerDay())
 							.build();
+
 				}
+
 			}
 		} catch (UnderwritingException e) {
 			throw new UnderwritingException("400", UnderwritingConstants.BAD_REQUEST, HttpStatus.BAD_REQUEST);
@@ -138,77 +89,49 @@ public class MemberDetailsService {
 
 	}
 
-	public MedicalConditionsDetailsDto createMedicalConditionsDetails(MedicalConditionsDetailsDto dto) {
+	public LifestyleDetailsResponse updateLifestyleDetails(String lifestyleDetailsId,
+			UpdateLifestyleDetailsRequestPayload payload) {
 
 		try {
-			if (null != dto) {
-				Optional<MedicalConditionsDetails> medicalConditionsDetails = medicalConditionsDetailsRepository
-						.findMedicalConditionsDetailsByMedicalConditionsDetailsId(dto.getMedicalConditionsDetailsId());
-				if (medicalConditionsDetails.isPresent()) {
-					throw new UnderwritingException("409", UnderwritingConstants.MEDICAL_CONDITIONS_DETAILS_ID_FOUND,
-							HttpStatus.CONFLICT);
+
+			if (null != payload) {
+
+				Optional<LifestyleDetails> lifestyle = lifestyleRepository
+						.findLifestyleDetailsByLifestyleDetailsId(lifestyleDetailsId);
+
+				if (lifestyle.isPresent()) {
+
+					lifestyle.get().setAmountOfTobaccoProductsConsumptionPerDay(
+							payload.getAmountOfTobaccoProductsConsumptionPerDay());
+					lifestyle.get()
+							.setAmountOfAlcoholConsumptionPerWeek(payload.getAmountOfAlcoholConsumptionPerWeek());
+					lifestyle.get()
+							.setAmountOfCigarettesSticksSmokedPerDay(payload.getAmountOfCigarettesSticksSmokedPerDay());
+					lifestyle.get().setDurationOfSmokingCigarettes(payload.getDurationOfSmokingCigarettes());
+					lifestyle.get()
+							.setFrequencyOfAlcoholConsumptionPerDay(payload.getFrequencyOfAlcoholConsumptionPerDay());
+
+					lifestyleRepository.save(lifestyle.get());
+
+					return LifestyleDetailsResponse.builder()
+							.lifestyleDetailsId(lifestyle.get().getLifestyleDetailsId())
+							.amountOfTobaccoProductsConsumptionPerDay(
+									lifestyle.get().getAmountOfTobaccoProductsConsumptionPerDay())
+							.amountOfAlcoholConsumptionPerWeek(lifestyle.get().getAmountOfAlcoholConsumptionPerWeek())
+							.amountOfCigarettesSticksSmokedPerDay(
+									lifestyle.get().getAmountOfCigarettesSticksSmokedPerDay())
+							.durationOfSmokingCigarettes(lifestyle.get().getDurationOfSmokingCigarettes())
+							.frequencyOfAlcoholConsumptionPerDay(
+									lifestyle.get().getFrequencyOfAlcoholConsumptionPerDay())
+							.build();
+
 				} else {
-					return underwritingMapper.medicalConditionsDetailsToMedicalConditionsDetailsDto(
-							medicalConditionsDetailsRepository.save(
-									underwritingMapper.medicalConditionsDetailsDtoToMedicalConditionsDetails(dto)));
-				}
-			}
-		} catch (UnderwritingException e) {
-			throw new UnderwritingException("400", UnderwritingConstants.BAD_REQUEST, HttpStatus.BAD_REQUEST);
-		}
-
-		return null;
-
-	}
-
-	/**
-	 * Business logics related to update the records in database
-	 */
-
-	public MemberDetailsDto updateMemberDetails(MemberDetailsDto dto) {
-
-		try {
-			if (null != dto) {
-				Optional<MemberDetails> memberDetails = memberDetailsRepository
-						.findMemberDetailsByMemberId(dto.getMemberId());
-				if (memberDetails.isEmpty()) {
-					throw new UnderwritingException("404", UnderwritingConstants.MEMBER_DETAILS_ID_NOT_FOUND,
-							HttpStatus.NOT_FOUND);
-				} else {
-					return underwritingMapper.memberDetailsToMemberDetailsDto(
-							memberDetailsRepository.save(underwritingMapper.memberDetailsDtoToMemberDetails(dto)));
-				}
-			}
-		} catch (UnderwritingException e) {
-			throw new UnderwritingException("400", UnderwritingConstants.BAD_REQUEST, HttpStatus.BAD_REQUEST);
-		}
-
-		return null;
-
-	}
-
-	public LifestyleDetailsDto updateLifestyleDetails(LifestyleDetailsDto dto) {
-
-		try {
-			if (null != dto) {
-				Optional<LifestyleDetails> lifestyleDetails = lifestyleRepository
-						.findLifestyleDetailsByLifestyleDetailsId(dto.getLifestyleDetailsId());
-				if (lifestyleDetails.isEmpty()) {
 					throw new UnderwritingException("404", UnderwritingConstants.LIFESTYLE_DETAILS_ID_NOT_FOUND,
 							HttpStatus.NOT_FOUND);
-				} else {
-					LifestyleDetails lifestyle = lifestyleRepository
-							.save(underwritingMapper.lifestyleDetailsDtoToLifestyleDetails(dto));
-					return LifestyleDetailsDto.builder().lifestyleDetailsId(lifestyle.getLifestyleDetailsId())
-							.amountOfTobaccoProductsConsumptionPerDay(
-									lifestyle.getAmountOfTobaccoProductsConsumptionPerDay())
-							.amountOfAlcoholConsumptionPerWeek(lifestyle.getAmountOfAlcoholConsumptionPerWeek())
-							.amountOfCigarettesSticksSmokedPerDay(lifestyle.getAmountOfCigarettesSticksSmokedPerDay())
-							.durationOfSmokingCigarettes(lifestyle.getDurationOfSmokingCigarettes())
-							.frequencyOfAlcoholConsumptionPerDay(lifestyle.getFrequencyOfAlcoholConsumptionPerDay())
-							.build();
 				}
+
 			}
+
 		} catch (UnderwritingException e) {
 			throw new UnderwritingException("400", UnderwritingConstants.BAD_REQUEST, HttpStatus.BAD_REQUEST);
 		}
@@ -217,82 +140,26 @@ public class MemberDetailsService {
 
 	}
 
-	public MedicalConditionsDetailsDto updateMedicalConditionsDetails(MedicalConditionsDetailsDto dto) {
+	public void deleteLifestyleDetailsById(String lifestyleDetailsId) {
 
 		try {
-			if (null != dto) {
-				Optional<MedicalConditionsDetails> medicalConditionsDetails = medicalConditionsDetailsRepository
-						.findMedicalConditionsDetailsByMedicalConditionsDetailsId(dto.getMedicalConditionsDetailsId());
-				if (medicalConditionsDetails.isEmpty()) {
-					throw new UnderwritingException("404",
-							UnderwritingConstants.MEDICAL_CONDITIONS_DETAILS_ID_NOT_FOUND, HttpStatus.NOT_FOUND);
-				} else {
-					return underwritingMapper.medicalConditionsDetailsToMedicalConditionsDetailsDto(
-							medicalConditionsDetailsRepository.save(
-									underwritingMapper.medicalConditionsDetailsDtoToMedicalConditionsDetails(dto)));
-				}
-			}
-		} catch (UnderwritingException e) {
-			throw new UnderwritingException("400", UnderwritingConstants.BAD_REQUEST, HttpStatus.BAD_REQUEST);
-		}
 
-		return null;
-
-	}
-
-	/**
-	 * Business logics related to delete the records from the database
-	 */
-
-	public void deleteMemberDetailsById(Integer memberDetailsId) {
-
-		try {
-			if (null != memberDetailsId) {
-				Optional<MemberDetails> memberDetails = memberDetailsRepository
-						.findMemberDetailsByMemberId(memberDetailsId);
-				memberDetails.ifPresent(memberDetailsRepository::delete);
-			} else {
-				throw new UnderwritingException("404", UnderwritingConstants.MEMBER_DETAILS_ID_NOT_FOUND,
-						HttpStatus.NOT_FOUND);
-			}
-		} catch (UnderwritingException e) {
-			throw new UnderwritingException("400", UnderwritingConstants.BAD_REQUEST, HttpStatus.BAD_REQUEST);
-		}
-
-	}
-
-	public void deleteLifestyleDetailsById(Integer lifestyleDetailsId) {
-
-		try {
 			if (null != lifestyleDetailsId) {
 				Optional<LifestyleDetails> lifestyleDetails = lifestyleRepository
 						.findLifestyleDetailsByLifestyleDetailsId(lifestyleDetailsId);
 				lifestyleDetails.ifPresent(lifestyleRepository::delete);
-			} else {
-				throw new UnderwritingException("404", UnderwritingConstants.LAB_TESTS_ID_NOT_FOUND,
-						HttpStatus.NOT_FOUND);
 			}
+
 		} catch (UnderwritingException e) {
-			throw new UnderwritingException("400", UnderwritingConstants.BAD_REQUEST, HttpStatus.BAD_REQUEST);
+			throw new UnderwritingException("404", UnderwritingConstants.LAB_TESTS_ID_NOT_FOUND, HttpStatus.NOT_FOUND);
 		}
 
 	}
-
-	public void deleteMedicalConditionsById(Integer medicalConditionsDetailsId) {
-
-		try {
-			if (null != medicalConditionsDetailsId) {
-				Optional<MedicalConditionsDetails> medicalConditionsDetails = medicalConditionsDetailsRepository
-						.findMedicalConditionsDetailsByMedicalConditionsDetailsId(medicalConditionsDetailsId);
-				medicalConditionsDetails.ifPresent(medicalConditionsDetailsRepository::delete);
-			} else {
-				throw new UnderwritingException("404", UnderwritingConstants.MEDICAL_CONDITIONS_DETAILS_ID_NOT_FOUND,
-						HttpStatus.NOT_FOUND);
-			}
-		} catch (UnderwritingException e) {
-			throw new UnderwritingException("400", UnderwritingConstants.BAD_REQUEST, HttpStatus.BAD_REQUEST);
-		}
-
-	}
+	
+	/**
+	 * Business logics related to medical conditions
+	 */
+	
+	
 
 }

@@ -1,4 +1,4 @@
-package com.medical.underwriting.repository.member;
+package com.medical.underwriting.repository;
 
 import com.medical.underwriting.model.entity.member.MedicalConditionsDetails;
 import org.springframework.data.jpa.repository.JpaRepository;

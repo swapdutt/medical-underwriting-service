@@ -1,4 +1,4 @@
-package com.medical.underwriting.repository.proposal;
+package com.medical.underwriting.repository;
 
 import com.medical.underwriting.model.entity.proposal.ProposerDetails;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -9,9 +9,10 @@ import com.medical.underwriting.model.dto.proposal.ProposerDetailsDto;
 import com.medical.underwriting.model.entity.proposal.PaymentDetails;
 import com.medical.underwriting.model.entity.proposal.ProposalDetails;
 import com.medical.underwriting.model.entity.proposal.ProposerDetails;
-import com.medical.underwriting.repository.proposal.PaymentDetailsRepository;
-import com.medical.underwriting.repository.proposal.ProposalDetailsRepository;
-import com.medical.underwriting.repository.proposal.ProposerDetailsRepository;
+import com.medical.underwriting.repository.PaymentDetailsRepository;
+import com.medical.underwriting.repository.ProposalDetailsRepository;
+import com.medical.underwriting.repository.ProposerDetailsRepository;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

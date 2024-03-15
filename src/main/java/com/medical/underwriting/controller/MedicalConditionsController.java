@@ -165,7 +165,7 @@ public class MedicalConditionsController {
 	}
 
 	@PutMapping(value = "/updatePersonalMedicalConditions", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	@Operation(summary = "Update the record of disease questionnaire")
+	@Operation(summary = "Update the record of personal medical conditions")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "OK : personal medical conditions record updated successfully"),
 			@ApiResponse(responseCode = "404", description = "NOT_FOUND : personal medical conditions record not found successfully"),

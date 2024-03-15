@@ -9,8 +9,8 @@ import com.medical.underwriting.constants.UnderwritingConstants;
 import com.medical.underwriting.exception.UnderwritingException;
 import com.medical.underwriting.mapper.UnderwritingMapper;
 import com.medical.underwriting.model.entity.member.LifestyleDetails;
-import com.medical.underwriting.payloads.request.CreateLifestyleDetailsRequestPayload;
-import com.medical.underwriting.payloads.request.UpdateLifestyleDetailsRequestPayload;
+import com.medical.underwriting.payloads.request.create.CreateLifestyleDetailsRequestPayload;
+import com.medical.underwriting.payloads.request.update.UpdateLifestyleDetailsRequestPayload;
 import com.medical.underwriting.payloads.response.LifestyleDetailsResponse;
 import com.medical.underwriting.repository.LifestyleRepository;
 

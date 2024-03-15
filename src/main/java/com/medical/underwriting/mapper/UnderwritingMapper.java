@@ -3,9 +3,6 @@ package com.medical.underwriting.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import com.medical.underwriting.model.dto.medical.DiseaseQuestionnaireDto;
-import com.medical.underwriting.model.dto.medical.LabTestsDto;
-import com.medical.underwriting.model.dto.medical.PersonalMedicalConditionsDto;
 import com.medical.underwriting.model.dto.proposal.PaymentDetailsDto;
 import com.medical.underwriting.model.dto.proposal.ProposalDetailsDto;
 import com.medical.underwriting.model.dto.proposal.ProposerDetailsDto;
@@ -16,8 +13,14 @@ import com.medical.underwriting.model.entity.member.LifestyleDetails;
 import com.medical.underwriting.model.entity.proposal.PaymentDetails;
 import com.medical.underwriting.model.entity.proposal.ProposalDetails;
 import com.medical.underwriting.model.entity.proposal.ProposerDetails;
-import com.medical.underwriting.payloads.request.CreateLifestyleDetailsRequestPayload;
-import com.medical.underwriting.payloads.request.UpdateLifestyleDetailsRequestPayload;
+import com.medical.underwriting.payloads.request.create.CreateDiseaseQuestionnaireRequestPayload;
+import com.medical.underwriting.payloads.request.create.CreateLabTestsPayload;
+import com.medical.underwriting.payloads.request.create.CreateLifestyleDetailsRequestPayload;
+import com.medical.underwriting.payloads.request.create.CreatePersonalMedicalConditionsRequestPayload;
+import com.medical.underwriting.payloads.request.update.UpdateDiseaseQuestionnaireRequestPayload;
+import com.medical.underwriting.payloads.request.update.UpdateLabTestsPayload;
+import com.medical.underwriting.payloads.request.update.UpdateLifestyleDetailsRequestPayload;
+import com.medical.underwriting.payloads.request.update.UpdatePersonalMedicalConditionsRequestPayload;
 
 @Mapper
 public interface UnderwritingMapper {
@@ -44,27 +47,6 @@ public interface UnderwritingMapper {
 	PaymentDetailsDto paymentDetailsToPaymentDetailsDto(PaymentDetails paymentDetails);
 
 	/**
-	 * Medical related java beans mappings
-	 */
-
-	@Mapping(target = "diseaseQuestionnaireId", ignore = true)
-	DiseaseQuestionnaire diseaseQuestionnaireDtoToDiseaseQuestionnaire(DiseaseQuestionnaireDto diseaseQuestionnaireDto);
-
-	DiseaseQuestionnaireDto diseaseQuestionnaireToDiseaseQuestionnaireDto(DiseaseQuestionnaire diseaseQuestionnaire);
-
-	@Mapping(target = "labTestsId", ignore = true)
-	LabTests labTestsDtoToLabTests(LabTestsDto labTestsDto);
-
-	LabTestsDto labTestsToLabTestsDto(LabTests labTests);
-
-	@Mapping(target = "personalMedicalConditionsId", ignore = true)
-	PersonalMedicalConditions personalMedicalConditionsDtoToPersonalMedicalConditions(
-			PersonalMedicalConditionsDto personalMedicalConditionsDto);
-
-	PersonalMedicalConditionsDto personalMedicalConditionsToPersonalMedicalConditionsDto(
-			PersonalMedicalConditions personalMedicalConditions);
-
-	/**
 	 * Member related java bean mappings
 	 */
 
@@ -74,5 +56,32 @@ public interface UnderwritingMapper {
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "lifestyleDetailsId", ignore = true)
 	LifestyleDetails updatePayloadToLifestyleDetails(UpdateLifestyleDetailsRequestPayload payload);
+
+	/**
+	 * Medical related java bean mappings
+	 */
+
+	@Mapping(target = "id", ignore = true)
+	DiseaseQuestionnaire createPayloadToDiseaseQuestionnaire(CreateDiseaseQuestionnaireRequestPayload payload);
+
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "diseaseQuestionnaireId", ignore = true)
+	DiseaseQuestionnaire updatePayloadToDiseaseQuestionnaire(UpdateDiseaseQuestionnaireRequestPayload payload);
+
+	@Mapping(target = "id", ignore = true)
+	LabTests createPayloadToLabTests(CreateLabTestsPayload payload);
+
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "labTestsId", ignore = true)
+	LabTests updatePayloadToLabTests(UpdateLabTestsPayload payload);
+
+	@Mapping(target = "id", ignore = true)
+	PersonalMedicalConditions createPayloadToPersonalMedicalConditions(
+			CreatePersonalMedicalConditionsRequestPayload payload);
+
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "personalMedicalConditionsId", ignore = true)
+	PersonalMedicalConditions updatePayloadToPersonalMedicalConditions(
+			UpdatePersonalMedicalConditionsRequestPayload payload);
 
 }

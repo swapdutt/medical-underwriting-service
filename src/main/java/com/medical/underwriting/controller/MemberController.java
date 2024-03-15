@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.medical.underwriting.payloads.request.CreateLifestyleDetailsRequestPayload;
-import com.medical.underwriting.payloads.request.UpdateLifestyleDetailsRequestPayload;
+import com.medical.underwriting.payloads.request.create.CreateLifestyleDetailsRequestPayload;
+import com.medical.underwriting.payloads.request.update.UpdateLifestyleDetailsRequestPayload;
 import com.medical.underwriting.payloads.response.LifestyleDetailsResponse;
 import com.medical.underwriting.service.MemberDetailsService;
 

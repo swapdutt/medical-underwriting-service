@@ -1,9 +1,29 @@
 package com.medical.underwriting.controller;
 
-import com.medical.underwriting.model.dto.medical.DiseaseQuestionnaireDto;
-import com.medical.underwriting.model.dto.medical.LabTestsDto;
-import com.medical.underwriting.model.dto.medical.PersonalMedicalConditionsDto;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.medical.underwriting.payloads.request.create.CreateDiseaseQuestionnaireRequestPayload;
+import com.medical.underwriting.payloads.request.create.CreateLabTestsPayload;
+import com.medical.underwriting.payloads.request.create.CreatePersonalMedicalConditionsRequestPayload;
+import com.medical.underwriting.payloads.request.update.UpdateDiseaseQuestionnaireRequestPayload;
+import com.medical.underwriting.payloads.request.update.UpdateLabTestsPayload;
+import com.medical.underwriting.payloads.request.update.UpdatePersonalMedicalConditionsRequestPayload;
+import com.medical.underwriting.payloads.response.DiseaseQuestionnaireResponse;
+import com.medical.underwriting.payloads.response.LabTestsResponse;
+import com.medical.underwriting.payloads.response.PersonalMedicalConditionsResponse;
 import com.medical.underwriting.service.MedicalConditionsService;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -11,10 +31,6 @@ import jakarta.annotation.Nullable;
 import jakarta.validation.Valid;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,35 +39,18 @@ public class MedicalConditionsController {
 
 	private final MedicalConditionsService medicalConditionsService;
 
+	/**
+	 * API endpoints for Disease Questionnaire
+	 */
+
 	@GetMapping(value = "/findDiseaseQuestionnaireById/{diseaseQuestionnaireId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@Operation(summary = "Get the record of disease questionnaire by disease questionnaire id")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "OK : disease questionnaire record successfully found"),
 			@ApiResponse(responseCode = "404", description = "NOT_FOUND : disease questionnaire record not found successfully") })
-	public ResponseEntity<DiseaseQuestionnaireDto> findDiseaseQuestionnaireById(
-			@RequestParam(value = "diseaseQuestionnaireId", required = false) @PathVariable("diseaseQuestionnaireId") @Nullable final Integer diseaseQuestionnaireId) {
+	public ResponseEntity<DiseaseQuestionnaireResponse> findDiseaseQuestionnaireById(
+			@RequestParam(value = "diseaseQuestionnaireId", required = false) @PathVariable("diseaseQuestionnaireId") @Nullable final String diseaseQuestionnaireId) {
 		return ResponseEntity.ok(medicalConditionsService.findDiseaseQuestionnaireById(diseaseQuestionnaireId));
-	}
-
-	@GetMapping(value = "/findLabTestsById/{labTestsId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	@Operation(summary = "Get the record of lab tests by lab tests id")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "OK : lab tests record successfully found"),
-			@ApiResponse(responseCode = "404", description = "NOT_FOUND : lab tests record not found successfully") })
-	public ResponseEntity<LabTestsDto> findLabTestsById(
-			@RequestParam(value = "labTestsId", required = false) @PathVariable("labTestsId") @Nullable final Integer labTestsId) {
-		return ResponseEntity.ok(medicalConditionsService.findLabTestsById(labTestsId));
-	}
-
-	@GetMapping(value = "/findPersonalMedicalConditionsById/{personalMedicalConditionsId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	@Operation(summary = "Get the record of personal medical conditions by personal medical conditions id")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "OK : personal medical conditions record successfully found"),
-			@ApiResponse(responseCode = "404", description = "NOT_FOUND : personal medical conditions record not found successfully") })
-	public ResponseEntity<PersonalMedicalConditionsDto> findPersonalMedicalConditionsById(
-			@RequestParam(value = "personalMedicalConditionsId", required = false) @PathVariable("personalMedicalConditionsId") @Nullable final Integer personalMedicalConditionsId) {
-		return ResponseEntity
-				.ok(medicalConditionsService.findPersonalMedicalConditionsById(personalMedicalConditionsId));
 	}
 
 	@PostMapping(value = "/createDiseaseQuestionnaire", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -60,33 +59,9 @@ public class MedicalConditionsController {
 			@ApiResponse(responseCode = "201", description = "CREATED : disease questionnaire record successfully created"),
 			@ApiResponse(responseCode = "409", description = "CONFLICT : disease questionnaire record not created successfully"),
 			@ApiResponse(responseCode = "400", description = "BAD_REQUEST : disease questionnaire record not created successfully") })
-	public ResponseEntity<DiseaseQuestionnaireDto> createDiseaseQuestionnaire(
-			@RequestBody @Valid @NonNull final DiseaseQuestionnaireDto diseaseQuestionnaireDto) {
-		return new ResponseEntity<>(medicalConditionsService.createDiseaseQuestionnaire(diseaseQuestionnaireDto),
-				HttpStatus.CREATED);
-	}
-
-	@PostMapping(value = "/createLabTests", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	@Operation(summary = "Create the record of lab tests")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "201", description = "CREATED : lab tests record successfully created"),
-			@ApiResponse(responseCode = "409", description = "CONFLICT : lab tests record not created successfully"),
-			@ApiResponse(responseCode = "400", description = "BAD_REQUEST : lab tests record not created successfully") })
-	public ResponseEntity<LabTestsDto> createLabTests(@RequestBody @Valid @NonNull final LabTestsDto labTestsDto) {
-		return new ResponseEntity<>(medicalConditionsService.createLabTests(labTestsDto), HttpStatus.CREATED);
-	}
-
-	@PostMapping(value = "/createPersonalMedicalConditions", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	@Operation(summary = "Create the record of personal medical conditions")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "201", description = "CREATED : personal medical conditions record successfully created"),
-			@ApiResponse(responseCode = "409", description = "CONFLICT : personal medical conditions record not created successfully"),
-			@ApiResponse(responseCode = "400", description = "BAD_REQUEST : personal medical conditions record not created successfully") })
-	public ResponseEntity<PersonalMedicalConditionsDto> createPersonalMedicalConditions(
-			@RequestBody @Valid @NonNull final PersonalMedicalConditionsDto personalMedicalConditionsDto) {
-		return new ResponseEntity<>(
-				medicalConditionsService.createPersonalMedicalConditions(personalMedicalConditionsDto),
-				HttpStatus.CREATED);
+	public ResponseEntity<DiseaseQuestionnaireResponse> createDiseaseQuestionnaire(
+			@RequestBody @Valid @NonNull final CreateDiseaseQuestionnaireRequestPayload payload) {
+		return new ResponseEntity<>(medicalConditionsService.createDiseaseQuestionnaire(payload), HttpStatus.CREATED);
 	}
 
 	@PutMapping(value = "/updateDiseaseQuestionnaire", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -95,31 +70,10 @@ public class MedicalConditionsController {
 			@ApiResponse(responseCode = "200", description = "OK : disease questionnaire record updated successfully"),
 			@ApiResponse(responseCode = "404", description = "NOT_FOUND : disease questionnaire record not found successfully"),
 			@ApiResponse(responseCode = "400", description = "BAD_REQUEST : disease questionnaire record not updated successfully") })
-	public ResponseEntity<DiseaseQuestionnaireDto> updateDiseaseQuestionnaire(
-			@RequestBody @Valid @NonNull final DiseaseQuestionnaireDto diseaseQuestionnaireDto) {
-		return ResponseEntity.ok(medicalConditionsService.updateDiseaseQuestionnaire(diseaseQuestionnaireDto));
-	}
-
-	@PutMapping(value = "/updateLabTests", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	@Operation(summary = "Update the record of lab tests")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "OK : lab tests record updated successfully"),
-			@ApiResponse(responseCode = "404", description = "NOT_FOUND : lab tests record not found successfully"),
-			@ApiResponse(responseCode = "400", description = "BAD_REQUEST : lab tests record not updated successfully") })
-	public ResponseEntity<LabTestsDto> updateLabTests(@RequestBody @Valid @NonNull final LabTestsDto labTestsDto) {
-		return ResponseEntity.ok(medicalConditionsService.updateLabTests(labTestsDto));
-	}
-
-	@PutMapping(value = "/updatePersonalMedicalConditions", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	@Operation(summary = "Update the record of disease questionnaire")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "OK : personal medical conditions record updated successfully"),
-			@ApiResponse(responseCode = "404", description = "NOT_FOUND : personal medical conditions record not found successfully"),
-			@ApiResponse(responseCode = "400", description = "BAD_REQUEST : personal medical conditions record not updated successfully") })
-	public ResponseEntity<PersonalMedicalConditionsDto> updatePersonalMedicalConditions(
-			@RequestBody @Valid @NonNull final PersonalMedicalConditionsDto personalMedicalConditionsDto) {
-		return ResponseEntity
-				.ok(medicalConditionsService.updatePersonalMedicalConditions(personalMedicalConditionsDto));
+	public ResponseEntity<DiseaseQuestionnaireResponse> updateDiseaseQuestionnaire(
+			@RequestParam(value = "diseaseQuestionnaireId", required = false) @PathVariable("diseaseQuestionnaireId") @Nullable final String diseaseQuestionnaireId,
+			@RequestBody @Valid @NonNull final UpdateDiseaseQuestionnaireRequestPayload payload) {
+		return ResponseEntity.ok(medicalConditionsService.updateDiseaseQuestionnaire(diseaseQuestionnaireId, payload));
 	}
 
 	@DeleteMapping(value = "/deleteDiseaseQuestionnaireById/{diseaseQuestionnaireId}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -129,9 +83,46 @@ public class MedicalConditionsController {
 			@ApiResponse(responseCode = "404", description = "NOT_FOUND : disease questionnaire record not found successfully"),
 			@ApiResponse(responseCode = "400", description = "BAD_REQUEST : disease questionnaire record not deleted successfully") })
 	public ResponseEntity<?> deleteDiseaseQuestionnaireById(
-			@RequestParam(value = "diseaseQuestionnaireId", required = false) @PathVariable("diseaseQuestionnaireId") @Nullable final Integer diseaseQuestionnaireId) {
+			@RequestParam(value = "diseaseQuestionnaireId", required = false) @PathVariable("diseaseQuestionnaireId") @Nullable final String diseaseQuestionnaireId) {
 		medicalConditionsService.deleteDiseaseQuestionnaireById(diseaseQuestionnaireId);
 		return ResponseEntity.ok(Boolean.TRUE);
+	}
+
+	/**
+	 * API endpoints for Lab Tests
+	 */
+
+	@GetMapping(value = "/findLabTestsById/{labTestsId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@Operation(summary = "Get the record of lab tests by lab tests id")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "OK : lab tests record successfully found"),
+			@ApiResponse(responseCode = "404", description = "NOT_FOUND : lab tests record not found successfully") })
+	public ResponseEntity<LabTestsResponse> findLabTestsById(
+			@RequestParam(value = "labTestsId", required = false) @PathVariable("labTestsId") @Nullable final String labTestsId) {
+		return ResponseEntity.ok(medicalConditionsService.findLabTestsById(labTestsId));
+	}
+
+	@PostMapping(value = "/createLabTests", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Operation(summary = "Create the record of lab tests")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "201", description = "CREATED : lab tests record successfully created"),
+			@ApiResponse(responseCode = "409", description = "CONFLICT : lab tests record not created successfully"),
+			@ApiResponse(responseCode = "400", description = "BAD_REQUEST : lab tests record not created successfully") })
+	public ResponseEntity<LabTestsResponse> createLabTests(
+			@RequestBody @Valid @NonNull final CreateLabTestsPayload payload) {
+		return new ResponseEntity<>(medicalConditionsService.createLabTests(payload), HttpStatus.CREATED);
+	}
+
+	@PutMapping(value = "/updateLabTests", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Operation(summary = "Update the record of lab tests")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "OK : lab tests record updated successfully"),
+			@ApiResponse(responseCode = "404", description = "NOT_FOUND : lab tests record not found successfully"),
+			@ApiResponse(responseCode = "400", description = "BAD_REQUEST : lab tests record not updated successfully") })
+	public ResponseEntity<LabTestsResponse> updateLabTests(
+			@RequestParam(value = "labTestsId", required = false) @PathVariable("labTestsId") @Nullable final String labTestsId,
+			@RequestBody @Valid @NonNull final UpdateLabTestsPayload payload) {
+		return ResponseEntity.ok(medicalConditionsService.updateLabTests(labTestsId, payload));
 	}
 
 	@DeleteMapping(value = "/deleteLabTestsById/{labTestsId}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -141,9 +132,49 @@ public class MedicalConditionsController {
 			@ApiResponse(responseCode = "404", description = "NOT_FOUND : lab tests record not found successfully"),
 			@ApiResponse(responseCode = "400", description = "BAD_REQUEST : lab tests record not deleted successfully") })
 	public ResponseEntity<?> deleteLabTestsById(
-			@RequestParam(value = "labTestsId", required = false) @PathVariable("labTestsId") @Nullable final Integer labTestsId) {
+			@RequestParam(value = "labTestsId", required = false) @PathVariable("labTestsId") @Nullable final String labTestsId) {
 		medicalConditionsService.deleteLabTestsById(labTestsId);
 		return ResponseEntity.ok(Boolean.TRUE);
+	}
+
+	/**
+	 * API endpoints for Personal Medical Conditions
+	 */
+
+	@GetMapping(value = "/findPersonalMedicalConditionsById/{personalMedicalConditionsId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@Operation(summary = "Get the record of personal medical conditions by personal medical conditions id")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "OK : personal medical conditions record successfully found"),
+			@ApiResponse(responseCode = "404", description = "NOT_FOUND : personal medical conditions record not found successfully") })
+	public ResponseEntity<PersonalMedicalConditionsResponse> findPersonalMedicalConditionsById(
+			@RequestParam(value = "personalMedicalConditionsId", required = false) @PathVariable("personalMedicalConditionsId") @Nullable final String personalMedicalConditionsId) {
+		return ResponseEntity
+				.ok(medicalConditionsService.findPersonalMedicalConditionsById(personalMedicalConditionsId));
+	}
+
+	@PostMapping(value = "/createPersonalMedicalConditions", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Operation(summary = "Create the record of personal medical conditions")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "201", description = "CREATED : personal medical conditions record successfully created"),
+			@ApiResponse(responseCode = "409", description = "CONFLICT : personal medical conditions record not created successfully"),
+			@ApiResponse(responseCode = "400", description = "BAD_REQUEST : personal medical conditions record not created successfully") })
+	public ResponseEntity<PersonalMedicalConditionsResponse> createPersonalMedicalConditions(
+			@RequestBody @Valid @NonNull final CreatePersonalMedicalConditionsRequestPayload payload) {
+		return new ResponseEntity<>(medicalConditionsService.createPersonalMedicalConditions(payload),
+				HttpStatus.CREATED);
+	}
+
+	@PutMapping(value = "/updatePersonalMedicalConditions", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Operation(summary = "Update the record of disease questionnaire")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "OK : personal medical conditions record updated successfully"),
+			@ApiResponse(responseCode = "404", description = "NOT_FOUND : personal medical conditions record not found successfully"),
+			@ApiResponse(responseCode = "400", description = "BAD_REQUEST : personal medical conditions record not updated successfully") })
+	public ResponseEntity<PersonalMedicalConditionsResponse> updatePersonalMedicalConditions(
+			@RequestParam(value = "personalMedicalConditionsId", required = false) @PathVariable("personalMedicalConditionsId") @Nullable final String personalMedicalConditionsId,
+			@RequestBody @Valid @NonNull final UpdatePersonalMedicalConditionsRequestPayload payload) {
+		return ResponseEntity
+				.ok(medicalConditionsService.updatePersonalMedicalConditions(personalMedicalConditionsId, payload));
 	}
 
 	@DeleteMapping(value = "/deletePersonalMedicalConditionsById/{personalMedicalConditionsId}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -153,7 +184,7 @@ public class MedicalConditionsController {
 			@ApiResponse(responseCode = "404", description = "NOT_FOUND : personal medical conditions record not found successfully"),
 			@ApiResponse(responseCode = "400", description = "BAD_REQUEST : personal medical conditions record not deleted successfully") })
 	public ResponseEntity<?> deletePersonalMedicalConditionsById(
-			@RequestParam(value = "personalMedicalConditionsId", required = false) @PathVariable("personalMedicalConditionsId") @Nullable final Integer personalMedicalConditionsId) {
+			@RequestParam(value = "personalMedicalConditionsId", required = false) @PathVariable("personalMedicalConditionsId") @Nullable final String personalMedicalConditionsId) {
 		medicalConditionsService.deletePersonalMedicalConditionsById(personalMedicalConditionsId);
 		return ResponseEntity.ok(Boolean.TRUE);
 	}

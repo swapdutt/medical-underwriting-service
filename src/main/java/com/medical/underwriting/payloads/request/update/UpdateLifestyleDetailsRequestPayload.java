@@ -1,4 +1,4 @@
-package com.medical.underwriting.payloads.request;
+package com.medical.underwriting.payloads.request.update;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;

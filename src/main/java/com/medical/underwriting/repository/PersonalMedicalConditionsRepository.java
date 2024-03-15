@@ -7,9 +7,9 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface PersonalMedicalConditionsRepository extends JpaRepository<PersonalMedicalConditions, Integer> {
+public interface PersonalMedicalConditionsRepository extends JpaRepository<PersonalMedicalConditions, String> {
 
 	Optional<PersonalMedicalConditions> findPersonalMedicalConditionsByPersonalMedicalConditionsId(
-			Integer personalMedicalConditionsId);
+			String personalMedicalConditionsId);
 
 }

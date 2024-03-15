@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface LabTestsRepository extends JpaRepository<LabTests, Integer> {
+public interface LabTestsRepository extends JpaRepository<LabTests, String> {
 
-	Optional<LabTests> findLabTestsByLabTestsId(Integer labTestsId);
+	Optional<LabTests> findLabTestsByLabTestsId(String labTestsId);
 
 }

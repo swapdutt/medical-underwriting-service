@@ -1,11 +1,23 @@
 package com.medical.underwriting.model.entity.medical;
 
-import jakarta.persistence.*;
-import lombok.*;
-import lombok.experimental.FieldDefaults;
+import java.time.LocalDate;
+
 import org.springframework.data.annotation.LastModifiedDate;
 
-import java.time.LocalDate;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.FieldDefaults;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,7 +32,8 @@ public class PersonalMedicalConditions {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	Integer personalMedicalConditionsId;
+	String id;
+	String personalMedicalConditionsId;
 	@OneToOne
 	DiseaseQuestionnaire diseaseQuestionnaire;
 	String nameOfDisease;

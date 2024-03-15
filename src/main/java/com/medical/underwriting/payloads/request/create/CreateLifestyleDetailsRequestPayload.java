@@ -1,4 +1,4 @@
-package com.medical.underwriting.payloads.request;
+package com.medical.underwriting.payloads.request.create;
 
 import java.util.UUID;
 

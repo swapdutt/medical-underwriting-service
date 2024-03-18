@@ -12,10 +12,10 @@ import com.medical.underwriting.model.entity.medical.DiseaseQuestionnaire;
 import com.medical.underwriting.model.entity.medical.LabTests;
 import com.medical.underwriting.model.entity.medical.PersonalMedicalConditions;
 import com.medical.underwriting.payloads.request.create.CreateDiseaseQuestionnaireRequestPayload;
-import com.medical.underwriting.payloads.request.create.CreateLabTestsPayload;
+import com.medical.underwriting.payloads.request.create.CreateLabTestsRequestPayload;
 import com.medical.underwriting.payloads.request.create.CreatePersonalMedicalConditionsRequestPayload;
 import com.medical.underwriting.payloads.request.update.UpdateDiseaseQuestionnaireRequestPayload;
-import com.medical.underwriting.payloads.request.update.UpdateLabTestsPayload;
+import com.medical.underwriting.payloads.request.update.UpdateLabTestsRequestPayload;
 import com.medical.underwriting.payloads.request.update.UpdatePersonalMedicalConditionsRequestPayload;
 import com.medical.underwriting.payloads.response.DiseaseQuestionnaireResponse;
 import com.medical.underwriting.payloads.response.LabTestsResponse;
@@ -23,6 +23,7 @@ import com.medical.underwriting.payloads.response.PersonalMedicalConditionsRespo
 import com.medical.underwriting.repository.DiseaseQuestionnaireRepository;
 import com.medical.underwriting.repository.LabTestsRepository;
 import com.medical.underwriting.repository.PersonalMedicalConditionsRepository;
+import com.medical.underwriting.utility.UnderwritingUtility;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +37,7 @@ public class MedicalConditionsService {
 	private final DiseaseQuestionnaireRepository diseaseQuestionnaireRepository;
 	private final LabTestsRepository labTestsRepository;
 	private final PersonalMedicalConditionsRepository personalMedicalConditionsRepository;
+	private final UnderwritingUtility underwritingUtility;
 
 	/**
 	 * Business logics related to find the records from the databases
@@ -278,7 +280,7 @@ public class MedicalConditionsService {
 
 	}
 
-	public LabTestsResponse createLabTests(CreateLabTestsPayload payload) {
+	public LabTestsResponse createLabTests(CreateLabTestsRequestPayload payload) {
 
 		try {
 
@@ -405,7 +407,7 @@ public class MedicalConditionsService {
 
 	}
 
-	public LabTestsResponse updateLabTests(String labTestsId, UpdateLabTestsPayload payload) {
+	public LabTestsResponse updateLabTests(String labTestsId, UpdateLabTestsRequestPayload payload) {
 
 		try {
 
@@ -753,8 +755,8 @@ public class MedicalConditionsService {
 
 					return PersonalMedicalConditionsResponse.builder()
 							.personalMedicalConditionsId(medicalConditions.getPersonalMedicalConditionsId())
-							.diseaseQuestionnaire(
-									diseaseQuestionnaireEntityToResponse(medicalConditions.getDiseaseQuestionnaire()))
+							.diseaseQuestionnaire(underwritingUtility
+									.diseaseQuestionnaireEntityToResponse(medicalConditions.getDiseaseQuestionnaire()))
 							.nameOfDisease(medicalConditions.getNameOfDisease())
 							.typeOfDisease(medicalConditions.getTypeOfDisease())
 							.typeOfTreatment(medicalConditions.getTypeOfTreatment())
@@ -793,8 +795,8 @@ public class MedicalConditionsService {
 
 				if (medicalConditions.isPresent()) {
 
-					medicalConditions.get()
-							.setDiseaseQuestionnaire(diseaseQuestionnaireResponseToEntity(updateDiseaseQuestionnaire(
+					medicalConditions.get().setDiseaseQuestionnaire(
+							underwritingUtility.diseaseQuestionnaireResponseToEntity(updateDiseaseQuestionnaire(
 									medicalConditions.get().getDiseaseQuestionnaire().getDiseaseQuestionnaireId(),
 									payload.getDiseaseQuestionnaire())));
 					medicalConditions.get().setNameOfDisease(payload.getNameOfDisease());
@@ -849,74 +851,6 @@ public class MedicalConditionsService {
 			throw new UnderwritingException("404", UnderwritingConstants.PERSONAL_MEDICAL_CONDITIONS_ID_NOT_FOUND,
 					HttpStatus.NOT_FOUND);
 		}
-
-	}
-
-	/**
-	 * Utility methods
-	 */
-
-	private DiseaseQuestionnaireResponse diseaseQuestionnaireEntityToResponse(DiseaseQuestionnaire questionnaire) {
-
-		DiseaseQuestionnaireResponse response = new DiseaseQuestionnaireResponse();
-
-		if (!questionnaire.getId().isBlank() || !questionnaire.getDiseaseQuestionnaireId().isBlank()
-				|| !questionnaire.getQuestion1().isBlank() || !questionnaire.getQuestion2().isBlank()
-				|| !questionnaire.getQuestion3().isBlank() || !questionnaire.getQuestion4().isBlank()
-				|| !questionnaire.getQuestion5().isBlank() || !questionnaire.getQuestion6().isBlank()
-				|| !questionnaire.getQuestion7().isBlank() || !questionnaire.getQuestion8().isBlank()
-				|| !questionnaire.getQuestion9().isBlank() || !questionnaire.getQuestion10().isBlank()
-				|| !questionnaire.getQuestion11().isBlank() || !questionnaire.getQuestion12().isBlank()) {
-
-			response.setDiseaseQuestionnaireId(questionnaire.getDiseaseQuestionnaireId());
-			response.setQuestion1(questionnaire.getQuestion1());
-			response.setQuestion2(questionnaire.getQuestion2());
-			response.setQuestion3(questionnaire.getQuestion3());
-			response.setQuestion4(questionnaire.getQuestion4());
-			response.setQuestion5(questionnaire.getQuestion5());
-			response.setQuestion6(questionnaire.getQuestion6());
-			response.setQuestion7(questionnaire.getQuestion7());
-			response.setQuestion8(questionnaire.getQuestion8());
-			response.setQuestion9(questionnaire.getQuestion9());
-			response.setQuestion10(questionnaire.getQuestion10());
-			response.setQuestion11(questionnaire.getQuestion11());
-			response.setQuestion12(questionnaire.getQuestion12());
-
-		}
-
-		return response;
-
-	}
-
-	private DiseaseQuestionnaire diseaseQuestionnaireResponseToEntity(DiseaseQuestionnaireResponse response) {
-
-		DiseaseQuestionnaire questionnaire = new DiseaseQuestionnaire();
-
-		if (!response.getDiseaseQuestionnaireId().isBlank() || !response.getQuestion1().isBlank()
-				|| !response.getQuestion2().isBlank() || !response.getQuestion3().isBlank()
-				|| !response.getQuestion4().isBlank() || !response.getQuestion5().isBlank()
-				|| !response.getQuestion6().isBlank() || !response.getQuestion7().isBlank()
-				|| !response.getQuestion8().isBlank() || !response.getQuestion9().isBlank()
-				|| !response.getQuestion10().isBlank() || !response.getQuestion11().isBlank()
-				|| !response.getQuestion12().isBlank()) {
-
-			questionnaire.setDiseaseQuestionnaireId(response.getDiseaseQuestionnaireId());
-			questionnaire.setQuestion1(response.getQuestion1());
-			questionnaire.setQuestion2(response.getQuestion2());
-			questionnaire.setQuestion3(response.getQuestion3());
-			questionnaire.setQuestion4(response.getQuestion4());
-			questionnaire.setQuestion5(response.getQuestion5());
-			questionnaire.setQuestion6(response.getQuestion6());
-			questionnaire.setQuestion7(response.getQuestion7());
-			questionnaire.setQuestion8(response.getQuestion8());
-			questionnaire.setQuestion9(response.getQuestion9());
-			questionnaire.setQuestion10(response.getQuestion10());
-			questionnaire.setQuestion11(response.getQuestion11());
-			questionnaire.setQuestion12(response.getQuestion12());
-
-		}
-
-		return questionnaire;
 
 	}
 

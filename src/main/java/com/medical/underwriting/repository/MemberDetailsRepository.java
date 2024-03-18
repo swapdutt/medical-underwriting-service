@@ -1,16 +1,15 @@
 package com.medical.underwriting.repository;
 
-import com.medical.underwriting.model.entity.member.MemberDetails;
-import org.springframework.data.jpa.repository.JpaRepository;
-// import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
-
 import java.util.Optional;
 
-@Repository
-public interface MemberDetailsRepository extends JpaRepository<MemberDetails, Integer> {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-	// @Query(value = "select m from MemberDetails where m.memberDetailsId")
-	Optional<MemberDetails> findMemberDetailsByMemberId(Integer memberDetailsId);
+import com.medical.underwriting.model.entity.member.MemberDetails;
+
+@Repository
+public interface MemberDetailsRepository extends JpaRepository<MemberDetails, String> {
+
+	Optional<MemberDetails> findMemberDetailsByMemberId(String memberDetailsId);
 
 }

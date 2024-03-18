@@ -11,7 +11,7 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-public class CreateLabTestsPayload {
+public class CreateLabTestsRequestPayload {
 
 	@Builder.Default
 	String labTestsId = UUID.randomUUID().toString();

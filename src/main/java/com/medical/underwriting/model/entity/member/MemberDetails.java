@@ -19,7 +19,8 @@ public class MemberDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	Integer memberId;
+	String id;
+	String memberId;
 	String firstName;
 	String middleName;
 	String lastName;

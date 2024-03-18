@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.medical.underwriting.payloads.request.create.CreateDiseaseQuestionnaireRequestPayload;
-import com.medical.underwriting.payloads.request.create.CreateLabTestsPayload;
+import com.medical.underwriting.payloads.request.create.CreateLabTestsRequestPayload;
 import com.medical.underwriting.payloads.request.create.CreatePersonalMedicalConditionsRequestPayload;
 import com.medical.underwriting.payloads.request.update.UpdateDiseaseQuestionnaireRequestPayload;
-import com.medical.underwriting.payloads.request.update.UpdateLabTestsPayload;
+import com.medical.underwriting.payloads.request.update.UpdateLabTestsRequestPayload;
 import com.medical.underwriting.payloads.request.update.UpdatePersonalMedicalConditionsRequestPayload;
 import com.medical.underwriting.payloads.response.DiseaseQuestionnaireResponse;
 import com.medical.underwriting.payloads.response.LabTestsResponse;
@@ -109,7 +109,7 @@ public class MedicalConditionsController {
 			@ApiResponse(responseCode = "409", description = "CONFLICT : lab tests record not created successfully"),
 			@ApiResponse(responseCode = "400", description = "BAD_REQUEST : lab tests record not created successfully") })
 	public ResponseEntity<LabTestsResponse> createLabTests(
-			@RequestBody @Valid @NonNull final CreateLabTestsPayload payload) {
+			@RequestBody @Valid @NonNull final CreateLabTestsRequestPayload payload) {
 		return new ResponseEntity<>(medicalConditionsService.createLabTests(payload), HttpStatus.CREATED);
 	}
 
@@ -121,7 +121,7 @@ public class MedicalConditionsController {
 			@ApiResponse(responseCode = "400", description = "BAD_REQUEST : lab tests record not updated successfully") })
 	public ResponseEntity<LabTestsResponse> updateLabTests(
 			@RequestParam(value = "labTestsId", required = false) @PathVariable("labTestsId") @Nullable final String labTestsId,
-			@RequestBody @Valid @NonNull final UpdateLabTestsPayload payload) {
+			@RequestBody @Valid @NonNull final UpdateLabTestsRequestPayload payload) {
 		return ResponseEntity.ok(medicalConditionsService.updateLabTests(labTestsId, payload));
 	}
 

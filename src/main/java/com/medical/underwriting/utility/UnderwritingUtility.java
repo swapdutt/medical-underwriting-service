@@ -9,11 +9,17 @@ import org.springframework.stereotype.Component;
 import com.medical.underwriting.model.entity.medical.DiseaseQuestionnaire;
 import com.medical.underwriting.model.entity.medical.LabTests;
 import com.medical.underwriting.model.entity.medical.PersonalMedicalConditions;
+import com.medical.underwriting.model.entity.member.LifestyleDetails;
+import com.medical.underwriting.model.entity.member.MedicalConditionsDetails;
 import com.medical.underwriting.payloads.request.update.UpdateDiseaseQuestionnaireRequestPayload;
 import com.medical.underwriting.payloads.request.update.UpdateLabTestsRequestPayload;
+import com.medical.underwriting.payloads.request.update.UpdateLifestyleDetailsRequestPayload;
+import com.medical.underwriting.payloads.request.update.UpdateMedicalConditionsRequestPayload;
 import com.medical.underwriting.payloads.request.update.UpdatePersonalMedicalConditionsRequestPayload;
 import com.medical.underwriting.payloads.response.DiseaseQuestionnaireResponse;
 import com.medical.underwriting.payloads.response.LabTestsResponse;
+import com.medical.underwriting.payloads.response.LifestyleDetailsResponse;
+import com.medical.underwriting.payloads.response.MedicalConditionsResponse;
 import com.medical.underwriting.payloads.response.PersonalMedicalConditionsResponse;
 
 @Component
@@ -464,5 +470,121 @@ public class UnderwritingUtility {
 		return null;
 
 	}
+
+	public LifestyleDetailsResponse lifestyleDetailsEntityToResponse(LifestyleDetails lifestyleDetails) {
+
+		LifestyleDetailsResponse response = new LifestyleDetailsResponse();
+
+		if (!lifestyleDetails.getLifestyleDetailsId().isBlank()
+				|| null != lifestyleDetails.getAmountOfTobaccoProductsConsumptionPerDay()
+				|| null != lifestyleDetails.getAmountOfAlcoholConsumptionPerWeek()
+				|| null != lifestyleDetails.getAmountOfCigarettesSticksSmokedPerDay()
+				|| null != lifestyleDetails.getDurationOfSmokingCigarettes()
+				|| null != lifestyleDetails.getFrequencyOfAlcoholConsumptionPerDay()) {
+
+			response.setLifestyleDetailsId(lifestyleDetails.getLifestyleDetailsId());
+			response.setAmountOfTobaccoProductsConsumptionPerDay(
+					lifestyleDetails.getAmountOfTobaccoProductsConsumptionPerDay());
+			response.setAmountOfAlcoholConsumptionPerWeek(lifestyleDetails.getAmountOfAlcoholConsumptionPerWeek());
+			response.setAmountOfCigarettesSticksSmokedPerDay(
+					lifestyleDetails.getAmountOfCigarettesSticksSmokedPerDay());
+			response.setDurationOfSmokingCigarettes(lifestyleDetails.getDurationOfSmokingCigarettes());
+			response.setFrequencyOfAlcoholConsumptionPerDay(lifestyleDetails.getFrequencyOfAlcoholConsumptionPerDay());
+
+			return response;
+
+		}
+
+		return null;
+
+	}
+
+	public MedicalConditionsResponse medicalConditionsEntityToResponse(MedicalConditionsDetails details) {
+
+		MedicalConditionsResponse response = new MedicalConditionsResponse();
+
+		if (!details.getMedicalConditionsDetailsId().isBlank() || !details.getPersonalMedicalConditionsList().isEmpty()
+				|| null != details.getLabTests()) {
+			response.setMedicalConditionsDetailsId(details.getMedicalConditionsDetailsId());
+			response.setPersonalMedicalConditionsList(addPMCtoPMCR(details.getPersonalMedicalConditionsList()));
+			response.setLabTests(labTestsEntityToResponse(details.getLabTests()));
+
+			return response;
+		}
+
+		return null;
+
+	}
+
+	public LifestyleDetails lifestyleDetailsUpdatePayloadToEntity(UpdateLifestyleDetailsRequestPayload payload) {
+
+		LifestyleDetails details = new LifestyleDetails();
+
+		if (null != payload.getAmountOfTobaccoProductsConsumptionPerDay()
+				|| null != payload.getAmountOfAlcoholConsumptionPerWeek()
+				|| null != payload.getAmountOfCigarettesSticksSmokedPerDay()
+				|| null != payload.getDurationOfSmokingCigarettes()
+				|| null != payload.getFrequencyOfAlcoholConsumptionPerDay()) {
+
+			details.setAmountOfTobaccoProductsConsumptionPerDay(payload.getAmountOfTobaccoProductsConsumptionPerDay());
+			details.setAmountOfAlcoholConsumptionPerWeek(payload.getAmountOfAlcoholConsumptionPerWeek());
+			details.setAmountOfCigarettesSticksSmokedPerDay(payload.getAmountOfCigarettesSticksSmokedPerDay());
+			details.setDurationOfSmokingCigarettes(payload.getDurationOfSmokingCigarettes());
+			details.setFrequencyOfAlcoholConsumptionPerDay(details.getFrequencyOfAlcoholConsumptionPerDay());
+
+			return details;
+
+		}
+
+		return null;
+
+	}
+
+	public MedicalConditionsDetails medicalConditionsDetailsUpdatePayloadToEntity(
+			UpdateMedicalConditionsRequestPayload payload) {
+
+		MedicalConditionsDetails details = new MedicalConditionsDetails();
+
+		if (!payload.getPersonalMedicalConditionsList().isEmpty() || null != payload.getLabTests()) {
+			details.setPersonalMedicalConditionsList(addUPMCtoPMC(payload.getPersonalMedicalConditionsList()));
+			details.setLabTests(labTestsUpdatePayloadToEntity(payload.getLabTests()));
+
+			return details;
+
+		}
+
+		return null;
+
+	}
+
+//	private PersonalMedicalConditions personalMedicalConditionsUpdatePayloadToEntity(
+//			UpdatePersonalMedicalConditionsRequestPayload payload) {
+//
+//		PersonalMedicalConditions conditions = new PersonalMedicalConditions();
+//
+//		if (null != payload.getDiseaseQuestionnaire() || !payload.getNameOfDisease().isBlank()
+//				|| !payload.getTypeOfDisease().isBlank() || !payload.getTypeOfTreatment().isBlank()
+//				|| !payload.getCurrentStatusOfDisease().isBlank() || !payload.getTypeOfComplication().isBlank()
+//				|| !payload.getTypeOfBiopsy().isBlank() || null != payload.getLastConsultationDate()
+//				|| null != payload.getYearWhenFirstDiagnosisWasTaken()) {
+//
+//			conditions.setDiseaseQuestionnaire(
+//					diseaseQuestionnaireUpdatePayloadToEntity(payload.getDiseaseQuestionnaire()));
+//			conditions.setNameOfDisease(payload.getNameOfDisease());
+//			conditions.setTypeOfDisease(payload.getTypeOfDisease());
+//			conditions.setTypeOfTreatment(payload.getTypeOfTreatment());
+//			conditions.setCurrentStatusOfDisease(payload.getCurrentStatusOfDisease());
+//			conditions.setTypeOfComplication(payload.getTypeOfComplication());
+//			conditions.setTypeOfBiopsy(payload.getTypeOfBiopsy());
+//			conditions.setLastConsultationDate(payload.getLastConsultationDate());
+//			conditions.setYearWhenFirstDiagnosisWasTaken(payload.getYearWhenFirstDiagnosisWasTaken());
+//
+//			return conditions;
+//
+//		}
+//
+//		return null;
+//
+//	}
 
 }

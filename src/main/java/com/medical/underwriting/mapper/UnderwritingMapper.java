@@ -11,6 +11,7 @@ import com.medical.underwriting.model.entity.medical.LabTests;
 import com.medical.underwriting.model.entity.medical.PersonalMedicalConditions;
 import com.medical.underwriting.model.entity.member.LifestyleDetails;
 import com.medical.underwriting.model.entity.member.MedicalConditionsDetails;
+import com.medical.underwriting.model.entity.member.MemberDetails;
 import com.medical.underwriting.model.entity.proposal.PaymentDetails;
 import com.medical.underwriting.model.entity.proposal.ProposalDetails;
 import com.medical.underwriting.model.entity.proposal.ProposerDetails;
@@ -18,11 +19,13 @@ import com.medical.underwriting.payloads.request.create.CreateDiseaseQuestionnai
 import com.medical.underwriting.payloads.request.create.CreateLabTestsRequestPayload;
 import com.medical.underwriting.payloads.request.create.CreateLifestyleDetailsRequestPayload;
 import com.medical.underwriting.payloads.request.create.CreateMedicalConditionsRequestPayload;
+import com.medical.underwriting.payloads.request.create.CreateMemberDetailsRequestPayload;
 import com.medical.underwriting.payloads.request.create.CreatePersonalMedicalConditionsRequestPayload;
 import com.medical.underwriting.payloads.request.update.UpdateDiseaseQuestionnaireRequestPayload;
 import com.medical.underwriting.payloads.request.update.UpdateLabTestsRequestPayload;
 import com.medical.underwriting.payloads.request.update.UpdateLifestyleDetailsRequestPayload;
 import com.medical.underwriting.payloads.request.update.UpdateMedicalConditionsRequestPayload;
+import com.medical.underwriting.payloads.request.update.UpdateMemberDetailsRequestPayload;
 import com.medical.underwriting.payloads.request.update.UpdatePersonalMedicalConditionsRequestPayload;
 
 @Mapper
@@ -66,6 +69,13 @@ public interface UnderwritingMapper {
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "medicalConditionsDetailsId", ignore = true)
 	MedicalConditionsDetails updatePayloadToMedicalConditionsDetails(UpdateMedicalConditionsRequestPayload payload);
+
+	@Mapping(target = "id", ignore = true)
+	MemberDetails createPayloadToMemberDetails(CreateMemberDetailsRequestPayload payload);
+
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "memberId", ignore = true)
+	MemberDetails updatePayloadToMemberDetails(UpdateMemberDetailsRequestPayload payload);
 
 	/**
 	 * Medical related java bean mappings

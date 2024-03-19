@@ -13,10 +13,13 @@ import com.medical.underwriting.model.entity.member.MedicalConditionsDetails;
 import com.medical.underwriting.model.entity.member.MemberDetails;
 import com.medical.underwriting.payloads.request.create.CreateLifestyleDetailsRequestPayload;
 import com.medical.underwriting.payloads.request.create.CreateMedicalConditionsRequestPayload;
+import com.medical.underwriting.payloads.request.create.CreateMemberDetailsRequestPayload;
 import com.medical.underwriting.payloads.request.update.UpdateLifestyleDetailsRequestPayload;
 import com.medical.underwriting.payloads.request.update.UpdateMedicalConditionsRequestPayload;
+import com.medical.underwriting.payloads.request.update.UpdateMemberDetailsRequestPayload;
 import com.medical.underwriting.payloads.response.LifestyleDetailsResponse;
 import com.medical.underwriting.payloads.response.MedicalConditionsResponse;
+import com.medical.underwriting.payloads.response.MemberDetailsResponse;
 import com.medical.underwriting.repository.LifestyleRepository;
 import com.medical.underwriting.repository.MedicalConditionsDetailsRepository;
 import com.medical.underwriting.repository.MemberDetailsRepository;
@@ -232,6 +235,8 @@ public class MemberDetailsService {
 					medicalConditionsDetails.get()
 							.setLabTests(underwritingUtility.labTestsUpdatePayloadToEntity(payload.getLabTests()));
 
+					medicalConditionsDetailsRepository.save(medicalConditionsDetails.get());
+
 					return MedicalConditionsResponse.builder()
 							.medicalConditionsDetailsId(medicalConditionsDetails.get().getMedicalConditionsDetailsId())
 							.personalMedicalConditionsList(underwritingUtility
@@ -269,6 +274,157 @@ public class MemberDetailsService {
 	/**
 	 * Business logics related to delete the records from the database
 	 */
+
+	public MemberDetailsResponse findMemberDetailsById(String memberId) {
+
+		MemberDetails memberDetails = memberDetailsRepository.findMemberDetailsByMemberId(memberId)
+				.orElseThrow(() -> new UnderwritingException("404", UnderwritingConstants.MEMBER_DETAILS_ID_NOT_FOUND,
+						HttpStatus.NOT_FOUND));
+
+		return MemberDetailsResponse.builder().memberId(memberDetails.getMemberId())
+				.firstName(memberDetails.getFirstName()).middleName(memberDetails.getMiddleName())
+				.lastName(memberDetails.getLastName()).dateOfBirth(memberDetails.getDateOfBirth())
+				.gender(memberDetails.getGender()).memberType(memberDetails.getMemberType())
+				.isNewMemberAdded(memberDetails.getIsNewMemberAdded()).bodyMassIndex(memberDetails.getBodyMassIndex())
+				.profession(memberDetails.getProfession()).occupationCode(memberDetails.getOccupationCode())
+				.annualIncome(memberDetails.getAnnualIncome()).cityOfResidence(memberDetails.getCityOfResidence())
+				.stateOfResidence(memberDetails.getStateOfResidence())
+				.pinCodeOfResidence(memberDetails.getPinCodeOfResidence())
+				.isMandatoryDocumentAvailable(memberDetails.getIsMandatoryDocumentAvailable())
+				.baseSumInsured(memberDetails.getBaseSumInsured()).ciRiderRequested(memberDetails.getCiRiderRequested())
+				.caRiderRequested(memberDetails.getCaRiderRequested())
+				.ciRiderSumInsured(memberDetails.getCiRiderSumInsured())
+				.caRiderSumInsured(memberDetails.getCaRiderSumInsured())
+				.lifestyleDetails(findLifestyleDetailsById(memberDetails.getLifestyleDetails().getLifestyleDetailsId()))
+				.medicalConditionsDetails(findMedicalConditionsById(
+						memberDetails.getMedicalConditionsDetails().getMedicalConditionsDetailsId()))
+				.build();
+
+	}
+
+	public MemberDetailsResponse createMemberDetails(CreateMemberDetailsRequestPayload payload) {
+
+		try {
+
+			if (null != payload) {
+
+				Optional<MemberDetails> memberDetails = memberDetailsRepository
+						.findMemberDetailsByMemberId(payload.getMemberId());
+
+				if (memberDetails.isPresent()) {
+					throw new UnderwritingException("409", UnderwritingConstants.MEMBER_DETAILS_ID_FOUND,
+							HttpStatus.CONFLICT);
+				} else {
+
+					MemberDetails member = memberDetailsRepository
+							.save(underwritingMapper.createPayloadToMemberDetails(payload));
+
+					return MemberDetailsResponse.builder().memberId(member.getMemberId())
+							.firstName(member.getFirstName()).middleName(member.getMiddleName())
+							.lastName(member.getLastName()).dateOfBirth(member.getDateOfBirth())
+							.gender(member.getGender()).memberType(member.getMemberType())
+							.isNewMemberAdded(member.getIsNewMemberAdded()).bodyMassIndex(member.getBodyMassIndex())
+							.profession(member.getProfession()).occupationCode(member.getOccupationCode())
+							.annualIncome(member.getAnnualIncome()).cityOfResidence(member.getCityOfResidence())
+							.stateOfResidence(member.getStateOfResidence())
+							.pinCodeOfResidence(member.getPinCodeOfResidence())
+							.isMandatoryDocumentAvailable(member.getIsMandatoryDocumentAvailable())
+							.baseSumInsured(member.getBaseSumInsured()).ciRiderRequested(member.getCiRiderRequested())
+							.caRiderRequested(member.getCaRiderRequested())
+							.ciRiderSumInsured(member.getCiRiderSumInsured())
+							.caRiderSumInsured(member.getCaRiderSumInsured())
+							.lifestyleDetails(
+									underwritingUtility.lifestyleDetailsEntityToResponse(member.getLifestyleDetails()))
+							.medicalConditionsDetails(underwritingUtility
+									.medicalConditionsEntityToResponse(member.getMedicalConditionsDetails()))
+							.build();
+
+				}
+
+			}
+
+		} catch (UnderwritingException e) {
+			throw new UnderwritingException("400", UnderwritingConstants.BAD_REQUEST, HttpStatus.BAD_REQUEST);
+		}
+
+		return null;
+
+	}
+
+	public MemberDetailsResponse updateMemberDetails(String memberId, UpdateMemberDetailsRequestPayload payload) {
+
+		try {
+
+			if (null != payload) {
+
+				Optional<MemberDetails> member = memberDetailsRepository.findMemberDetailsByMemberId(memberId);
+
+				if (member.isPresent()) {
+
+					member.get().setFirstName(payload.getFirstName());
+					member.get().setMiddleName(payload.getMiddleName());
+					member.get().setLastName(payload.getLastName());
+					member.get().setDateOfBirth(payload.getDateOfBirth());
+					member.get().setGender(payload.getGender());
+					member.get().setMemberType(payload.getMemberType());
+					member.get().setIsNewMemberAdded(payload.getIsNewMemberAdded());
+					member.get().setBodyMassIndex(payload.getBodyMassIndex());
+					member.get().setProfession(payload.getProfession());
+					member.get().setOccupationCode(payload.getOccupationCode());
+					member.get().setAnnualIncome(payload.getAnnualIncome());
+					member.get().setCityOfResidence(payload.getCityOfResidence());
+					member.get().setStateOfResidence(payload.getStateOfResidence());
+					member.get().setPinCodeOfResidence(payload.getPinCodeOfResidence());
+					member.get().setIsMandatoryDocumentAvailable(payload.getIsMandatoryDocumentAvailable());
+					member.get().setBaseSumInsured(payload.getBaseSumInsured());
+					member.get().setCiRiderRequested(payload.getCiRiderRequested());
+					member.get().setCaRiderRequested(payload.getCaRiderRequested());
+					member.get().setCiRiderSumInsured(payload.getCiRiderSumInsured());
+					member.get().setCaRiderSumInsured(payload.getCaRiderSumInsured());
+					member.get().setLifestyleDetails(
+							underwritingUtility.lifestyleDetailsUpdatePayloadToEntity(payload.getLifestyleDetails()));
+					member.get().setMedicalConditionsDetails(underwritingUtility
+							.medicalConditionsDetailsUpdatePayloadToEntity(payload.getMedicalConditionsDetails()));
+
+					memberDetailsRepository.save(member.get());
+
+					return MemberDetailsResponse.builder().firstName(member.get().getFirstName())
+							.middleName(member.get().getMiddleName()).lastName(member.get().getLastName())
+							.dateOfBirth(member.get().getDateOfBirth()).gender(member.get().getGender())
+							.memberType(member.get().getMemberType())
+							.isNewMemberAdded(member.get().getIsNewMemberAdded())
+							.bodyMassIndex(member.get().getBodyMassIndex()).profession(member.get().getProfession())
+							.occupationCode(member.get().getOccupationCode())
+							.annualIncome(member.get().getAnnualIncome())
+							.cityOfResidence(member.get().getCityOfResidence())
+							.stateOfResidence(member.get().getStateOfResidence())
+							.pinCodeOfResidence(member.get().getPinCodeOfResidence())
+							.isMandatoryDocumentAvailable(member.get().getIsMandatoryDocumentAvailable())
+							.baseSumInsured(member.get().getBaseSumInsured())
+							.ciRiderRequested(member.get().getCiRiderRequested())
+							.caRiderRequested(member.get().getCaRiderRequested())
+							.ciRiderSumInsured(member.get().getCiRiderSumInsured())
+							.caRiderSumInsured(member.get().getCaRiderSumInsured())
+							.lifestyleDetails(underwritingUtility
+									.lifestyleDetailsEntityToResponse(member.get().getLifestyleDetails()))
+							.medicalConditionsDetails(underwritingUtility
+									.medicalConditionsEntityToResponse(member.get().getMedicalConditionsDetails()))
+							.build();
+
+				} else {
+					throw new UnderwritingException("404", UnderwritingConstants.MEMBER_DETAILS_ID_NOT_FOUND,
+							HttpStatus.NOT_FOUND);
+				}
+
+			}
+
+		} catch (UnderwritingException e) {
+			throw new UnderwritingException("400", UnderwritingConstants.BAD_REQUEST, HttpStatus.BAD_REQUEST);
+		}
+
+		return null;
+
+	}
 
 	public void deleteMemberDetailsById(String memberDetailsId) {
 

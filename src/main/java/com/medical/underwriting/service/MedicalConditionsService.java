@@ -40,7 +40,7 @@ public class MedicalConditionsService {
 	private final UnderwritingUtility underwritingUtility;
 
 	/**
-	 * Business logics related to find the records from the databases
+	 * Business logics related to disease questionnaire
 	 */
 
 	public DiseaseQuestionnaireResponse findDiseaseQuestionnaireById(String diseaseQuestionnaieId) {
@@ -63,14 +63,6 @@ public class MedicalConditionsService {
 				.build();
 
 	}
-
-	/**
-	 * Create the disease questionnaire entity into database
-	 * 
-	 * @param payload : the request which is used to save the information of disease
-	 *                questionnaire entity
-	 * @return : the saved entity of disease questionnaire
-	 */
 
 	public DiseaseQuestionnaireResponse createDiseaseQuestionnaire(CreateDiseaseQuestionnaireRequestPayload payload) {
 
@@ -778,10 +770,6 @@ public class MedicalConditionsService {
 		return null;
 
 	}
-
-	/**
-	 * Business logics related to update the records in database
-	 */
 
 	public PersonalMedicalConditionsResponse updatePersonalMedicalConditions(String personalMedicalConditionsId,
 			UpdatePersonalMedicalConditionsRequestPayload payload) {

@@ -64,7 +64,7 @@ public class MedicalConditionsController {
 		return new ResponseEntity<>(medicalConditionsService.createDiseaseQuestionnaire(payload), HttpStatus.CREATED);
 	}
 
-	@PutMapping(value = "/updateDiseaseQuestionnaire", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/updateDiseaseQuestionnaire/{diseaseQuestionnaireId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Operation(summary = "Update the record of disease questionnaire")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "OK : disease questionnaire record updated successfully"),
@@ -113,7 +113,7 @@ public class MedicalConditionsController {
 		return new ResponseEntity<>(medicalConditionsService.createLabTests(payload), HttpStatus.CREATED);
 	}
 
-	@PutMapping(value = "/updateLabTests", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/updateLabTests/{labTestsId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Operation(summary = "Update the record of lab tests")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "OK : lab tests record updated successfully"),
@@ -129,8 +129,7 @@ public class MedicalConditionsController {
 	@Operation(summary = "Delete the record of lab tests by lab tests id")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "OK : lab tests record successfully deleted"),
-			@ApiResponse(responseCode = "404", description = "NOT_FOUND : lab tests record not found successfully"),
-			@ApiResponse(responseCode = "400", description = "BAD_REQUEST : lab tests record not deleted successfully") })
+			@ApiResponse(responseCode = "404", description = "NOT_FOUND : lab tests record not found successfully") })
 	public ResponseEntity<?> deleteLabTestsById(
 			@RequestParam(value = "labTestsId", required = false) @PathVariable("labTestsId") @Nullable final String labTestsId) {
 		medicalConditionsService.deleteLabTestsById(labTestsId);
@@ -164,7 +163,7 @@ public class MedicalConditionsController {
 				HttpStatus.CREATED);
 	}
 
-	@PutMapping(value = "/updatePersonalMedicalConditions", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/updatePersonalMedicalConditions/{personalMedicalConditionsId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Operation(summary = "Update the record of personal medical conditions")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "OK : personal medical conditions record updated successfully"),
@@ -181,8 +180,7 @@ public class MedicalConditionsController {
 	@Operation(summary = "Delete the record of personal medical conditions by personal medical conditions id")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "OK : personal medical conditions record successfully deleted"),
-			@ApiResponse(responseCode = "404", description = "NOT_FOUND : personal medical conditions record not found successfully"),
-			@ApiResponse(responseCode = "400", description = "BAD_REQUEST : personal medical conditions record not deleted successfully") })
+			@ApiResponse(responseCode = "404", description = "NOT_FOUND : personal medical conditions record not found successfully") })
 	public ResponseEntity<?> deletePersonalMedicalConditionsById(
 			@RequestParam(value = "personalMedicalConditionsId", required = false) @PathVariable("personalMedicalConditionsId") @Nullable final String personalMedicalConditionsId) {
 		medicalConditionsService.deletePersonalMedicalConditionsById(personalMedicalConditionsId);

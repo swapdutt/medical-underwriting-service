@@ -3,6 +3,7 @@ package com.medical.underwriting.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -63,7 +64,7 @@ public class ProposalController {
 		return new ResponseEntity<>(proposalDetailsService.createPaymentDetails(payload), HttpStatus.CREATED);
 	}
 
-	@PutMapping(value = "/updatePaymentDetails", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/updatePaymentDetails/{paymentDetailsId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Operation(summary = "Update the record of payment details")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "OK : payment details record updated successfully"),
@@ -75,11 +76,10 @@ public class ProposalController {
 		return ResponseEntity.ok(proposalDetailsService.updatePaymentDetails(paymentDetailsId, payload));
 	}
 
-	@GetMapping(value = "/deletePaymentDetailsById/{paymentDetailsId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	@Operation(summary = "Get the record of payment details by payment details id")
+	@DeleteMapping(value = "/deletePaymentDetailsById/{paymentDetailsId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@Operation(summary = "Delete the record of payment details by payment details id")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "OK : payment details record successfully found"),
-			@ApiResponse(responseCode = "404", description = "NOT_FOUND : payment details record not found successfully"),
 			@ApiResponse(responseCode = "404", description = "NOT_FOUND : payment details record not found successfully") })
 	public ResponseEntity<?> deletePaymentDetailsById(
 			@RequestParam(value = "paymentDetailsId", required = false) @PathVariable("paymentDetailsId") @Nullable final String paymentDetailsId) {
@@ -112,7 +112,7 @@ public class ProposalController {
 		return new ResponseEntity<>(proposalDetailsService.createProposerDetails(paylaod), HttpStatus.CREATED);
 	}
 
-	@PutMapping(value = "/updateProposerDetails", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/updateProposerDetails/{proposerDetailsId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Operation(summary = "Update the record of proposer details")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "OK : proposer details record updated successfully"),
@@ -124,11 +124,10 @@ public class ProposalController {
 		return ResponseEntity.ok(proposalDetailsService.updateProposerDetails(proposerDetailsId, paylaod));
 	}
 
-	@GetMapping(value = "/deleteProposerDetailsById/{proposerDetailsId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	@Operation(summary = "Get the record of proposal details by proposer details id")
+	@DeleteMapping(value = "/deleteProposerDetailsById/{proposerDetailsId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@Operation(summary = "Delete the record of proposer details by proposer details id")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "OK : proposer details record successfully found"),
-			@ApiResponse(responseCode = "404", description = "NOT_FOUND : proposer details record not found successfully"),
 			@ApiResponse(responseCode = "404", description = "NOT_FOUND : proposer details record not found successfully") })
 	public ResponseEntity<?> deleteProposerDetailsById(
 			@RequestParam(value = "proposerDetailsId", required = false) @PathVariable("proposerDetailsId") @Nullable final String proposerDetailsId) {
@@ -161,23 +160,22 @@ public class ProposalController {
 		return new ResponseEntity<>(proposalDetailsService.createProposalDetails(payload), HttpStatus.CREATED);
 	}
 
-	@PutMapping(value = "/updateProposalDetails", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	@Operation(summary = "Update the record of disease questionnaire")
+	@PutMapping(value = "/updateProposalDetails/{proposalDetailsId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Operation(summary = "Update the record of proposal details")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "OK : disease questionnaire record updated successfully"),
-			@ApiResponse(responseCode = "404", description = "NOT_FOUND : disease questionnaire record not found successfully"),
-			@ApiResponse(responseCode = "400", description = "BAD_REQUEST : disease questionnaire record not updated successfully") })
+			@ApiResponse(responseCode = "200", description = "OK : proposal details record updated successfully"),
+			@ApiResponse(responseCode = "404", description = "NOT_FOUND : proposal details record not found successfully"),
+			@ApiResponse(responseCode = "400", description = "BAD_REQUEST : proposal details record not updated successfully") })
 	public ResponseEntity<ProposalDetailsResponse> updateProposalDetails(
 			@RequestParam(value = "proposalDetailsId", required = false) @PathVariable("proposalDetailsId") @Nullable final String proposalDetailsId,
 			@RequestBody @Valid @NonNull final UpdateProposalDetailsRequestPayload payload) {
 		return ResponseEntity.ok(proposalDetailsService.udpateProposalDetails(proposalDetailsId, payload));
 	}
 
-	@GetMapping(value = "/deleteProposalDetailsById/{proposalDetailsId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	@Operation(summary = "Get the record of proposal details by proposal details id")
+	@DeleteMapping(value = "/deleteProposalDetailsById/{proposalDetailsId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@Operation(summary = "Delete the record of proposal details by proposal details id")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "OK : proposal details record successfully found"),
-			@ApiResponse(responseCode = "404", description = "NOT_FOUND : proposal details record not found successfully"),
 			@ApiResponse(responseCode = "404", description = "NOT_FOUND : proposal details record not found successfully") })
 	public ResponseEntity<?> deleteProposalDetailsById(
 			@RequestParam(value = "proposalDetailsId", required = false) @PathVariable("proposalDetailsId") @Nullable final String proposalDetailsId) {

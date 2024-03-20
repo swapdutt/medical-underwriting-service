@@ -39,6 +39,10 @@ public class ProposalDetailsService {
 	private final PaymentDetailsRepository paymentDetailsRepository;
 	private final UnderwritingUtility underwritingUtility;
 
+	/**
+	 * Business logics related to payment details
+	 */
+
 	public PaymentDetailsResponse findPaymentDetailsById(String paymentDetailsId) {
 
 		PaymentDetails paymentDetails = paymentDetailsRepository.findPaymentDetailsByPaymentDetailsId(paymentDetailsId)
@@ -156,6 +160,10 @@ public class ProposalDetailsService {
 		}
 
 	}
+
+	/**
+	 * Business logics related to proposer details
+	 */
 
 	public ProposerDetailsResponse findProposerDetailsById(String proposerDetailsId) {
 
@@ -301,6 +309,10 @@ public class ProposalDetailsService {
 		}
 
 	}
+
+	/**
+	 * Business logics related to proposal details
+	 */
 
 	public ProposalDetailsResponse findProposalDetailsById(String proposalDetailsId) {
 

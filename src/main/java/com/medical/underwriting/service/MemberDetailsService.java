@@ -272,7 +272,7 @@ public class MemberDetailsService {
 	}
 
 	/**
-	 * Business logics related to delete the records from the database
+	 * Business logics related to member details
 	 */
 
 	public MemberDetailsResponse findMemberDetailsById(String memberId) {

@@ -77,11 +77,10 @@ public class MemberController {
 	}
 
 	@DeleteMapping(value = "/deleteLifestyleDetailsById/{lifestyleDetailsId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	@Operation(summary = "Delete the record of disease questionnaire by disease questionnaire id")
+	@Operation(summary = "Delete the record of ifestyle details by ifestyle details id")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "OK : disease questionnaire record successfully deleted"),
-			@ApiResponse(responseCode = "404", description = "NOT_FOUND : disease questionnaire record not found successfully"),
-			@ApiResponse(responseCode = "400", description = "BAD_REQUEST : disease questionnaire record not deleted successfully") })
+			@ApiResponse(responseCode = "200", description = "OK : lifestyle details record successfully deleted"),
+			@ApiResponse(responseCode = "404", description = "NOT_FOUND : lifestyle details record not found successfully") })
 	public ResponseEntity<?> deleteLifestyleDetailsById(
 			@RequestParam(value = "lifestyleDetailsId", required = false) @PathVariable("lifestyleDetailsId") @Nullable final String lifestyleDetailsId) {
 		memberDetailsService.deleteLifestyleDetailsById(lifestyleDetailsId);
@@ -113,7 +112,7 @@ public class MemberController {
 		return new ResponseEntity<>(memberDetailsService.createMedicalConditions(payload), HttpStatus.CREATED);
 	}
 
-	@PutMapping(value = "/updateMedicalConditionsDetails", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/updateMedicalConditionsDetails/{medicalConditionsDetailsId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Operation(summary = "Update the record of medical conditions details")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "OK : medical conditions details record updated successfully"),
@@ -126,11 +125,10 @@ public class MemberController {
 	}
 
 	@DeleteMapping(value = "/deleteMedicalConditionsById/{medicalConditionsDetailsId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	@Operation(summary = "Delete the record of disease questionnaire by disease questionnaire id")
+	@Operation(summary = "Delete the record of medical conditions details by medical conditions details id")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "OK : disease questionnaire record successfully deleted"),
-			@ApiResponse(responseCode = "404", description = "NOT_FOUND : disease questionnaire record not found successfully"),
-			@ApiResponse(responseCode = "400", description = "BAD_REQUEST : disease questionnaire record not deleted successfully") })
+			@ApiResponse(responseCode = "200", description = "OK : medical conditions details record successfully deleted"),
+			@ApiResponse(responseCode = "404", description = "NOT_FOUND : medical conditions details record not found successfully") })
 	public ResponseEntity<?> deleteMedicalConditionsById(
 			@RequestParam(value = "medicalConditionsDetailsId", required = false) @PathVariable("medicalConditionsDetailsId") @Nullable final String medicalConditionsDetailsId) {
 		memberDetailsService.deleteMedicalConditionsById(medicalConditionsDetailsId);
@@ -162,7 +160,7 @@ public class MemberController {
 		return new ResponseEntity<>(memberDetailsService.createMemberDetails(payload), HttpStatus.CREATED);
 	}
 
-	@PutMapping(value = "/updateMemberDetails", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/updateMemberDetails/{memberDetailsId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Operation(summary = "Update the record of member details")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "OK : member details record updated successfully"),
@@ -178,8 +176,7 @@ public class MemberController {
 	@Operation(summary = "Delete the record of member details by member details id")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "OK : member details record successfully deleted"),
-			@ApiResponse(responseCode = "404", description = "NOT_FOUND : member details record not found successfully"),
-			@ApiResponse(responseCode = "400", description = "BAD_REQUEST : member details record not deleted successfully") })
+			@ApiResponse(responseCode = "404", description = "NOT_FOUND : member details record not found successfully") })
 	public ResponseEntity<?> deleteMemberDetailsById(
 			@RequestParam(value = "memberDetailsId", required = false) @PathVariable("memberDetailsId") @Nullable final String memberDetailsId) {
 		memberDetailsService.deleteMemberDetailsById(memberDetailsId);

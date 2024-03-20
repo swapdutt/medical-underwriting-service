@@ -1,5 +1,6 @@
-package com.medical.underwriting.model.dto.member;
+package com.medical.underwriting.model.member;
 
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -11,9 +12,15 @@ import java.time.LocalDate;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-public class MemberDetailsDto {
+@ToString
+@Entity
+@Table(name = "MEMBER")
+public class MemberDetails {
 
-	Integer memberId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	String id;
+	String memberId;
 	String firstName;
 	String middleName;
 	String lastName;
@@ -34,7 +41,9 @@ public class MemberDetailsDto {
 	Boolean caRiderRequested;
 	Double ciRiderSumInsured;
 	Double caRiderSumInsured;
-	LifestyleDetailsDto lifestyleDetails;
-	MedicalConditionsDetailsDto medicalConditionsDetails;
+	@OneToOne
+	LifestyleDetails lifestyleDetails;
+	@OneToOne
+	MedicalConditionsDetails medicalConditionsDetails;
 
 }

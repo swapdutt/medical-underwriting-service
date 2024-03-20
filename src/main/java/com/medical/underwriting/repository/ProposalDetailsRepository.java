@@ -1,14 +1,15 @@
 package com.medical.underwriting.repository;
 
-import com.medical.underwriting.model.entity.proposal.ProposalDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import com.medical.underwriting.model.proposal.ProposalDetails;
 
 import java.util.Optional;
 
 @Repository
-public interface ProposalDetailsRepository extends JpaRepository<ProposalDetails, Integer> {
+public interface ProposalDetailsRepository extends JpaRepository<ProposalDetails, String> {
 
-	Optional<ProposalDetails> findProposalDetailsByProposalDetailsId(Integer proposalDetailsId);
+	Optional<ProposalDetails> findProposalDetailsByProposalDetailsId(String proposalDetailsId);
 
 }

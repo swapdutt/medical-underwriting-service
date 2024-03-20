@@ -1,15 +1,13 @@
-package com.medical.underwriting.model.entity.member;
+package com.medical.underwriting.model.medical;
 
-import java.util.List;
+import java.time.LocalDate;
 
-import com.medical.underwriting.model.entity.medical.LabTests;
-import com.medical.underwriting.model.entity.medical.PersonalMedicalConditions;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
@@ -29,16 +27,23 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @ToString
 @Entity
-@Table(name = "MEDICAL_CONDITIONS")
-public class MedicalConditionsDetails {
+@Table(name = "PERSONAL_MEDICAL_CONDITIONS")
+public class PersonalMedicalConditions {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	String id;
-	String medicalConditionsDetailsId;
-	@OneToMany
-	List<PersonalMedicalConditions> personalMedicalConditionsList;
+	String personalMedicalConditionsId;
 	@OneToOne
-	LabTests labTests;
+	DiseaseQuestionnaire diseaseQuestionnaire;
+	String nameOfDisease;
+	String typeOfDisease;
+	String typeOfTreatment;
+	String currentStatusOfDisease;
+	String typeOfComplication;
+	String typeOfBiopsy;
+	@LastModifiedDate
+	LocalDate lastConsultationDate;
+	Integer yearWhenFirstDiagnosisWasTaken;
 
 }

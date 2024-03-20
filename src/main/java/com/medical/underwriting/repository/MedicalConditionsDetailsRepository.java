@@ -1,8 +1,9 @@
 package com.medical.underwriting.repository;
 
-import com.medical.underwriting.model.entity.member.MedicalConditionsDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import com.medical.underwriting.model.member.MedicalConditionsDetails;
 
 import java.util.Optional;
 

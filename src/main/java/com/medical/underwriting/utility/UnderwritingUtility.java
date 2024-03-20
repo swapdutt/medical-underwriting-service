@@ -6,21 +6,30 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.medical.underwriting.model.entity.medical.DiseaseQuestionnaire;
-import com.medical.underwriting.model.entity.medical.LabTests;
-import com.medical.underwriting.model.entity.medical.PersonalMedicalConditions;
-import com.medical.underwriting.model.entity.member.LifestyleDetails;
-import com.medical.underwriting.model.entity.member.MedicalConditionsDetails;
+import com.medical.underwriting.model.medical.DiseaseQuestionnaire;
+import com.medical.underwriting.model.medical.LabTests;
+import com.medical.underwriting.model.medical.PersonalMedicalConditions;
+import com.medical.underwriting.model.member.LifestyleDetails;
+import com.medical.underwriting.model.member.MedicalConditionsDetails;
+import com.medical.underwriting.model.member.MemberDetails;
+import com.medical.underwriting.model.proposal.PaymentDetails;
+import com.medical.underwriting.model.proposal.ProposerDetails;
 import com.medical.underwriting.payloads.request.update.UpdateDiseaseQuestionnaireRequestPayload;
 import com.medical.underwriting.payloads.request.update.UpdateLabTestsRequestPayload;
 import com.medical.underwriting.payloads.request.update.UpdateLifestyleDetailsRequestPayload;
 import com.medical.underwriting.payloads.request.update.UpdateMedicalConditionsRequestPayload;
+import com.medical.underwriting.payloads.request.update.UpdateMemberDetailsRequestPayload;
+import com.medical.underwriting.payloads.request.update.UpdatePaymentDetailsRequestPayload;
 import com.medical.underwriting.payloads.request.update.UpdatePersonalMedicalConditionsRequestPayload;
+import com.medical.underwriting.payloads.request.update.UpdateProposerDetailsRequestPayload;
 import com.medical.underwriting.payloads.response.DiseaseQuestionnaireResponse;
 import com.medical.underwriting.payloads.response.LabTestsResponse;
 import com.medical.underwriting.payloads.response.LifestyleDetailsResponse;
 import com.medical.underwriting.payloads.response.MedicalConditionsResponse;
+import com.medical.underwriting.payloads.response.MemberDetailsResponse;
+import com.medical.underwriting.payloads.response.PaymentDetailsResponse;
 import com.medical.underwriting.payloads.response.PersonalMedicalConditionsResponse;
+import com.medical.underwriting.payloads.response.ProposerDetailsResponse;
 
 @Component
 public class UnderwritingUtility {
@@ -550,6 +559,232 @@ public class UnderwritingUtility {
 			details.setLabTests(labTestsUpdatePayloadToEntity(payload.getLabTests()));
 
 			return details;
+
+		}
+
+		return null;
+
+	}
+
+	public List<MemberDetailsResponse> addMDtoMDR(List<MemberDetails> memberDetails) {
+
+		List<MemberDetailsResponse> responses = new ArrayList<>();
+		MemberDetailsResponse response = new MemberDetailsResponse();
+
+		for (MemberDetails member : memberDetails) {
+			response.setMemberId(member.getMemberId());
+			response.setFirstName(member.getFirstName());
+			response.setMiddleName(member.getMiddleName());
+			response.setLastName(member.getLastName());
+			response.setDateOfBirth(member.getDateOfBirth());
+			response.setGender(member.getGender());
+			response.setMemberType(member.getMemberType());
+			response.setIsNewMemberAdded(member.getIsNewMemberAdded());
+			response.setBodyMassIndex(member.getBodyMassIndex());
+			response.setProfession(member.getProfession());
+			response.setOccupationCode(member.getOccupationCode());
+			response.setAnnualIncome(member.getAnnualIncome());
+			response.setCityOfResidence(member.getCityOfResidence());
+			response.setStateOfResidence(member.getStateOfResidence());
+			response.setPinCodeOfResidence(member.getPinCodeOfResidence());
+			response.setIsMandatoryDocumentAvailable(member.getIsMandatoryDocumentAvailable());
+			response.setBaseSumInsured(member.getBaseSumInsured());
+			response.setCaRiderRequested(member.getCaRiderRequested());
+			response.setCaRiderRequested(member.getCaRiderRequested());
+			response.setCiRiderSumInsured(member.getCiRiderSumInsured());
+			response.setCaRiderSumInsured(member.getCaRiderSumInsured());
+			response.setLifestyleDetails(lifestyleDetailsEntityToResponse(member.getLifestyleDetails()));
+			response.setMedicalConditionsDetails(
+					medicalConditionsEntityToResponse(member.getMedicalConditionsDetails()));
+
+			responses.add(response);
+
+			return responses;
+
+		}
+
+		return null;
+
+	}
+
+	public PaymentDetailsResponse paymentDetailsEntityToResponse(PaymentDetails details) {
+
+		PaymentDetailsResponse response = new PaymentDetailsResponse();
+
+		if (!details.getPaymentDetailsId().isBlank() || !details.getNameOfPayor().isBlank()
+				|| !details.getModeOfPayment().isBlank() || !details.getRelationshipOfPayor().isBlank()
+				|| null != details.getAmountPaid() || null != details.getDateOfInstrument()
+				|| null != details.getDateOfReceipt() || !details.getBranchLocation().isBlank()
+				|| !details.getIdProofOfPayor().isBlank() || !details.getDeclarationOfPayor().isBlank()) {
+
+			response.setPaymentDetailsId(details.getPaymentDetailsId());
+			response.setNameOfPayor(details.getNameOfPayor());
+			response.setModeOfPayment(details.getModeOfPayment());
+			response.setRelationshipOfPayor(details.getRelationshipOfPayor());
+			response.setAmountPaid(details.getAmountPaid());
+			response.setDateOfInstrument(details.getDateOfInstrument());
+			response.setDateOfReceipt(details.getDateOfReceipt());
+			response.setBranchLocation(details.getBranchLocation());
+			response.setIdProofOfPayor(details.getIdProofOfPayor());
+			response.setDeclarationOfPayor(details.getDeclarationOfPayor());
+
+			return response;
+
+		}
+
+		return null;
+
+	}
+
+	public ProposerDetailsResponse proposerDetailsEntityToResponse(ProposerDetails details) {
+
+		ProposerDetailsResponse response = new ProposerDetailsResponse();
+
+		if (!details.getProposerDetailsId().isBlank() || !details.getFirstName().isBlank()
+				|| !details.getMiddleName().isBlank() || !details.getLastName().isBlank()
+				|| !details.getNationality().isBlank() || !details.getCountryOfResidence().isBlank()
+				|| !details.getMaritalStatus().isBlank() || null != details.getAnnualIncome()
+				|| null != details.getProposerPolicyHolderFlag() || !details.getNomineeRelationship().isBlank()
+				|| !details.getProfession().isBlank() || null != details.getIsDependentPresent()
+				|| null != details.getIsDependentCovered() || null != details.getDateOfVisaExpiration()
+				|| !details.getOccupation().isBlank() || null != details.getSumInsured()
+				|| null != details.getRiskStartDate() || !details.getEmployer().isBlank()
+				|| !details.getDesignation().isBlank()) {
+
+			response.setProposerDetailsId(details.getProposerDetailsId());
+			response.setFirstName(details.getFirstName());
+			response.setMiddleName(details.getMiddleName());
+			response.setLastName(details.getLastName());
+			response.setNationality(details.getNationality());
+			response.setCountryOfResidence(details.getCountryOfResidence());
+			response.setMaritalStatus(details.getMaritalStatus());
+			response.setAnnualIncome(details.getAnnualIncome());
+			response.setProposerPolicyHolderFlag(details.getProposerPolicyHolderFlag());
+			response.setNomineeRelationship(details.getNomineeRelationship());
+			response.setProfession(details.getProfession());
+			response.setIsDependentPresent(details.getIsDependentPresent());
+			response.setIsDependentCovered(details.getIsDependentCovered());
+			response.setDateOfVisaExpiration(details.getDateOfVisaExpiration());
+			response.setOccupation(details.getOccupation());
+			response.setSumInsured(details.getSumInsured());
+			response.setRiskStartDate(details.getRiskStartDate());
+			response.setEmployer(details.getEmployer());
+			response.setDesignation(details.getDesignation());
+
+			return response;
+
+		}
+
+		return null;
+
+	}
+
+	public PaymentDetails paymentDetailsEntityToResponse(UpdatePaymentDetailsRequestPayload payload) {
+
+		PaymentDetails details = new PaymentDetails();
+
+		if (!payload.getNameOfPayor().isBlank() || !payload.getModeOfPayment().isBlank()
+				|| !payload.getRelationshipOfPayor().isBlank() || null != payload.getAmountPaid()
+				|| null != payload.getDateOfInstrument() || null != payload.getDateOfReceipt()
+				|| !payload.getBranchLocation().isBlank() || !payload.getIdProofOfPayor().isBlank()
+				|| !payload.getDeclarationOfPayor().isBlank()) {
+
+			details.setNameOfPayor(payload.getNameOfPayor());
+			details.setModeOfPayment(payload.getModeOfPayment());
+			details.setRelationshipOfPayor(payload.getRelationshipOfPayor());
+			details.setAmountPaid(payload.getAmountPaid());
+			details.setDateOfInstrument(payload.getDateOfInstrument());
+			details.setDateOfReceipt(payload.getDateOfReceipt());
+			details.setBranchLocation(payload.getBranchLocation());
+			details.setIdProofOfPayor(payload.getIdProofOfPayor());
+			details.setDeclarationOfPayor(payload.getDeclarationOfPayor());
+
+			return details;
+
+		}
+
+		return null;
+
+	}
+
+	public ProposerDetails proposerDetailsEntityToResponse(UpdateProposerDetailsRequestPayload payload) {
+
+		ProposerDetails details = new ProposerDetails();
+
+		if (!payload.getFirstName().isBlank() || !payload.getMiddleName().isBlank() || !payload.getLastName().isBlank()
+				|| !payload.getNationality().isBlank() || !payload.getCountryOfResidence().isBlank()
+				|| !payload.getMaritalStatus().isBlank() || null != payload.getAnnualIncome()
+				|| null != payload.getProposerPolicyHolderFlag() || !payload.getNomineeRelationship().isBlank()
+				|| !payload.getProfession().isBlank() || null != payload.getIsDependentPresent()
+				|| null != payload.getIsDependentCovered() || null != payload.getDateOfVisaExpiration()
+				|| !payload.getOccupation().isBlank() || null != payload.getSumInsured()
+				|| null != payload.getRiskStartDate() || !payload.getEmployer().isBlank()
+				|| !payload.getDesignation().isBlank()) {
+
+			details.setFirstName(payload.getFirstName());
+			details.setMiddleName(payload.getMiddleName());
+			details.setLastName(payload.getLastName());
+			details.setNationality(payload.getNationality());
+			details.setCountryOfResidence(payload.getCountryOfResidence());
+			details.setMaritalStatus(payload.getMaritalStatus());
+			details.setAnnualIncome(payload.getAnnualIncome());
+			details.setProposerPolicyHolderFlag(payload.getProposerPolicyHolderFlag());
+			details.setNomineeRelationship(payload.getNomineeRelationship());
+			details.setProfession(payload.getProfession());
+			details.setIsDependentPresent(payload.getIsDependentPresent());
+			details.setIsDependentCovered(payload.getIsDependentCovered());
+			details.setDateOfVisaExpiration(payload.getDateOfVisaExpiration());
+			details.setOccupation(payload.getOccupation());
+			details.setSumInsured(payload.getSumInsured());
+			details.setRiskStartDate(payload.getRiskStartDate());
+			details.setEmployer(payload.getEmployer());
+			details.setDesignation(payload.getDesignation());
+
+			return details;
+
+		}
+
+		return null;
+
+	}
+
+	public List<MemberDetails> addUMDtoMD(List<UpdateMemberDetailsRequestPayload> payloads) {
+
+		List<MemberDetails> memberDetails = new ArrayList<>();
+		MemberDetails details = new MemberDetails();
+
+		if (!payloads.isEmpty()) {
+			for (UpdateMemberDetailsRequestPayload member : payloads) {
+
+				details.setFirstName(member.getFirstName());
+				details.setMiddleName(member.getMiddleName());
+				details.setLastName(member.getLastName());
+				details.setDateOfBirth(member.getDateOfBirth());
+				details.setGender(member.getGender());
+				details.setMemberType(member.getMemberType());
+				details.setIsNewMemberAdded(member.getIsNewMemberAdded());
+				details.setBodyMassIndex(member.getBodyMassIndex());
+				details.setProfession(member.getProfession());
+				details.setOccupationCode(member.getOccupationCode());
+				details.setAnnualIncome(member.getAnnualIncome());
+				details.setCityOfResidence(member.getCityOfResidence());
+				details.setStateOfResidence(member.getStateOfResidence());
+				details.setPinCodeOfResidence(member.getPinCodeOfResidence());
+				details.setIsMandatoryDocumentAvailable(member.getIsMandatoryDocumentAvailable());
+				details.setBaseSumInsured(member.getBaseSumInsured());
+				details.setCaRiderRequested(member.getCaRiderRequested());
+				details.setCaRiderRequested(member.getCaRiderRequested());
+				details.setCiRiderSumInsured(member.getCiRiderSumInsured());
+				details.setCaRiderSumInsured(member.getCaRiderSumInsured());
+				details.setLifestyleDetails(lifestyleDetailsUpdatePayloadToEntity(member.getLifestyleDetails()));
+				details.setMedicalConditionsDetails(
+						medicalConditionsDetailsUpdatePayloadToEntity(member.getMedicalConditionsDetails()));
+
+				memberDetails.add(details);
+
+				return memberDetails;
+
+			}
 
 		}
 

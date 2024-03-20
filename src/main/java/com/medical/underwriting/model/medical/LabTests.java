@@ -1,4 +1,4 @@
-package com.medical.underwriting.model.entity.medical;
+package com.medical.underwriting.model.medical;
 
 import jakarta.persistence.*;
 import lombok.*;

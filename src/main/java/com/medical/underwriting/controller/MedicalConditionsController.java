@@ -82,7 +82,7 @@ public class MedicalConditionsController {
 			@ApiResponse(responseCode = "200", description = "OK : disease questionnaire record successfully deleted"),
 			@ApiResponse(responseCode = "404", description = "NOT_FOUND : disease questionnaire record not found successfully"),
 			@ApiResponse(responseCode = "400", description = "BAD_REQUEST : disease questionnaire record not deleted successfully") })
-	public ResponseEntity<?> deleteDiseaseQuestionnaireById(
+	public ResponseEntity<Boolean> deleteDiseaseQuestionnaireById(
 			@RequestParam(value = "diseaseQuestionnaireId", required = false) @PathVariable("diseaseQuestionnaireId") @Nullable final String diseaseQuestionnaireId) {
 		medicalConditionsService.deleteDiseaseQuestionnaireById(diseaseQuestionnaireId);
 		return ResponseEntity.ok(Boolean.TRUE);
@@ -130,7 +130,7 @@ public class MedicalConditionsController {
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "OK : lab tests record successfully deleted"),
 			@ApiResponse(responseCode = "404", description = "NOT_FOUND : lab tests record not found successfully") })
-	public ResponseEntity<?> deleteLabTestsById(
+	public ResponseEntity<Boolean> deleteLabTestsById(
 			@RequestParam(value = "labTestsId", required = false) @PathVariable("labTestsId") @Nullable final String labTestsId) {
 		medicalConditionsService.deleteLabTestsById(labTestsId);
 		return ResponseEntity.ok(Boolean.TRUE);
@@ -181,7 +181,7 @@ public class MedicalConditionsController {
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "OK : personal medical conditions record successfully deleted"),
 			@ApiResponse(responseCode = "404", description = "NOT_FOUND : personal medical conditions record not found successfully") })
-	public ResponseEntity<?> deletePersonalMedicalConditionsById(
+	public ResponseEntity<Boolean> deletePersonalMedicalConditionsById(
 			@RequestParam(value = "personalMedicalConditionsId", required = false) @PathVariable("personalMedicalConditionsId") @Nullable final String personalMedicalConditionsId) {
 		medicalConditionsService.deletePersonalMedicalConditionsById(personalMedicalConditionsId);
 		return ResponseEntity.ok(Boolean.TRUE);

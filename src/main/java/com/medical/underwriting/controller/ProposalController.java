@@ -81,7 +81,7 @@ public class ProposalController {
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "OK : payment details record successfully found"),
 			@ApiResponse(responseCode = "404", description = "NOT_FOUND : payment details record not found successfully") })
-	public ResponseEntity<?> deletePaymentDetailsById(
+	public ResponseEntity<Boolean> deletePaymentDetailsById(
 			@RequestParam(value = "paymentDetailsId", required = false) @PathVariable("paymentDetailsId") @Nullable final String paymentDetailsId) {
 		proposalDetailsService.deletePaymentDetailsById(paymentDetailsId);
 		return ResponseEntity.ok(Boolean.TRUE);
@@ -129,7 +129,7 @@ public class ProposalController {
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "OK : proposer details record successfully found"),
 			@ApiResponse(responseCode = "404", description = "NOT_FOUND : proposer details record not found successfully") })
-	public ResponseEntity<?> deleteProposerDetailsById(
+	public ResponseEntity<Boolean> deleteProposerDetailsById(
 			@RequestParam(value = "proposerDetailsId", required = false) @PathVariable("proposerDetailsId") @Nullable final String proposerDetailsId) {
 		proposalDetailsService.deleteProposerDetailsById(proposerDetailsId);
 		return ResponseEntity.ok(Boolean.TRUE);
@@ -177,7 +177,7 @@ public class ProposalController {
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "OK : proposal details record successfully found"),
 			@ApiResponse(responseCode = "404", description = "NOT_FOUND : proposal details record not found successfully") })
-	public ResponseEntity<?> deleteProposalDetailsById(
+	public ResponseEntity<Boolean> deleteProposalDetailsById(
 			@RequestParam(value = "proposalDetailsId", required = false) @PathVariable("proposalDetailsId") @Nullable final String proposalDetailsId) {
 		proposalDetailsService.deleteProposalDetailsById(proposalDetailsId);
 		return ResponseEntity.ok(Boolean.TRUE);

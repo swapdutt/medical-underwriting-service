@@ -599,11 +599,9 @@ public class UnderwritingUtility {
 
 			responses.add(response);
 
-			return responses;
-
 		}
 
-		return null;
+		return responses;
 
 	}
 
@@ -782,44 +780,12 @@ public class UnderwritingUtility {
 
 				memberDetails.add(details);
 
-				return memberDetails;
-
 			}
 
 		}
 
-		return null;
+		return memberDetails;
 
 	}
-
-//	private PersonalMedicalConditions personalMedicalConditionsUpdatePayloadToEntity(
-//			UpdatePersonalMedicalConditionsRequestPayload payload) {
-//
-//		PersonalMedicalConditions conditions = new PersonalMedicalConditions();
-//
-//		if (null != payload.getDiseaseQuestionnaire() || !payload.getNameOfDisease().isBlank()
-//				|| !payload.getTypeOfDisease().isBlank() || !payload.getTypeOfTreatment().isBlank()
-//				|| !payload.getCurrentStatusOfDisease().isBlank() || !payload.getTypeOfComplication().isBlank()
-//				|| !payload.getTypeOfBiopsy().isBlank() || null != payload.getLastConsultationDate()
-//				|| null != payload.getYearWhenFirstDiagnosisWasTaken()) {
-//
-//			conditions.setDiseaseQuestionnaire(
-//					diseaseQuestionnaireUpdatePayloadToEntity(payload.getDiseaseQuestionnaire()));
-//			conditions.setNameOfDisease(payload.getNameOfDisease());
-//			conditions.setTypeOfDisease(payload.getTypeOfDisease());
-//			conditions.setTypeOfTreatment(payload.getTypeOfTreatment());
-//			conditions.setCurrentStatusOfDisease(payload.getCurrentStatusOfDisease());
-//			conditions.setTypeOfComplication(payload.getTypeOfComplication());
-//			conditions.setTypeOfBiopsy(payload.getTypeOfBiopsy());
-//			conditions.setLastConsultationDate(payload.getLastConsultationDate());
-//			conditions.setYearWhenFirstDiagnosisWasTaken(payload.getYearWhenFirstDiagnosisWasTaken());
-//
-//			return conditions;
-//
-//		}
-//
-//		return null;
-//
-//	}
 
 }

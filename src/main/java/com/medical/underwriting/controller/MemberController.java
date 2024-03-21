@@ -81,7 +81,7 @@ public class MemberController {
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "OK : lifestyle details record successfully deleted"),
 			@ApiResponse(responseCode = "404", description = "NOT_FOUND : lifestyle details record not found successfully") })
-	public ResponseEntity<?> deleteLifestyleDetailsById(
+	public ResponseEntity<Boolean> deleteLifestyleDetailsById(
 			@RequestParam(value = "lifestyleDetailsId", required = false) @PathVariable("lifestyleDetailsId") @Nullable final String lifestyleDetailsId) {
 		memberDetailsService.deleteLifestyleDetailsById(lifestyleDetailsId);
 		return ResponseEntity.ok(Boolean.TRUE);
@@ -129,7 +129,7 @@ public class MemberController {
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "OK : medical conditions details record successfully deleted"),
 			@ApiResponse(responseCode = "404", description = "NOT_FOUND : medical conditions details record not found successfully") })
-	public ResponseEntity<?> deleteMedicalConditionsById(
+	public ResponseEntity<Boolean> deleteMedicalConditionsById(
 			@RequestParam(value = "medicalConditionsDetailsId", required = false) @PathVariable("medicalConditionsDetailsId") @Nullable final String medicalConditionsDetailsId) {
 		memberDetailsService.deleteMedicalConditionsById(medicalConditionsDetailsId);
 		return ResponseEntity.ok(Boolean.TRUE);
@@ -177,7 +177,7 @@ public class MemberController {
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "OK : member details record successfully deleted"),
 			@ApiResponse(responseCode = "404", description = "NOT_FOUND : member details record not found successfully") })
-	public ResponseEntity<?> deleteMemberDetailsById(
+	public ResponseEntity<Boolean> deleteMemberDetailsById(
 			@RequestParam(value = "memberDetailsId", required = false) @PathVariable("memberDetailsId") @Nullable final String memberDetailsId) {
 		memberDetailsService.deleteMemberDetailsById(memberDetailsId);
 		return ResponseEntity.ok(Boolean.TRUE);

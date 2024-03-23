@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
+import java.io.Serial;
+
 @AllArgsConstructor
 @Getter
 public class UnderwritingException extends RuntimeException {
@@ -11,6 +13,7 @@ public class UnderwritingException extends RuntimeException {
     /**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private final String errorCode;

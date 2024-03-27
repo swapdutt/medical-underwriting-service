@@ -389,8 +389,6 @@ public class ProposalDetailsService {
 				if (proposalDetails.isPresent()) {
 
 					proposalDetails.get().setSourcingApplication(payload.getSourcingApplication());
-					proposalDetails.get().setApplicationNumber(payload.getApplicationNumber());
-					proposalDetails.get().setPolicyNumber(payload.getPolicyNumber());
 					proposalDetails.get().setProductName(payload.getProductName());
 					proposalDetails.get().setProductCode(payload.getProductCode());
 					proposalDetails.get().setPlanOption(payload.getPlanOption());

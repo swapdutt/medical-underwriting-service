@@ -29,7 +29,6 @@ import com.medical.underwriting.payloads.request.update.UpdateMedicalConditionsR
 import com.medical.underwriting.payloads.request.update.UpdateMemberDetailsRequestPayload;
 import com.medical.underwriting.payloads.request.update.UpdatePaymentDetailsRequestPayload;
 import com.medical.underwriting.payloads.request.update.UpdatePersonalMedicalConditionsRequestPayload;
-import com.medical.underwriting.payloads.request.update.UpdateProposalDetailsRequestPayload;
 import com.medical.underwriting.payloads.request.update.UpdateProposerDetailsRequestPayload;
 
 import java.util.List;
@@ -57,12 +56,6 @@ public interface UnderwritingMapper {
 
     @Mapping(target = "id", ignore = true)
     ProposalDetails createPayloadToProposalDetails(CreateProposalDetailsRequestPayload payload);
-
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "proposalDetailsId", ignore = true)
-    @Mapping(target = "applicationNumber", ignore = true)
-    @Mapping(target = "policyNumber", ignore = true)
-    ProposalDetails updatePayloadToProposalDetails(UpdateProposalDetailsRequestPayload payload);
 
     /**
      * Member related java bean mappings

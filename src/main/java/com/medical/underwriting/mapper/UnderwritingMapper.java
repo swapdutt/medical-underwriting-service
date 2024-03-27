@@ -114,14 +114,10 @@ public interface UnderwritingMapper {
      */
 
     DiseaseQuestionnaireResponse diseaseQuestionnaireEntityToResponse(DiseaseQuestionnaire questionnaire);
-
     DiseaseQuestionnaire diseaseQuestionnaireResponseToEntity(DiseaseQuestionnaireResponse response);
-
     LabTestsResponse labTestsEntityToResponse(LabTests labTests);
-
     List<PersonalMedicalConditionsResponse> addPMCtoPMCR(List<PersonalMedicalConditions> personalMedicalConditions);
     List<PersonalMedicalConditions> addUPMCtoPMC(List<UpdatePersonalMedicalConditionsRequestPayload> payloads);
-
     LifestyleDetailsResponse lifestyleDetailsEntityToResponse(LifestyleDetails lifestyleDetails);
     MedicalConditionsResponse medicalConditionsEntityToResponse(MedicalConditionsDetails details);
     List<MemberDetailsResponse> addMDtoMDR(List<MemberDetails> memberDetails);

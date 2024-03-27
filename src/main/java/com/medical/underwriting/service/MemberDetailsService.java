@@ -23,7 +23,6 @@ import com.medical.underwriting.payloads.response.MemberDetailsResponse;
 import com.medical.underwriting.repository.LifestyleRepository;
 import com.medical.underwriting.repository.MedicalConditionsDetailsRepository;
 import com.medical.underwriting.repository.MemberDetailsRepository;
-import com.medical.underwriting.utility.UnderwritingUtility;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +36,6 @@ public class MemberDetailsService {
 	private final MemberDetailsRepository memberDetailsRepository;
 	private final LifestyleRepository lifestyleRepository;
 	private final MedicalConditionsDetailsRepository medicalConditionsDetailsRepository;
-	private final UnderwritingUtility underwritingUtility;
 
 	/**
 	 * Business logics related to lifestyle details
@@ -177,8 +175,8 @@ public class MemberDetailsService {
 
 		return MedicalConditionsResponse.builder().medicalConditionsDetailsId(medicalConditionsId)
 				.personalMedicalConditionsList(
-						underwritingUtility.addPMCtoPMCR(medicalConditionsDetails.getPersonalMedicalConditionsList()))
-				.labTests(underwritingUtility.labTestsEntityToResponse(medicalConditionsDetails.getLabTests())).build();
+						underwritingMapper.addPMCtoPMCR(medicalConditionsDetails.getPersonalMedicalConditionsList()))
+				.labTests(underwritingMapper.labTestsEntityToResponse(medicalConditionsDetails.getLabTests())).build();
 
 	}
 
@@ -203,8 +201,8 @@ public class MemberDetailsService {
 					return MedicalConditionsResponse.builder()
 							.medicalConditionsDetailsId(details.getMedicalConditionsDetailsId())
 							.personalMedicalConditionsList(
-									underwritingUtility.addPMCtoPMCR(details.getPersonalMedicalConditionsList()))
-							.labTests(underwritingUtility.labTestsEntityToResponse(details.getLabTests())).build();
+									underwritingMapper.addPMCtoPMCR(details.getPersonalMedicalConditionsList()))
+							.labTests(underwritingMapper.labTestsEntityToResponse(details.getLabTests())).build();
 
 				}
 
@@ -231,17 +229,17 @@ public class MemberDetailsService {
 				if (medicalConditionsDetails.isPresent()) {
 
 					medicalConditionsDetails.get().setPersonalMedicalConditionsList(
-							underwritingUtility.addUPMCtoPMC(payload.getPersonalMedicalConditionsList()));
+							underwritingMapper.addUPMCtoPMC(payload.getPersonalMedicalConditionsList()));
 					medicalConditionsDetails.get()
-							.setLabTests(underwritingUtility.labTestsUpdatePayloadToEntity(payload.getLabTests()));
+							.setLabTests(underwritingMapper.updatePayloadToLabTests(payload.getLabTests()));
 
 					medicalConditionsDetailsRepository.save(medicalConditionsDetails.get());
 
 					return MedicalConditionsResponse.builder()
 							.medicalConditionsDetailsId(medicalConditionsDetails.get().getMedicalConditionsDetailsId())
-							.personalMedicalConditionsList(underwritingUtility
+							.personalMedicalConditionsList(underwritingMapper
 									.addPMCtoPMCR(medicalConditionsDetails.get().getPersonalMedicalConditionsList()))
-							.labTests(underwritingUtility
+							.labTests(underwritingMapper
 									.labTestsEntityToResponse(medicalConditionsDetails.get().getLabTests()))
 							.build();
 
@@ -334,8 +332,8 @@ public class MemberDetailsService {
 							.ciRiderSumInsured(member.getCiRiderSumInsured())
 							.caRiderSumInsured(member.getCaRiderSumInsured())
 							.lifestyleDetails(
-									underwritingUtility.lifestyleDetailsEntityToResponse(member.getLifestyleDetails()))
-							.medicalConditionsDetails(underwritingUtility
+									underwritingMapper.lifestyleDetailsEntityToResponse(member.getLifestyleDetails()))
+							.medicalConditionsDetails(underwritingMapper
 									.medicalConditionsEntityToResponse(member.getMedicalConditionsDetails()))
 							.build();
 
@@ -381,10 +379,9 @@ public class MemberDetailsService {
 					member.get().setCaRiderRequested(payload.getCaRiderRequested());
 					member.get().setCiRiderSumInsured(payload.getCiRiderSumInsured());
 					member.get().setCaRiderSumInsured(payload.getCaRiderSumInsured());
-					member.get().setLifestyleDetails(
-							underwritingUtility.lifestyleDetailsUpdatePayloadToEntity(payload.getLifestyleDetails()));
-					member.get().setMedicalConditionsDetails(underwritingUtility
-							.medicalConditionsDetailsUpdatePayloadToEntity(payload.getMedicalConditionsDetails()));
+					member.get().setLifestyleDetails(underwritingMapper.updatePayloadToLifestyleDetails(payload.getLifestyleDetails()));
+					member.get().setMedicalConditionsDetails(underwritingMapper.updatePayloadToMedicalConditionsDetails(payload.getMedicalConditionsDetails()));
+
 
 					memberDetailsRepository.save(member.get());
 
@@ -405,9 +402,9 @@ public class MemberDetailsService {
 							.caRiderRequested(member.get().getCaRiderRequested())
 							.ciRiderSumInsured(member.get().getCiRiderSumInsured())
 							.caRiderSumInsured(member.get().getCaRiderSumInsured())
-							.lifestyleDetails(underwritingUtility
+							.lifestyleDetails(underwritingMapper
 									.lifestyleDetailsEntityToResponse(member.get().getLifestyleDetails()))
-							.medicalConditionsDetails(underwritingUtility
+							.medicalConditionsDetails(underwritingMapper
 									.medicalConditionsEntityToResponse(member.get().getMedicalConditionsDetails()))
 							.build();
 

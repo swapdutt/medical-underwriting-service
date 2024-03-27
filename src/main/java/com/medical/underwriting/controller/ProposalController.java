@@ -169,7 +169,7 @@ public class ProposalController {
 	public ResponseEntity<ProposalDetailsResponse> updateProposalDetails(
 			@RequestParam(value = "proposalDetailsId", required = false) @PathVariable("proposalDetailsId") @Nullable final String proposalDetailsId,
 			@RequestBody @Valid @NonNull final UpdateProposalDetailsRequestPayload payload) {
-		return ResponseEntity.ok(proposalDetailsService.udpateProposalDetails(proposalDetailsId, payload));
+		return ResponseEntity.ok(proposalDetailsService.updateProposalDetails(proposalDetailsId, payload));
 	}
 
 	@DeleteMapping(value = "/deleteProposalDetailsById/{proposalDetailsId}", produces = MediaType.APPLICATION_JSON_VALUE)

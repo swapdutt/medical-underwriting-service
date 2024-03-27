@@ -23,7 +23,6 @@ import com.medical.underwriting.payloads.response.PersonalMedicalConditionsRespo
 import com.medical.underwriting.repository.DiseaseQuestionnaireRepository;
 import com.medical.underwriting.repository.LabTestsRepository;
 import com.medical.underwriting.repository.PersonalMedicalConditionsRepository;
-import com.medical.underwriting.utility.UnderwritingUtility;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +36,6 @@ public class MedicalConditionsService {
 	private final DiseaseQuestionnaireRepository diseaseQuestionnaireRepository;
 	private final LabTestsRepository labTestsRepository;
 	private final PersonalMedicalConditionsRepository personalMedicalConditionsRepository;
-	private final UnderwritingUtility underwritingUtility;
 
 	/**
 	 * Business logics related to disease questionnaire
@@ -747,7 +745,7 @@ public class MedicalConditionsService {
 
 					return PersonalMedicalConditionsResponse.builder()
 							.personalMedicalConditionsId(medicalConditions.getPersonalMedicalConditionsId())
-							.diseaseQuestionnaire(underwritingUtility
+							.diseaseQuestionnaire(underwritingMapper
 									.diseaseQuestionnaireEntityToResponse(medicalConditions.getDiseaseQuestionnaire()))
 							.nameOfDisease(medicalConditions.getNameOfDisease())
 							.typeOfDisease(medicalConditions.getTypeOfDisease())
@@ -784,7 +782,7 @@ public class MedicalConditionsService {
 				if (medicalConditions.isPresent()) {
 
 					medicalConditions.get().setDiseaseQuestionnaire(
-							underwritingUtility.diseaseQuestionnaireResponseToEntity(updateDiseaseQuestionnaire(
+							underwritingMapper.diseaseQuestionnaireResponseToEntity(updateDiseaseQuestionnaire(
 									medicalConditions.get().getDiseaseQuestionnaire().getDiseaseQuestionnaireId(),
 									payload.getDiseaseQuestionnaire())));
 					medicalConditions.get().setNameOfDisease(payload.getNameOfDisease());

@@ -1,5 +1,6 @@
 package com.medical.underwriting.mapper;
 
+import com.medical.underwriting.payloads.response.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -31,86 +32,111 @@ import com.medical.underwriting.payloads.request.update.UpdatePersonalMedicalCon
 import com.medical.underwriting.payloads.request.update.UpdateProposalDetailsRequestPayload;
 import com.medical.underwriting.payloads.request.update.UpdateProposerDetailsRequestPayload;
 
+import java.util.List;
+
 @Mapper
 public interface UnderwritingMapper {
 
-	/**
-	 * Proposal related java beans mappings
-	 */
+    /**
+     * Proposal related java beans mappings
+     */
 
-	@Mapping(target = "id", ignore = true)
-	PaymentDetails createPayloadToPaymentDetails(CreatePaymentDetailsRequestPayload payload);
+    @Mapping(target = "id", ignore = true)
+    PaymentDetails createPayloadToPaymentDetails(CreatePaymentDetailsRequestPayload payload);
 
-	@Mapping(target = "id", ignore = true)
-	@Mapping(target = "paymentDetailsId", ignore = true)
-	PaymentDetails updatePayloadToPaymentDetails(UpdatePaymentDetailsRequestPayload payload);
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "paymentDetailsId", ignore = true)
+    PaymentDetails updatePayloadToPaymentDetails(UpdatePaymentDetailsRequestPayload payload);
 
-	@Mapping(target = "id", ignore = true)
-	ProposerDetails createPayloadToProposerDetails(CreateProposerDetailsRequestPayload payload);
+    @Mapping(target = "id", ignore = true)
+    ProposerDetails createPayloadToProposerDetails(CreateProposerDetailsRequestPayload payload);
 
-	@Mapping(target = "id", ignore = true)
-	@Mapping(target = "proposerDetailsId", ignore = true)
-	ProposerDetails updatePayloadToProposerDetails(UpdateProposerDetailsRequestPayload payload);
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "proposerDetailsId", ignore = true)
+    ProposerDetails updatePayloadToProposerDetails(UpdateProposerDetailsRequestPayload payload);
 
-	@Mapping(target = "id", ignore = true)
-	ProposalDetails createPayloadToProposalDetails(CreateProposalDetailsRequestPayload payload);
+    @Mapping(target = "id", ignore = true)
+    ProposalDetails createPayloadToProposalDetails(CreateProposalDetailsRequestPayload payload);
 
-	@Mapping(target = "id", ignore = true)
-	@Mapping(target = "proposalDetailsId", ignore = true)
-	@Mapping(target = "applicationNumber", ignore = true)
-	@Mapping(target = "policyNumber", ignore = true)
-	ProposalDetails updatePayloadToProposalDetails(UpdateProposalDetailsRequestPayload payload);
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "proposalDetailsId", ignore = true)
+    @Mapping(target = "applicationNumber", ignore = true)
+    @Mapping(target = "policyNumber", ignore = true)
+    ProposalDetails updatePayloadToProposalDetails(UpdateProposalDetailsRequestPayload payload);
 
-	/**
-	 * Member related java bean mappings
-	 */
+    /**
+     * Member related java bean mappings
+     */
 
-	@Mapping(target = "id", ignore = true)
-	LifestyleDetails createPayloadToLifestyleDetails(CreateLifestyleDetailsRequestPayload payload);
+    @Mapping(target = "id", ignore = true)
+    LifestyleDetails createPayloadToLifestyleDetails(CreateLifestyleDetailsRequestPayload payload);
 
-	@Mapping(target = "id", ignore = true)
-	@Mapping(target = "lifestyleDetailsId", ignore = true)
-	LifestyleDetails updatePayloadToLifestyleDetails(UpdateLifestyleDetailsRequestPayload payload);
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "lifestyleDetailsId", ignore = true)
+    LifestyleDetails updatePayloadToLifestyleDetails(UpdateLifestyleDetailsRequestPayload payload);
 
-	@Mapping(target = "id", ignore = true)
-	MedicalConditionsDetails createPayloadToMedicalConditionsDetails(CreateMedicalConditionsRequestPayload payload);
+    @Mapping(target = "id", ignore = true)
+    MedicalConditionsDetails createPayloadToMedicalConditionsDetails(CreateMedicalConditionsRequestPayload payload);
 
-	@Mapping(target = "id", ignore = true)
-	@Mapping(target = "medicalConditionsDetailsId", ignore = true)
-	MedicalConditionsDetails updatePayloadToMedicalConditionsDetails(UpdateMedicalConditionsRequestPayload payload);
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "medicalConditionsDetailsId", ignore = true)
+    MedicalConditionsDetails updatePayloadToMedicalConditionsDetails(UpdateMedicalConditionsRequestPayload payload);
 
-	@Mapping(target = "id", ignore = true)
-	MemberDetails createPayloadToMemberDetails(CreateMemberDetailsRequestPayload payload);
+    @Mapping(target = "id", ignore = true)
+    MemberDetails createPayloadToMemberDetails(CreateMemberDetailsRequestPayload payload);
 
-	@Mapping(target = "id", ignore = true)
-	@Mapping(target = "memberId", ignore = true)
-	MemberDetails updatePayloadToMemberDetails(UpdateMemberDetailsRequestPayload payload);
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "memberId", ignore = true)
+    MemberDetails updatePayloadToMemberDetails(UpdateMemberDetailsRequestPayload payload);
 
-	/**
-	 * Medical related java bean mappings
-	 */
+    /**
+     * Medical related java bean mappings
+     */
 
-	@Mapping(target = "id", ignore = true)
-	DiseaseQuestionnaire createPayloadToDiseaseQuestionnaire(CreateDiseaseQuestionnaireRequestPayload payload);
+    @Mapping(target = "id", ignore = true)
+    DiseaseQuestionnaire createPayloadToDiseaseQuestionnaire(CreateDiseaseQuestionnaireRequestPayload payload);
 
-	@Mapping(target = "id", ignore = true)
-	@Mapping(target = "diseaseQuestionnaireId", ignore = true)
-	DiseaseQuestionnaire updatePayloadToDiseaseQuestionnaire(UpdateDiseaseQuestionnaireRequestPayload payload);
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "diseaseQuestionnaireId", ignore = true)
+    DiseaseQuestionnaire updatePayloadToDiseaseQuestionnaire(UpdateDiseaseQuestionnaireRequestPayload payload);
 
-	@Mapping(target = "id", ignore = true)
-	LabTests createPayloadToLabTests(CreateLabTestsRequestPayload payload);
+    @Mapping(target = "id", ignore = true)
+    LabTests createPayloadToLabTests(CreateLabTestsRequestPayload payload);
 
-	@Mapping(target = "id", ignore = true)
-	@Mapping(target = "labTestsId", ignore = true)
-	LabTests updatePayloadToLabTests(UpdateLabTestsRequestPayload payload);
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "labTestsId", ignore = true)
+    LabTests updatePayloadToLabTests(UpdateLabTestsRequestPayload payload);
 
-	@Mapping(target = "id", ignore = true)
-	PersonalMedicalConditions createPayloadToPersonalMedicalConditions(
-			CreatePersonalMedicalConditionsRequestPayload payload);
+    @Mapping(target = "id", ignore = true)
+    PersonalMedicalConditions createPayloadToPersonalMedicalConditions(
+            CreatePersonalMedicalConditionsRequestPayload payload);
 
-	@Mapping(target = "id", ignore = true)
-	@Mapping(target = "personalMedicalConditionsId", ignore = true)
-	PersonalMedicalConditions updatePayloadToPersonalMedicalConditions(
-			UpdatePersonalMedicalConditionsRequestPayload payload);
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "personalMedicalConditionsId", ignore = true)
+    PersonalMedicalConditions updatePayloadToPersonalMedicalConditions(
+            UpdatePersonalMedicalConditionsRequestPayload payload);
+
+    /**
+     * Other java bean mappings - utility
+     */
+
+    DiseaseQuestionnaireResponse diseaseQuestionnaireEntityToResponse(DiseaseQuestionnaire questionnaire);
+
+    DiseaseQuestionnaire diseaseQuestionnaireResponseToEntity(DiseaseQuestionnaireResponse response);
+
+    LabTestsResponse labTestsEntityToResponse(LabTests labTests);
+
+    List<PersonalMedicalConditionsResponse> addPMCtoPMCR(List<PersonalMedicalConditions> personalMedicalConditions);
+    List<PersonalMedicalConditions> addUPMCtoPMC(List<UpdatePersonalMedicalConditionsRequestPayload> payloads);
+
+    LifestyleDetailsResponse lifestyleDetailsEntityToResponse(LifestyleDetails lifestyleDetails);
+    MedicalConditionsResponse medicalConditionsEntityToResponse(MedicalConditionsDetails details);
+    List<MemberDetailsResponse> addMDtoMDR(List<MemberDetails> memberDetails);
+    PaymentDetailsResponse paymentDetailsEntityToResponse(PaymentDetails details);
+    ProposerDetailsResponse proposerDetailsEntityToResponse(ProposerDetails details);
+    List<MemberDetails> addUMDtoMD(List<UpdateMemberDetailsRequestPayload> payloads);
+
+
+
 
 }

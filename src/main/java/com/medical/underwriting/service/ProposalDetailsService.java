@@ -23,7 +23,6 @@ import com.medical.underwriting.payloads.response.ProposerDetailsResponse;
 import com.medical.underwriting.repository.PaymentDetailsRepository;
 import com.medical.underwriting.repository.ProposalDetailsRepository;
 import com.medical.underwriting.repository.ProposerDetailsRepository;
-import com.medical.underwriting.utility.UnderwritingUtility;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +36,6 @@ public class ProposalDetailsService {
 	private final ProposalDetailsRepository proposalDetailsRepository;
 	private final ProposerDetailsRepository proposerDetailsRepository;
 	private final PaymentDetailsRepository paymentDetailsRepository;
-	private final UnderwritingUtility underwritingUtility;
 
 	/**
 	 * Business logics related to payment details
@@ -331,7 +329,7 @@ public class ProposalDetailsService {
 				.businessMode(proposalDetails.getBusinessMode())
 				.proposerDetails(findProposerDetailsById(proposalDetails.getProposerDetails().getProposerDetailsId()))
 				.paymentDetails(findPaymentDetailsById(proposalDetails.getPaymentDetails().getPaymentDetailsId()))
-				.memberDetails(underwritingUtility.addMDtoMDR(proposalDetails.getMemberDetails())).build();
+				.memberDetails(underwritingMapper.addMDtoMDR(proposalDetails.getMemberDetails())).build();
 
 	}
 
@@ -360,11 +358,11 @@ public class ProposalDetailsService {
 							.planOption(proposalDetails.getPlanOption()).businessType(proposalDetails.getBusinessType())
 							.proposalCreationDate(proposalDetails.getProposalCreationDate())
 							.businessMode(proposalDetails.getBusinessMode())
-							.proposerDetails(underwritingUtility
+							.proposerDetails(underwritingMapper
 									.proposerDetailsEntityToResponse(proposalDetails.getProposerDetails()))
-							.paymentDetails(underwritingUtility
+							.paymentDetails(underwritingMapper
 									.paymentDetailsEntityToResponse(proposalDetails.getPaymentDetails()))
-							.memberDetails(underwritingUtility.addMDtoMDR(proposalDetails.getMemberDetails())).build();
+							.memberDetails(underwritingMapper.addMDtoMDR(proposalDetails.getMemberDetails())).build();
 
 				}
 
@@ -378,7 +376,7 @@ public class ProposalDetailsService {
 
 	}
 
-	public ProposalDetailsResponse udpateProposalDetails(String proposalDetailsId,
+	public ProposalDetailsResponse updateProposalDetails(String proposalDetailsId,
 			UpdateProposalDetailsRequestPayload payload) {
 
 		try {
@@ -399,11 +397,9 @@ public class ProposalDetailsService {
 					proposalDetails.get().setBusinessType(payload.getBusinessType());
 					proposalDetails.get().setProposalCreationDate(payload.getProposalCreationDate());
 					proposalDetails.get().setBusinessMode(payload.getBusinessMode());
-					proposalDetails.get().setProposerDetails(
-							underwritingUtility.proposerDetailsEntityToResponse(payload.getProposerDetails()));
-					proposalDetails.get().setPaymentDetails(
-							underwritingUtility.paymentDetailsEntityToResponse(payload.getPaymentDetails()));
-					proposalDetails.get().setMemberDetails(underwritingUtility.addUMDtoMD(payload.getMemberDetails()));
+					proposalDetails.get().setProposerDetails(underwritingMapper.updatePayloadToProposerDetails(payload.getProposerDetails()));
+					proposalDetails.get().setPaymentDetails(underwritingMapper.updatePayloadToPaymentDetails(payload.getPaymentDetails()));
+					proposalDetails.get().setMemberDetails(underwritingMapper.addUMDtoMD(payload.getMemberDetails()));
 
 					proposalDetailsRepository.save(proposalDetails.get());
 
@@ -417,11 +413,11 @@ public class ProposalDetailsService {
 							.businessType(proposalDetails.get().getBusinessType())
 							.proposalCreationDate(proposalDetails.get().getProposalCreationDate())
 							.businessMode(proposalDetails.get().getBusinessMode())
-							.proposerDetails(underwritingUtility
+							.proposerDetails(underwritingMapper
 									.proposerDetailsEntityToResponse(proposalDetails.get().getProposerDetails()))
-							.paymentDetails(underwritingUtility
+							.paymentDetails(underwritingMapper
 									.paymentDetailsEntityToResponse(proposalDetails.get().getPaymentDetails()))
-							.memberDetails(underwritingUtility.addMDtoMDR(proposalDetails.get().getMemberDetails()))
+							.memberDetails(underwritingMapper.addMDtoMDR(proposalDetails.get().getMemberDetails()))
 							.build();
 
 				} else {

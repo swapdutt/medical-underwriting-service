@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import com.medical.underwriting.constants.UnderwritingConstants;
 import com.medical.underwriting.exception.UnderwritingException;
 import com.medical.underwriting.mapper.UnderwritingMapper;
 import com.medical.underwriting.model.medical.DiseaseQuestionnaire;
@@ -23,6 +22,8 @@ import com.medical.underwriting.payloads.response.PersonalMedicalConditionsRespo
 import com.medical.underwriting.repository.DiseaseQuestionnaireRepository;
 import com.medical.underwriting.repository.LabTestsRepository;
 import com.medical.underwriting.repository.PersonalMedicalConditionsRepository;
+import com.medical.underwriting.utility.UnderwritingConstants;
+import com.medical.underwriting.utility.UnderwritingUtility;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +37,7 @@ public class MedicalConditionsService {
 	private final DiseaseQuestionnaireRepository diseaseQuestionnaireRepository;
 	private final LabTestsRepository labTestsRepository;
 	private final PersonalMedicalConditionsRepository personalMedicalConditionsRepository;
+	private final UnderwritingUtility underwritingUtility;
 
 	/**
 	 * Business logics related to disease questionnaire
@@ -76,6 +78,11 @@ public class MedicalConditionsService {
 					throw new UnderwritingException("409", UnderwritingConstants.DISEASE_QUESTIONNAIRE_ID_FOUND,
 							HttpStatus.CONFLICT);
 				} else {
+					
+					if (null != payload.getDiseaseQuestionnaireId()) {
+						payload.setDiseaseQuestionnaireId(underwritingUtility.generateUUID());
+						log.info("paylaod.getDiseaseQuestionnaireId : ", payload.getDiseaseQuestionnaireId());
+					}
 
 					DiseaseQuestionnaire questionnaire = diseaseQuestionnaireRepository
 							.save(underwritingMapper.createPayloadToDiseaseQuestionnaire(payload));

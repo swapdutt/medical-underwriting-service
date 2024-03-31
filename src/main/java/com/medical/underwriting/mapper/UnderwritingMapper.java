@@ -114,6 +114,7 @@ public interface UnderwritingMapper {
      */
 
     DiseaseQuestionnaireResponse diseaseQuestionnaireEntityToResponse(DiseaseQuestionnaire questionnaire);
+    @Mapping(target = "id", ignore = true)
     DiseaseQuestionnaire diseaseQuestionnaireResponseToEntity(DiseaseQuestionnaireResponse response);
     LabTestsResponse labTestsEntityToResponse(LabTests labTests);
     List<PersonalMedicalConditionsResponse> addPMCtoPMCR(List<PersonalMedicalConditions> personalMedicalConditions);

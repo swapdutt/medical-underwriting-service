@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import com.medical.underwriting.constants.UnderwritingConstants;
 import com.medical.underwriting.exception.UnderwritingException;
 import com.medical.underwriting.mapper.UnderwritingMapper;
 import com.medical.underwriting.model.member.LifestyleDetails;
@@ -23,6 +22,7 @@ import com.medical.underwriting.payloads.response.MemberDetailsResponse;
 import com.medical.underwriting.repository.LifestyleRepository;
 import com.medical.underwriting.repository.MedicalConditionsDetailsRepository;
 import com.medical.underwriting.repository.MemberDetailsRepository;
+import com.medical.underwriting.utility.UnderwritingConstants;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

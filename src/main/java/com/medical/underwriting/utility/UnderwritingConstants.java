@@ -1,4 +1,4 @@
-package com.medical.underwriting.constants;
+package com.medical.underwriting.utility;
 
 public class UnderwritingConstants {
 

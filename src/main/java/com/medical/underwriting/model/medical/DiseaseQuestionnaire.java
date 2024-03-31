@@ -17,7 +17,7 @@ public class DiseaseQuestionnaire {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	String id;
+	Integer id;
 	String diseaseQuestionnaireId;
 	String question1;
 	String question2;

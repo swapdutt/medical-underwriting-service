@@ -49,7 +49,7 @@ public class MedicalConditionsController {
 			@ApiResponse(responseCode = "200", description = "OK : disease questionnaire record successfully found"),
 			@ApiResponse(responseCode = "404", description = "NOT_FOUND : disease questionnaire record not found successfully") })
 	public ResponseEntity<DiseaseQuestionnaireResponse> findDiseaseQuestionnaireById(
-			@RequestParam(value = "diseaseQuestionnaireId", required = false) @PathVariable("diseaseQuestionnaireId") @Nullable final String diseaseQuestionnaireId) {
+			@PathVariable("diseaseQuestionnaireId") @Nullable final String diseaseQuestionnaireId) {
 		return ResponseEntity.ok(medicalConditionsService.findDiseaseQuestionnaireById(diseaseQuestionnaireId));
 	}
 
@@ -71,7 +71,7 @@ public class MedicalConditionsController {
 			@ApiResponse(responseCode = "404", description = "NOT_FOUND : disease questionnaire record not found successfully"),
 			@ApiResponse(responseCode = "400", description = "BAD_REQUEST : disease questionnaire record not updated successfully") })
 	public ResponseEntity<DiseaseQuestionnaireResponse> updateDiseaseQuestionnaire(
-			@RequestParam(value = "diseaseQuestionnaireId", required = false) @PathVariable("diseaseQuestionnaireId") @Nullable final String diseaseQuestionnaireId,
+			@PathVariable("diseaseQuestionnaireId") @Nullable final String diseaseQuestionnaireId,
 			@RequestBody @Valid @NonNull final UpdateDiseaseQuestionnaireRequestPayload payload) {
 		return ResponseEntity.ok(medicalConditionsService.updateDiseaseQuestionnaire(diseaseQuestionnaireId, payload));
 	}
@@ -83,7 +83,7 @@ public class MedicalConditionsController {
 			@ApiResponse(responseCode = "404", description = "NOT_FOUND : disease questionnaire record not found successfully"),
 			@ApiResponse(responseCode = "400", description = "BAD_REQUEST : disease questionnaire record not deleted successfully") })
 	public ResponseEntity<Boolean> deleteDiseaseQuestionnaireById(
-			@RequestParam(value = "diseaseQuestionnaireId", required = false) @PathVariable("diseaseQuestionnaireId") @Nullable final String diseaseQuestionnaireId) {
+			@PathVariable("diseaseQuestionnaireId") @Nullable final String diseaseQuestionnaireId) {
 		medicalConditionsService.deleteDiseaseQuestionnaireById(diseaseQuestionnaireId);
 		return ResponseEntity.ok(Boolean.TRUE);
 	}

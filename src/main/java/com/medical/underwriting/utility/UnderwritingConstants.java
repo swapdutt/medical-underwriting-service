@@ -6,7 +6,7 @@ public class UnderwritingConstants {
 
     }
 
-    public static final String BAD_REQUEST = "Payload request error. Check the payload";
+    public static final String SUCCESSFUL_DELETE_ENTITY = "Successfully deleted the entity with id : ";
     public static final String DISEASE_QUESTIONNAIRE_ID_NOT_FOUND = "Disease questionnaire record was not found by disease questionnaire id";
     public static final String DISEASE_QUESTIONNAIRE_ID_FOUND = "Disease questionnaire record was found by disease questionnaire id";
     public static final String LAB_TESTS_ID_NOT_FOUND = "Lab tests record was not found by lab tests id";

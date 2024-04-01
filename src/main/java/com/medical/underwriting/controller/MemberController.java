@@ -1,5 +1,6 @@
 package com.medical.underwriting.controller;
 
+import com.medical.underwriting.utility.UnderwritingConstants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -77,9 +78,9 @@ public class MemberController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK : lifestyle details record successfully deleted"),
             @ApiResponse(responseCode = "404", description = "NOT_FOUND : lifestyle details record not found successfully")})
-    public ResponseEntity<Boolean> deleteLifestyleDetailsById(@PathVariable("lifestyleDetailsId") @Nullable final String lifestyleDetailsId) {
+    public ResponseEntity<String> deleteLifestyleDetailsById(@PathVariable("lifestyleDetailsId") @Nullable final String lifestyleDetailsId) {
         memberDetailsService.deleteLifestyleDetailsById(lifestyleDetailsId);
-        return ResponseEntity.ok(Boolean.TRUE);
+        return new ResponseEntity<>(UnderwritingConstants.SUCCESSFUL_DELETE_ENTITY + lifestyleDetailsId, HttpStatus.OK);
     }
 
     /**
@@ -121,9 +122,9 @@ public class MemberController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK : medical conditions details record successfully deleted"),
             @ApiResponse(responseCode = "404", description = "NOT_FOUND : medical conditions details record not found successfully")})
-    public ResponseEntity<Boolean> deleteMedicalConditionsById(@PathVariable("medicalConditionsDetailsId") @Nullable final String medicalConditionsDetailsId) {
+    public ResponseEntity<String> deleteMedicalConditionsById(@PathVariable("medicalConditionsDetailsId") @Nullable final String medicalConditionsDetailsId) {
         memberDetailsService.deleteMedicalConditionsById(medicalConditionsDetailsId);
-        return ResponseEntity.ok(Boolean.TRUE);
+        return new ResponseEntity<>(UnderwritingConstants.SUCCESSFUL_DELETE_ENTITY + medicalConditionsDetailsId, HttpStatus.OK);
     }
 
     /**
@@ -165,9 +166,9 @@ public class MemberController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK : member details record successfully deleted"),
             @ApiResponse(responseCode = "404", description = "NOT_FOUND : member details record not found successfully")})
-    public ResponseEntity<Boolean> deleteMemberDetailsById(@PathVariable("memberDetailsId") @Nullable final String memberDetailsId) {
+    public ResponseEntity<String> deleteMemberDetailsById(@PathVariable("memberDetailsId") @Nullable final String memberDetailsId) {
         memberDetailsService.deleteMemberDetailsById(memberDetailsId);
-        return ResponseEntity.ok(Boolean.TRUE);
+        return new ResponseEntity<>(UnderwritingConstants.SUCCESSFUL_DELETE_ENTITY + memberDetailsId, HttpStatus.OK);
     }
 
 }

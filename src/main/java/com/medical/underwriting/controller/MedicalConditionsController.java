@@ -1,5 +1,6 @@
 package com.medical.underwriting.controller;
 
+import com.medical.underwriting.utility.UnderwritingConstants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -78,9 +79,10 @@ public class MedicalConditionsController {
             @ApiResponse(responseCode = "200", description = "OK : disease questionnaire record successfully deleted"),
             @ApiResponse(responseCode = "404", description = "NOT_FOUND : disease questionnaire record not found successfully"),
             @ApiResponse(responseCode = "400", description = "BAD_REQUEST : disease questionnaire record not deleted successfully")})
-    public ResponseEntity<Boolean> deleteDiseaseQuestionnaireById(@PathVariable("diseaseQuestionnaireId") @Nullable final String diseaseQuestionnaireId) {
+    public ResponseEntity<String> deleteDiseaseQuestionnaireById(@PathVariable("diseaseQuestionnaireId") @Nullable final String diseaseQuestionnaireId) {
         medicalConditionsService.deleteDiseaseQuestionnaireById(diseaseQuestionnaireId);
-        return ResponseEntity.ok(Boolean.TRUE);
+        return new ResponseEntity<>(UnderwritingConstants.SUCCESSFUL_DELETE_ENTITY + diseaseQuestionnaireId, HttpStatus.OK);
+
     }
 
     /**
@@ -122,9 +124,9 @@ public class MedicalConditionsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK : lab tests record successfully deleted"),
             @ApiResponse(responseCode = "404", description = "NOT_FOUND : lab tests record not found successfully")})
-    public ResponseEntity<Boolean> deleteLabTestsById(@PathVariable("labTestsId") @Nullable final String labTestsId) {
+    public ResponseEntity<String> deleteLabTestsById(@PathVariable("labTestsId") @Nullable final String labTestsId) {
         medicalConditionsService.deleteLabTestsById(labTestsId);
-        return ResponseEntity.ok(Boolean.TRUE);
+        return new ResponseEntity<>(UnderwritingConstants.SUCCESSFUL_DELETE_ENTITY + labTestsId, HttpStatus.OK);
     }
 
     /**
@@ -169,9 +171,9 @@ public class MedicalConditionsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK : personal medical conditions record successfully deleted"),
             @ApiResponse(responseCode = "404", description = "NOT_FOUND : personal medical conditions record not found successfully")})
-    public ResponseEntity<Boolean> deletePersonalMedicalConditionsById(@PathVariable("personalMedicalConditionsId") @Nullable final String personalMedicalConditionsId) {
+    public ResponseEntity<String> deletePersonalMedicalConditionsById(@PathVariable("personalMedicalConditionsId") @Nullable final String personalMedicalConditionsId) {
         medicalConditionsService.deletePersonalMedicalConditionsById(personalMedicalConditionsId);
-        return ResponseEntity.ok(Boolean.TRUE);
+        return new ResponseEntity<>(UnderwritingConstants.SUCCESSFUL_DELETE_ENTITY + personalMedicalConditionsId, HttpStatus.OK);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.medical.underwriting.controller;
 
+import com.medical.underwriting.utility.UnderwritingConstants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -77,9 +78,9 @@ public class ProposalController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK : payment details record successfully found"),
             @ApiResponse(responseCode = "404", description = "NOT_FOUND : payment details record not found successfully")})
-    public ResponseEntity<Boolean> deletePaymentDetailsById(@PathVariable("paymentDetailsId") @Nullable final String paymentDetailsId) {
+    public ResponseEntity<String> deletePaymentDetailsById(@PathVariable("paymentDetailsId") @Nullable final String paymentDetailsId) {
         proposalDetailsService.deletePaymentDetailsById(paymentDetailsId);
-        return ResponseEntity.ok(Boolean.TRUE);
+        return new ResponseEntity<>(UnderwritingConstants.SUCCESSFUL_DELETE_ENTITY + paymentDetailsId, HttpStatus.OK);
     }
 
     /**
@@ -121,9 +122,9 @@ public class ProposalController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK : proposer details record successfully found"),
             @ApiResponse(responseCode = "404", description = "NOT_FOUND : proposer details record not found successfully")})
-    public ResponseEntity<Boolean> deleteProposerDetailsById(@PathVariable("proposerDetailsId") @Nullable final String proposerDetailsId) {
+    public ResponseEntity<String> deleteProposerDetailsById(@PathVariable("proposerDetailsId") @Nullable final String proposerDetailsId) {
         proposalDetailsService.deleteProposerDetailsById(proposerDetailsId);
-        return ResponseEntity.ok(Boolean.TRUE);
+        return new ResponseEntity<>(UnderwritingConstants.SUCCESSFUL_DELETE_ENTITY + proposerDetailsId, HttpStatus.OK);
     }
 
     /**
@@ -165,9 +166,9 @@ public class ProposalController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK : proposal details record successfully found"),
             @ApiResponse(responseCode = "404", description = "NOT_FOUND : proposal details record not found successfully")})
-    public ResponseEntity<Boolean> deleteProposalDetailsById(@PathVariable("proposalDetailsId") @Nullable final String proposalDetailsId) {
+    public ResponseEntity<String> deleteProposalDetailsById(@PathVariable("proposalDetailsId") @Nullable final String proposalDetailsId) {
         proposalDetailsService.deleteProposalDetailsById(proposalDetailsId);
-        return ResponseEntity.ok(Boolean.TRUE);
+        return new ResponseEntity<>(UnderwritingConstants.SUCCESSFUL_DELETE_ENTITY + proposalDetailsId, HttpStatus.OK);
     }
 
 }

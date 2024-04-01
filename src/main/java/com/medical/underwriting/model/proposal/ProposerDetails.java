@@ -19,7 +19,7 @@ public class ProposerDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	String id;
+	Integer id;
 	String proposerDetailsId;
 	String firstName;
 	String middleName;

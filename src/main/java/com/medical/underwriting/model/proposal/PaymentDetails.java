@@ -19,7 +19,7 @@ public class PaymentDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	String id;
+	Integer id;
 	String paymentDetailsId;
 	String nameOfPayor;
 	String modeOfPayment;

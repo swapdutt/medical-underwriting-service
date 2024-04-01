@@ -34,9 +34,10 @@ public class MedicalConditionsDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	String id;
+	Integer id;
 	String medicalConditionsDetailsId;
 	@OneToMany
+	@ToString.Exclude
 	List<PersonalMedicalConditions> personalMedicalConditionsList;
 	@OneToOne
 	LabTests labTests;

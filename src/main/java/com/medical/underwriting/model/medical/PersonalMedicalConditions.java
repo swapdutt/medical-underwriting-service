@@ -32,7 +32,7 @@ public class PersonalMedicalConditions {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	String id;
+	Integer id;
 	String personalMedicalConditionsId;
 	@OneToOne
 	DiseaseQuestionnaire diseaseQuestionnaire;

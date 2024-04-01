@@ -36,7 +36,7 @@ public class ProposalDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	String id;
+	Integer id;
 	String proposalDetailsId;
 	String sourcingApplication;
 	@Builder.Default
@@ -55,6 +55,7 @@ public class ProposalDetails {
 	PaymentDetails paymentDetails;
 	// @JdbcTypeCode(SqlTypes.JSON)
 	@OneToMany
+	@ToString.Exclude
 	List<MemberDetails> memberDetails;
 
 }

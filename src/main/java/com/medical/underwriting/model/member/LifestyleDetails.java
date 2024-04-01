@@ -17,7 +17,7 @@ public class LifestyleDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	String id;
+	Integer id;
 	String lifestyleDetailsId;
 	Integer amountOfTobaccoProductsConsumptionPerDay;
 	Integer amountOfAlcoholConsumptionPerWeek;

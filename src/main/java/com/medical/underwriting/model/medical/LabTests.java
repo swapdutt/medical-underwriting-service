@@ -17,7 +17,7 @@ public class LabTests {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	String id;
+	Integer id;
 	String labTestsId;
 	String sugarInUrine;
 	String bilirubinInUrine;

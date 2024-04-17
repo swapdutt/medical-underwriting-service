@@ -45,7 +45,7 @@ public class ProposalDetailsService {
 
     public PaymentDetailsResponse findPaymentDetailsById(String paymentDetailsId) {
         PaymentDetails paymentDetails = paymentDetailsRepository.findPaymentDetailsByPaymentDetailsId(paymentDetailsId)
-                .orElseThrow(() -> new UnderwritingException("404", UnderwritingConstants.PAYMENT_DETAILS_ID_NOT_FOUND, HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new UnderwritingException("404", UnderwritingConstants.PAYMENT_DETAILS_ID_NOT_FOUND + paymentDetailsId, HttpStatus.NOT_FOUND));
         log.info("Payment Details : {}", paymentDetails);
         return PaymentDetailsResponse.builder().paymentDetailsId(paymentDetails.getPaymentDetailsId())
                 .nameOfPayor(paymentDetails.getNameOfPayor()).modeOfPayment(paymentDetails.getModeOfPayment())
@@ -77,7 +77,7 @@ public class ProposalDetailsService {
                         .declarationOfPayor(paymentDetails.getDeclarationOfPayor()).build();
             }
         } catch (UnderwritingException e) {
-            throw new UnderwritingException("409", UnderwritingConstants.PAYMENT_DETAILS_ID_FOUND, HttpStatus.CONFLICT);
+            throw new UnderwritingException("409", UnderwritingConstants.PAYMENT_DETAILS_ID_FOUND + payload.getPaymentDetailsId(), HttpStatus.CONFLICT);
         }
         return null;
     }
@@ -114,7 +114,7 @@ public class ProposalDetailsService {
                 }
             }
         } catch (UnderwritingException e) {
-            throw new UnderwritingException("404", UnderwritingConstants.PAYMENT_DETAILS_ID_NOT_FOUND, HttpStatus.NOT_FOUND);
+            throw new UnderwritingException("404", UnderwritingConstants.PAYMENT_DETAILS_ID_NOT_FOUND + paymentDetailsId, HttpStatus.NOT_FOUND);
         }
         return null;
     }
@@ -131,7 +131,7 @@ public class ProposalDetailsService {
 
     public ProposerDetailsResponse findProposerDetailsById(String proposerDetailsId) {
         ProposerDetails proposerDetails = proposerDetailsRepository.findProposerDetailsByProposerDetailsId(proposerDetailsId)
-                .orElseThrow(() -> new UnderwritingException("404", UnderwritingConstants.PROPOSER_DETAILS_ID_NOT_FOUND, HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new UnderwritingException("404", UnderwritingConstants.PROPOSER_DETAILS_ID_NOT_FOUND + proposerDetailsId, HttpStatus.NOT_FOUND));
         log.info("Proposer Details : {}", proposerDetails);
         return ProposerDetailsResponse.builder().proposerDetailsId(proposerDetails.getProposerDetailsId())
                 .firstName(proposerDetails.getFirstName()).middleName(proposerDetails.getMiddleName())
@@ -175,7 +175,7 @@ public class ProposalDetailsService {
                         .designation(proposerDetails.getDesignation()).build();
             }
         } catch (UnderwritingException e) {
-            throw new UnderwritingException("409", UnderwritingConstants.PROPOSER_DETAILS_ID_FOUND, HttpStatus.CONFLICT);
+            throw new UnderwritingException("409", UnderwritingConstants.PROPOSER_DETAILS_ID_FOUND + payload.getProposerDetailsId(), HttpStatus.CONFLICT);
         }
         return null;
     }
@@ -227,7 +227,7 @@ public class ProposalDetailsService {
                 }
             }
         } catch (UnderwritingException e) {
-            throw new UnderwritingException("404", UnderwritingConstants.PROPOSER_DETAILS_ID_NOT_FOUND, HttpStatus.NOT_FOUND);
+            throw new UnderwritingException("404", UnderwritingConstants.PROPOSER_DETAILS_ID_NOT_FOUND + proposerDetailsId, HttpStatus.NOT_FOUND);
         }
         return null;
     }
@@ -244,7 +244,7 @@ public class ProposalDetailsService {
 
     public ProposalDetailsResponse findProposalDetailsById(String proposalDetailsId) {
         ProposalDetails proposalDetails = proposalDetailsRepository.findProposalDetailsByProposalDetailsId(proposalDetailsId)
-                .orElseThrow(() -> new UnderwritingException("404", UnderwritingConstants.PROPOSAL_DETAILS_ID_NOT_FOUND, HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new UnderwritingException("404", UnderwritingConstants.PROPOSAL_DETAILS_ID_NOT_FOUND + proposalDetailsId, HttpStatus.NOT_FOUND));
         log.info("Proposal Details : {}", proposalDetails);
         return ProposalDetailsResponse.builder().proposalDetailsId(proposalDetails.getProposalDetailsId())
                 .sourcingApplication(proposalDetails.getSourcingApplication())
@@ -282,7 +282,7 @@ public class ProposalDetailsService {
                         .memberDetails(underwritingMapper.addMDtoMDR(proposalDetails.getMemberDetails())).build();
             }
         } catch (UnderwritingException e) {
-            throw new UnderwritingException("409", UnderwritingConstants.PROPOSAL_DETAILS_ID_FOUND, HttpStatus.CONFLICT);
+            throw new UnderwritingException("409", UnderwritingConstants.PROPOSAL_DETAILS_ID_FOUND + payload.getProposalDetailsId(), HttpStatus.CONFLICT);
         }
         return null;
     }
@@ -325,7 +325,7 @@ public class ProposalDetailsService {
                 }
             }
         } catch (UnderwritingException e) {
-            throw new UnderwritingException("404", UnderwritingConstants.PROPOSAL_DETAILS_ID_NOT_FOUND, HttpStatus.NOT_FOUND);
+            throw new UnderwritingException("404", UnderwritingConstants.PROPOSAL_DETAILS_ID_NOT_FOUND + proposalDetailsId, HttpStatus.NOT_FOUND);
         }
         return null;
     }

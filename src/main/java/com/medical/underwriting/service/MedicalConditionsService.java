@@ -45,7 +45,7 @@ public class MedicalConditionsService {
 
     public DiseaseQuestionnaireResponse findDiseaseQuestionnaireById(String diseaseQuestionnaireId) {
         DiseaseQuestionnaire diseaseQuestionnaire = diseaseQuestionnaireRepository.findDiseaseQuestionnaireByDiseaseQuestionnaireId(diseaseQuestionnaireId)
-                .orElseThrow(() -> new UnderwritingException("404", UnderwritingConstants.DISEASE_QUESTIONNAIRE_ID_NOT_FOUND, HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new UnderwritingException("404", UnderwritingConstants.DISEASE_QUESTIONNAIRE_ID_NOT_FOUND + diseaseQuestionnaireId, HttpStatus.NOT_FOUND));
         log.info("Disease Questionnaire : {}", diseaseQuestionnaire);
         return DiseaseQuestionnaireResponse.builder()
                 .diseaseQuestionnaireId(diseaseQuestionnaire.getDiseaseQuestionnaireId())
@@ -79,7 +79,7 @@ public class MedicalConditionsService {
                         .build();
             }
         } catch (UnderwritingException e) {
-            throw new UnderwritingException("409", UnderwritingConstants.DISEASE_QUESTIONNAIRE_ID_FOUND, HttpStatus.CONFLICT);
+            throw new UnderwritingException("409", UnderwritingConstants.DISEASE_QUESTIONNAIRE_ID_FOUND + payload.getDiseaseQuestionnaireId(), HttpStatus.CONFLICT);
         }
         return null;
     }
@@ -120,7 +120,7 @@ public class MedicalConditionsService {
                 }
             }
         } catch (UnderwritingException e) {
-            throw new UnderwritingException("404", UnderwritingConstants.DISEASE_QUESTIONNAIRE_ID_NOT_FOUND, HttpStatus.NOT_FOUND);
+            throw new UnderwritingException("404", UnderwritingConstants.DISEASE_QUESTIONNAIRE_ID_NOT_FOUND + diseaseQuestionnaireId, HttpStatus.NOT_FOUND);
         }
         return null;
     }
@@ -137,7 +137,7 @@ public class MedicalConditionsService {
 
     public LabTestsResponse findLabTestsById(String labTestsId) {
         LabTests labTests = labTestsRepository.findLabTestsByLabTestsId(labTestsId)
-                .orElseThrow(() -> new UnderwritingException("404", UnderwritingConstants.LAB_TESTS_ID_NOT_FOUND, HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new UnderwritingException("404", UnderwritingConstants.LAB_TESTS_ID_NOT_FOUND + labTestsId, HttpStatus.NOT_FOUND));
         log.info("Lab Tests : {}", labTests);
         return LabTestsResponse.builder().labTestsId(labTestsId).sugarInUrine(labTests.getSugarInUrine())
                 .bilirubinInUrine(labTests.getBilirubinInUrine()).ketonesInUrine(labTests.getKetonesInUrine())
@@ -337,7 +337,7 @@ public class MedicalConditionsService {
                         .percentageOfLVEF(labTests.getPercentageOfLVEF()).build();
             }
         } catch (UnderwritingException e) {
-            throw new UnderwritingException("409", UnderwritingConstants.LAB_TESTS_ID_FOUND, HttpStatus.CONFLICT);
+            throw new UnderwritingException("409", UnderwritingConstants.LAB_TESTS_ID_FOUND + payload.getLabTestsId(), HttpStatus.CONFLICT);
         }
         return null;
     }
@@ -613,7 +613,7 @@ public class MedicalConditionsService {
                 }
             }
         } catch (UnderwritingException e) {
-            throw new UnderwritingException("404", UnderwritingConstants.LAB_TESTS_ID_NOT_FOUND, HttpStatus.NOT_FOUND);
+            throw new UnderwritingException("404", UnderwritingConstants.LAB_TESTS_ID_NOT_FOUND + labTestsId, HttpStatus.NOT_FOUND);
         }
         return null;
     }
@@ -631,7 +631,7 @@ public class MedicalConditionsService {
     public PersonalMedicalConditionsResponse findPersonalMedicalConditionsById(String personalMedicalConditionsId) {
         PersonalMedicalConditions personalMedicalConditions = personalMedicalConditionsRepository
                 .findPersonalMedicalConditionsByPersonalMedicalConditionsId(personalMedicalConditionsId)
-                .orElseThrow(() -> new UnderwritingException("404", UnderwritingConstants.PERSONAL_MEDICAL_CONDITIONS_ID_NOT_FOUND, HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new UnderwritingException("404", UnderwritingConstants.PERSONAL_MEDICAL_CONDITIONS_ID_NOT_FOUND + personalMedicalConditionsId, HttpStatus.NOT_FOUND));
         log.info("Personal Medical Conditions : {}", personalMedicalConditions);
         return PersonalMedicalConditionsResponse.builder()
                 .personalMedicalConditionsId(personalMedicalConditions.getPersonalMedicalConditionsId())
@@ -670,7 +670,7 @@ public class MedicalConditionsService {
                         .build();
             }
         } catch (UnderwritingException e) {
-            throw new UnderwritingException("409", UnderwritingConstants.PERSONAL_MEDICAL_CONDITIONS_ID_FOUND, HttpStatus.CONFLICT);
+            throw new UnderwritingException("409", UnderwritingConstants.PERSONAL_MEDICAL_CONDITIONS_ID_FOUND + payload.getPersonalMedicalConditionsId(), HttpStatus.CONFLICT);
         }
         return null;
     }
@@ -711,7 +711,7 @@ public class MedicalConditionsService {
                 }
             }
         } catch (UnderwritingException e) {
-            throw new UnderwritingException("404", UnderwritingConstants.PERSONAL_MEDICAL_CONDITIONS_ID_NOT_FOUND, HttpStatus.NOT_FOUND);
+            throw new UnderwritingException("404", UnderwritingConstants.PERSONAL_MEDICAL_CONDITIONS_ID_NOT_FOUND + personalMedicalConditionsId, HttpStatus.NOT_FOUND);
         }
         return null;
     }

@@ -45,7 +45,7 @@ public class MemberDetailsService {
 
     public LifestyleDetailsResponse findLifestyleDetailsById(String lifestyleDetailsId) {
         LifestyleDetails lifestyleDetails = lifestyleRepository.findLifestyleDetailsByLifestyleDetailsId(lifestyleDetailsId)
-                .orElseThrow(() -> new UnderwritingException("404", UnderwritingConstants.LIFESTYLE_DETAILS_ID_NOT_FOUND, HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new UnderwritingException("404", UnderwritingConstants.LIFESTYLE_DETAILS_ID_NOT_FOUND + lifestyleDetailsId, HttpStatus.NOT_FOUND));
         log.info("Lifestyle Details : {}", lifestyleDetails);
         return LifestyleDetailsResponse.builder().lifestyleDetailsId(lifestyleDetails.getLifestyleDetailsId())
                 .amountOfTobaccoProductsConsumptionPerDay(lifestyleDetails.getAmountOfTobaccoProductsConsumptionPerDay())
@@ -74,7 +74,7 @@ public class MemberDetailsService {
                         .frequencyOfAlcoholConsumptionPerDay(lifestyleDetails.getFrequencyOfAlcoholConsumptionPerDay()).build();
             }
         } catch (UnderwritingException e) {
-            throw new UnderwritingException("409", UnderwritingConstants.LIFESTYLE_DETAILS_ID_FOUND, HttpStatus.CONFLICT);
+            throw new UnderwritingException("409", UnderwritingConstants.LIFESTYLE_DETAILS_ID_FOUND + payload.getLifestyleDetailsId(), HttpStatus.CONFLICT);
         }
         return null;
     }
@@ -105,7 +105,7 @@ public class MemberDetailsService {
                 }
             }
         } catch (UnderwritingException e) {
-            throw new UnderwritingException("404", UnderwritingConstants.LIFESTYLE_DETAILS_ID_NOT_FOUND, HttpStatus.NOT_FOUND);
+            throw new UnderwritingException("404", UnderwritingConstants.LIFESTYLE_DETAILS_ID_NOT_FOUND + lifestyleDetailsId, HttpStatus.NOT_FOUND);
         }
         return null;
     }
@@ -122,7 +122,7 @@ public class MemberDetailsService {
 
     public MedicalConditionsResponse findMedicalConditionsById(String medicalConditionsId) {
         MedicalConditionsDetails medicalConditionsDetails = medicalConditionsDetailsRepository.findMedicalConditionsDetailsByMedicalConditionsDetailsId(medicalConditionsId)
-                .orElseThrow(() -> new UnderwritingException("404", UnderwritingConstants.MEDICAL_CONDITIONS_DETAILS_ID_NOT_FOUND, HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new UnderwritingException("404", UnderwritingConstants.MEDICAL_CONDITIONS_DETAILS_ID_NOT_FOUND + medicalConditionsId, HttpStatus.NOT_FOUND));
         log.info("Medical Conditions Details: {}", medicalConditionsDetails);
         return MedicalConditionsResponse.builder().medicalConditionsDetailsId(medicalConditionsId)
                 .personalMedicalConditionsList(underwritingMapper.addPMCtoPMCR(medicalConditionsDetails.getPersonalMedicalConditionsList()))
@@ -145,7 +145,7 @@ public class MemberDetailsService {
                         .labTests(underwritingMapper.labTestsEntityToResponse(details.getLabTests())).build();
             }
         } catch (UnderwritingException e) {
-            throw new UnderwritingException("409", UnderwritingConstants.MEDICAL_CONDITIONS_DETAILS_ID_FOUND, HttpStatus.CONFLICT);
+            throw new UnderwritingException("409", UnderwritingConstants.MEDICAL_CONDITIONS_DETAILS_ID_FOUND + payload.getMedicalConditionsDetailsId(), HttpStatus.CONFLICT);
         }
         return null;
     }
@@ -170,7 +170,7 @@ public class MemberDetailsService {
                 throw new UnderwritingException("400", UnderwritingConstants.BAD_REQUEST, HttpStatus.BAD_REQUEST);
             }
         } catch (UnderwritingException e) {
-            throw new UnderwritingException("404", UnderwritingConstants.MEDICAL_CONDITIONS_DETAILS_ID_NOT_FOUND, HttpStatus.NOT_FOUND);
+            throw new UnderwritingException("404", UnderwritingConstants.MEDICAL_CONDITIONS_DETAILS_ID_NOT_FOUND + medicalConditionsDetailsId, HttpStatus.NOT_FOUND);
         }
         return null;
     }
@@ -187,7 +187,7 @@ public class MemberDetailsService {
 
     public MemberDetailsResponse findMemberDetailsById(String memberId) {
         MemberDetails memberDetails = memberDetailsRepository.findMemberDetailsByMemberId(memberId)
-                .orElseThrow(() -> new UnderwritingException("404", UnderwritingConstants.MEMBER_DETAILS_ID_NOT_FOUND, HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new UnderwritingException("404", UnderwritingConstants.MEMBER_DETAILS_ID_NOT_FOUND + memberId, HttpStatus.NOT_FOUND));
         log.info("Member Details : {}", memberDetails);
         return MemberDetailsResponse.builder().memberId(memberDetails.getMemberId())
                 .firstName(memberDetails.getFirstName()).middleName(memberDetails.getMiddleName())
@@ -237,7 +237,7 @@ public class MemberDetailsService {
                         .build();
             }
         } catch (UnderwritingException e) {
-            throw new UnderwritingException("409", UnderwritingConstants.MEMBER_DETAILS_ID_FOUND, HttpStatus.CONFLICT);
+            throw new UnderwritingException("409", UnderwritingConstants.MEMBER_DETAILS_ID_FOUND + payload.getMemberId(), HttpStatus.CONFLICT);
         }
         return null;
     }
@@ -298,7 +298,7 @@ public class MemberDetailsService {
                 }
             }
         } catch (UnderwritingException e) {
-            throw new UnderwritingException("404", UnderwritingConstants.MEMBER_DETAILS_ID_NOT_FOUND, HttpStatus.NOT_FOUND);
+            throw new UnderwritingException("404", UnderwritingConstants.MEMBER_DETAILS_ID_NOT_FOUND + memberId, HttpStatus.NOT_FOUND);
         }
         return null;
     }

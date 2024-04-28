@@ -23,7 +23,7 @@
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<mapstruct.version>1.5.5.Final</mapstruct.version>
-		<openapi.version>2.3.0</openapi.version>
+		<openapi.version>2.5.0</openapi.version>
 		<spring.web.version>6.1.5</spring.web.version>
 	</properties>
 
